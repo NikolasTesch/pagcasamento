@@ -1,0 +1,68 @@
+{
+  "wedding": {
+    "coupleName": "Katharyna & Leonardo",
+    "weddingDate": "2026-10-11",
+    "weddingTime": "15:30",
+    "venue": {
+      "name": "Sítio São Bento",
+      "address": "Seguir pela estrada em direção ao Levanta-te. O espaço fica a aproximadamente 5 km após o Baleeiro, seguindo sempre em frente",
+      "mapsUrl": "https://goo.gl/maps/pK5RkuVjvB13S3eM6?g_st=aw"
+    },
+    "couplePhotoUrl": "/images/casal.jpg",
+    "message": "Ficamos extremamente felizes em contar com a sua presença neste dia tão especial para nós! Se desejar nos presentear, criamos uma lista de presentes simbólicos onde você pode realizar o pagamento via Pix de forma simples."
+  },
+  "gifts": [
+    {
+      "id": "gift-001",
+      "name": "Jogo de Pratos",
+      "description": "Conjunto elegante de pratos de porcelana para servir nossa família",
+      "value": 150.00,
+      "imageUrl": "/images/gifts/gift-001.jpg",
+      "category": "Cozinha",
+      "available": true
+    },
+    {
+      "id": "gift-002",
+      "name": "Micro-ondas Espelhado",
+      "description": "Praticidade e estilo para preparar deliciosas receitas",
+      "value": 450.00,
+      "imageUrl": "/images/gifts/gift-002.jpg",
+      "category": "Eletrodomésticos",
+      "available": true
+    },
+    {
+      "id": "gift-003",
+      "name": "Jogo de Toalhas de Banho",
+      "description": "Conjunto macio e felpudo de toalhas 100% algodão",
+      "value": 120.00,
+      "imageUrl": "/images/gifts/gift-003.jpg",
+      "category": "Cama, Mesa & Banho",
+      "available": true
+    },
+    {
+      "id": "gift-004",
+      "name": "Cafeteira Nespresso",
+      "description": "Para começarmos nossos dias com aquele café especial",
+      "value": 350.00,
+      "imageUrl": "/images/gifts/gift-004.jpg",
+      "category": "Eletrodomésticos",
+      "available": true
+    },
+    {
+      "id": "gift-005",
+      "name": "Fitas de LED decorativas",
+      "description": "Iluminação aconchegante para a nossa nova sala de estar",
+      "value": 80.00,
+      "imageUrl": "/images/gifts/gift-005.jpg",
+      "category": "Decoração",
+      "available": true
+    }
+  ],
+  "pix": {
+    "key": "13186729700",
+    "keyType": "cpf",
+    "receiverName": "NIKOLAS TESCH",
+    "city": "TX",
+    "whatsappNumber": "+5573999760129"
+  }
+}

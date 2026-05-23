@@ -116,37 +116,41 @@
 
 ---
 
-## Decisão 7: Design System
+## Decisão 7: Design System (Clássico & Romântico Editorial)
 
-**Decision**: CSS custom properties (variáveis CSS) como único design system, seguindo a identidade visual definida na constituição.
+**Decision**: CSS custom properties (variáveis CSS) como base de design, seguindo a paleta de cores neutra quente, refinada e editorial do exemplo de referência.
 
 **Paleta de cores**:
 ```css
 :root {
-  --color-primary: #c9a96e;      /* dourado elegante */
-  --color-bg: #fafaf8;           /* off-white quente */
-  --color-text: #1a1a1a;         /* quase-preto */
-  --color-text-light: #6b6b6b;   /* cinza médio */
-  --color-card-bg: #ffffff;      /* branco puro para cards */
-  --color-border: #e8e2d9;       /* bege claro */
-  --color-success: #2d6a4f;      /* verde elegante */
+  --color-bg-light: #FAF9F6;      /* off-white suave */
+  --color-bg-warm: #F4F1EA;       /* bege quente/creme */
+  --color-brand: #B8A18E;         /* sand/taupe clássico */
+  --color-brand-hover: #A08A77;   /* sand escurecido */
+  --color-text-dark: #2A2A2A;     /* charcoal/quase-preto para contraste suave */
+  --color-text-muted: #6A6660;    /* cinza médio quente */
+  --color-card-bg: #FFFFFF;       /* branco puro */
+  --color-border: #E8E2D9;        /* cinza bege claro */
+  --color-success: #2D6A4F;       /* verde escuro elegante */
 }
 ```
 
 **Tipografia**:
-- Títulos: `'Playfair Display'` (serifada, romântica) — via Google Fonts
-- Corpo: `'Inter'` (sans-serif, legível) — via Google Fonts
+- Títulos: `'Cormorant Garamond'` (serifada romana editorial) — via Google Fonts
+- Corpo, Menus e Botões: `'Montserrat'` (sans-serif geométrica limpa) — via Google Fonts
 - Fallback: `Georgia, serif` e `system-ui, sans-serif`
 
-**Rationale**: CSS variables satisfazem consistência (Princípio II da constituição) sem dependência de framework CSS. Google Fonts tem CDN próprio com cache agressivo.
+**Rationale**: A paleta de tons quentes terrosos e pastéis suaves com tipografia romana serifada cria a atmosfera editorial romântica ideal, elevando o visual do site sem precisar de frameworks pesados.
 
 ---
 
-## Dependências Externas (todas opcionais no sentido de failure-safe)
+## Dependências Externas (CDNs com Graceful Degradation)
 
-| Dependência | Uso | Tamanho | Fallback |
+| Dependência | Uso | Tamanho | Fallback / Tratamento de Falha |
 |------------|-----|---------|---------|
-| `qrcode-generator` | Renderizar QR Code Pix | ~20KB | Mostrar apenas chave Pix copiável |
-| Google Fonts (Playfair Display + Inter) | Tipografia elegante | ~40KB | Georgia + system-ui |
+| `qrcode-generator` | Geração dinâmica do QR Code Pix client-side | ~20KB | Exibe a chave Pix copiável em texto puro |
+| Google Fonts (`Cormorant Garamond` + `Montserrat`) | Tipografia sofisticada | ~45KB | Recai para `Georgia` e `system-ui` locais |
+| `AOS` (Animate On Scroll) | Animações de entrada no scroll da página | ~15KB (CSS + JS) | Elementos carregam estaticamente sem animação |
+| `Lucide Icons` | Ícones de detalhes do evento, Pix e ações | ~10KB (SVG) | Ícones não renderizam ou usa fallbacks em texto |
 
-**Nenhuma dependência é bloqueante** — o site funciona mesmo se ambas falharem (fonts caem para fallback, QR Code tem fallback de chave copiável).
+**Nenhuma dependência externa é bloqueante** — caso o usuário esteja sem conexão com as CDNs, a aplicação permanece 100% usável, atendendo aos princípios de performance e robustez.

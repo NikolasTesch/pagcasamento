@@ -77,13 +77,13 @@ Edite o arquivo `config.json` na raiz do projeto:
 ```json
 {
   "wedding": {
-    "coupleName": "ANA & PEDRO",
-    "weddingDate": "2026-08-15",
-    "weddingTime": "17:00",
+    "coupleName": "Katharyna & Leonardo",
+    "weddingDate": "2026-10-11",
+    "weddingTime": "15:30",
     "venue": {
-      "name": "Espaço Giardino",
-      "address": "Rua das Flores, 123 - São Paulo, SP",
-      "mapsUrl": "https://maps.google.com/..."
+      "name": "Sítio São Bento",
+      "address": "Seguir pela estrada em direção ao Levanta-te. O espaço fica a aproximadamente 5 km após o Baleeiro, seguindo sempre em frente",
+      "mapsUrl": "https://goo.gl/maps/pK5RkuVjvB13S3eM6?g_st=aw"
     },
     "couplePhotoUrl": "/images/casal.jpg",
     "message": "Mensagem de boas-vindas aqui"
@@ -98,11 +98,11 @@ Edite o arquivo `config.json` na raiz do projeto:
     }
   ],
   "pix": {
-    "key": "suachavepix@email.com",
-    "keyType": "email",
-    "receiverName": "ANA E PEDRO",
-    "city": "SAO PAULO",
-    "whatsappNumber": "+5511999999999"
+    "key": "13186729700",
+    "keyType": "cpf",
+    "receiverName": "NIKOLAS TESCH",
+    "city": "TX",
+    "whatsappNumber": "+5573999760129"
   }
 }
 ```

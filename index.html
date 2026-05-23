@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#FAF9F6">
+  <meta name="description" content="Site do nosso casamento — venha celebrar conosco!">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Nosso Casamento">
+  <meta property="og:description" content="Venha celebrar conosco este dia especial!">
+
+  <title>Nosso Casamento</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/home.css">
+  <link rel="stylesheet" href="css/gifts.css">
+</head>
+<body>
+
+  <!-- HOME SECTION -->
+  <section id="home" class="hidden">
+    <!-- Populated by home.js → renderHome() -->
+  </section>
+
+  <!-- GIFTS LIST SECTION -->
+  <section id="lista" class="hidden">
+    <!-- Populated by gifts.js → renderGifts() -->
+  </section>
+
+  <!-- CONFIRMATION MODAL -->
+  <div id="modal-overlay" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="modal-gift-name">
+    <div class="modal-content">
+      <img id="modal-gift-img" class="modal-gift-img" src="" alt="Presente selecionado">
+      <div class="modal-body">
+        <h2 id="modal-gift-name" class="modal-title"></h2>
+        <p id="modal-gift-value" class="modal-value"></p>
+        <p id="modal-confirm-text" class="modal-confirm-text"></p>
+        <div class="modal-actions">
+          <button id="btn-modal-confirm" class="btn btn-primary btn-full">Confirmar presente 🎁</button>
+          <button id="btn-modal-cancel" class="btn btn-secondary btn-full">Cancelar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAYMENT SCREEN -->
+  <div id="payment-screen" class="payment-screen hidden">
+    <header class="payment-header">
+      <button id="btn-payment-back" class="payment-header__back">← Voltar à lista</button>
+    </header>
+
+    <div class="payment-body">
+      <img id="payment-gift-img" class="payment-gift-img" src="" alt="Presente">
+
+      <h2 id="payment-gift-name" class="payment-gift-name"></h2>
+      <p id="payment-gift-value" class="payment-gift-value"></p>
+
+      <p class="payment-section-label">QR Code Pix</p>
+      <div id="qrcode-container"></div>
+
+      <p class="payment-section-label">Ou copie a chave Pix</p>
+      <div class="pix-key-wrap">
+        <code id="pix-key-display" class="pix-key-display"></code>
+      </div>
+      <button id="btn-copy-pix" class="btn btn-primary btn-full btn-copy">Copiar chave Pix</button>
+
+      <hr class="payment-divider">
+
+      <p class="payment-instruction">
+        Abra o app do seu banco, escaneie o QR Code ou cole a chave Pix.<br>
+        O valor já estará preenchido automaticamente. 💳
+      </p>
+
+      <div class="payment-actions">
+        <a id="btn-whatsapp" class="btn btn-primary btn-full" href="#" target="_blank" rel="noopener">
+          Enviar mensagem ao casal 💬
+        </a>
+        <button id="btn-back-list" class="btn btn-secondary btn-full">
+          Voltar à lista de presentes
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- qrcode-generator (CDN — replace with local lib/qrcode.min.js for production) -->
+  <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
+
+  <!-- App modules -->
+  <script src="js/storage.js"></script>
+  <script src="js/pix.js"></script>
+  <script src="js/home.js"></script>
+  <script src="js/gifts.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
