@@ -144,13 +144,61 @@
 
 ---
 
-## Dependências Externas (CDNs com Graceful Degradation)
+## Decisão 8: Gateway de Pagamento (InfinitePay Pix Link Checkout)
 
-| Dependência | Uso | Tamanho | Fallback / Tratamento de Falha |
-|------------|-----|---------|---------|
-| `qrcode-generator` | Geração dinâmica do QR Code Pix client-side | ~20KB | Exibe a chave Pix copiável em texto puro |
-| Google Fonts (`Cormorant Garamond` + `Montserrat`) | Tipografia sofisticada | ~45KB | Recai para `Georgia` e `system-ui` locais |
-| `AOS` (Animate On Scroll) | Animações de entrada no scroll da página | ~15KB (CSS + JS) | Elementos carregam estaticamente sem animação |
-| `Lucide Icons` | Ícones de detalhes do evento, Pix e ações | ~10KB (SVG) | Ícones não renderizam ou usa fallbacks em texto |
+**Decision**: Integrar a API de Checkout Link da **InfinitePay** para geração de Pix dinâmico com **Taxa Zero** e suporte a **Webhooks**.
 
-**Nenhuma dependência externa é bloqueante** — caso o usuário esteja sem conexão com as CDNs, a aplicação permanece 100% usável, atendendo aos princípios de performance e robustez.
+**Rationale**:
+- A InfinitePay oferece transações Pix gratuitas (Taxa Zero), o que é ideal para uma lista de presentes de casamento, garantindo que 100% do valor enviado pelo convidado chegue ao casal.
+- Ao gerar uma cobrança via `POST https://api.checkout.infinitepay.io/links`, enviamos o campo `webhook_url` e `order_nsu` (identificador único da contribuição) diretamente no payload.
+- O gateway cuida da geração e validação do Pix, redireciona o usuário (`redirect_url`) e envia um POST para nossa rota de webhook assim que o pagamento for confirmado.
+- Elimina a necessidade de rodar decodificadores complexos de payload Pix client-side (BR Code EMV), tornando o processo extremamente seguro e controlado no servidor.
+
+---
+
+## Decisão 9: Banco de Dados e Infraestrutura de Servidor (Firebase/Neon vs VPS)
+
+**Decision**: Propor **Firebase Firestore (Spark Plan)** ou **Neon Serverless Postgres** em vez de uma VPS auto-hospedada, explicando os prós e contras para a decisão do casal.
+
+**Análise de Infraestrutura:**
+
+1. **O problema do Congelamento no Supabase (Free Tier):**
+   - O Supabase pausa bancos de dados gratuitos após 7 dias de inatividade de API. Para reativar, o casal precisa acessar o painel e clicar em "Restore", o que gera falha para convidados que tentam acessar o site nesse meio tempo.
+   - *Solução Alternativa 1: Firebase (Firestore - Plano Spark - Gratuito)*
+     - **Nunca congela:** O Firebase Firestore gratuito permanece online indefinidamente, independente de inatividade.
+     - **Limites generosos:** 50.000 leituras e 20.000 escritas diárias (overkill absoluto para um site de casamento com centenas de acessos).
+     - **Sem custos:** 100% gratuito.
+   - *Solução Alternativa 2: Neon Postgres (Plano Gratuito - Serverless)*
+     - **Auto-Wakeup:** O banco "dorme" após 5 minutos de inatividade, mas **acorda automaticamente** no primeiro request em 1 a 3 segundos (sem intervenção manual ou congelamento definitivo).
+     - **Banco Relacional real:** Mantém a estrutura SQL convencional.
+
+2. **Por que uma VPS (Virtual Private Server) pode ser um Overkill?**
+   - **Custo:** Mínimo de R$ 25 a R$ 40 mensais (DigitalOcean, AWS Lightsail, Hetzner) indefinidamente.
+   - **Complexidade de Setup:** Requer configuração manual de Linux, Docker, instalação de PostgreSQL, configuração de proxy reverso (Nginx/Caddy), emissão de certificados SSL (Let's Encrypt), rotinas de backup de banco e monitoramento de CPU/disco.
+   - **Manutenção:** Se o servidor travar ou sofrer um ataque, o desenvolvedor precisa intervir manualmente.
+   - *Conclusão:* Para um site de casamento temporário (até a data do evento), usar serviços **Serverless Gratuitos Sem Congelamento (Firebase Firestore ou Neon Postgres)** hospedados na Vercel oferece custo zero e zero manutenção, sendo muito mais eficiente que manter uma VPS ativa.
+
+---
+
+## Decisão 10: Reconstrução do CSS (Tailwind CSS + Design System Customizado)
+
+**Decision**: Reconstruir completamente a camada de estilos utilizando **Tailwind CSS v4** integrado ao Next.js, mantendo a sofisticação editorial.
+
+**Rationale**:
+- Tailwind CSS acelera o desenvolvimento de componentes interativos em React.
+- Facilidade na criação da barra de progresso animada da vaquinha, estados de "disabled" nos itens comprados, e modais elegantes.
+- Garantia de total responsividade (mobile-first) e micro-interações nativas com classes simplificadas.
+- O estilo clássico e romântico editorial (Montserrat e Cormorant Garamond) será portado perfeitamente utilizando a customização de fontes e cores do Tailwind.
+
+---
+
+## Dependências Externas (Stack Atualizada)
+
+| Dependência | Uso | Tipo | Alternativa / Fallback |
+|------------|-----|------|------------------------|
+| `next` / `react` | Core framework e UI declarativa | NPM | - |
+| `@google-cloud/firestore` ou `@neondatabase/serverless` | Comunicação segura com o Banco de Dados no backend | NPM | - |
+| `lucide-react` | Ícones interativos modernos e leves | NPM | SVGs inline |
+| `tailwindcss` | Reconstrução moderna dos estilos e responsividade | NPM | CSS Modules |
+| `axios` / `fetch` | Comunicação com a API de checkout da InfinitePay | NPM | - |
+

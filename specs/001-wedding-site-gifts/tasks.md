@@ -123,7 +123,7 @@ description: "Task list for Site de Casamento com Lista de Presentes"
 - [x] T028 [P] Adicionar SVG placeholder inline como `onerror` em todas as imagens de presentes em `js/gifts.js`: SVG simples de caixa de presente (80x80px, cor `--color-border`) para quando a imagem não carregar
 - [ ] T029 [P] Validar contraste WCAG AA: abrir WebAIM Contrast Checker (https://webaim.org/resources/contrastchecker/) para cada par de cor texto/fundo nas custom properties do `css/main.css`; ajustar valores de `--color-text-muted` ou `--color-brand` se necessário para atingir razão ≥ 4.5:1
 - [ ] T030 Validar performance no Chrome DevTools: configurar throttling "Fast 4G", recarregar homepage, medir LCP e tempo até DOMContentLoaded; garantir < 3 segundos; se necessário comprimir imagens com https://squoosh.app
-- [ ] T031 [P] Adicionar `<link rel="apple-touch-icon" href="/images/icon-180.png">` e `<meta name="description" content="Site do casamento de [CASAL] — [DATA]">` ao `<head>` do `index.html`; criar `images/icon-180.png` de 180x180px com iniciais do casal
+- [x] T031 [P] Adicionar `<link rel="apple-touch-icon" href="/images/icon-180.png">` e `<meta name="description" content="Site do casamento de [CASAL] — [DATA]">` ao `<head>` do `index.html`; criar `images/icon-180.png` de 180x180px com iniciais do casal
 - [ ] T032 Executar checklist completo de `specs/001-wedding-site-gifts/quickstart.md`: marcar cada item do "Checklist de Go-Live" manualmente; testar em dispositivo iOS real e Android real
 - [ ] T033 Validar QR Code Pix com app bancário real (Nubank, Inter, C6, Itaú ou similar): escanear QR Code gerado e confirmar que nome do recebedor e valor aparecem corretamente antes de qualquer deploy
 
