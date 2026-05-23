@@ -10,9 +10,9 @@ const couple = {
   dateFooter: "11.10.2026",
   time: "15h30 — Cerimônia",
   venueName: "Sítio São Bento",
-  venueCity: "SP",
+  venueCity: "TX-BA",
   venueAddress:
-    "Seguir pela estrada em direção ao Levanta-te. Aproximadamente 5 km após o Baleeiro, seguindo sempre em frente.",
+    "Teixeira de Freitas - BA",
   mapsUrl: "https://goo.gl/maps/pK5RkuVjvB13S3eM6?g_st=aw",
   message:
     "Ficamos extremamente felizes em contar com a sua presença neste dia tão especial para nós! Se desejar nos presentear, criamos uma lista de presentes simbólicos onde você pode realizar o pagamento via Pix de forma simples.",
