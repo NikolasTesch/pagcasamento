@@ -8,7 +8,7 @@
       "address": "Seguir pela estrada em direção ao Levanta-te. O espaço fica a aproximadamente 5 km após o Baleeiro, seguindo sempre em frente",
       "mapsUrl": "https://goo.gl/maps/pK5RkuVjvB13S3eM6?g_st=aw"
     },
-    "couplePhotoUrl": "/images/casal.jpg",
+    "couplePhotoUrl": "/images/casal.png",
     "message": "Ficamos extremamente felizes em contar com a sua presença neste dia tão especial para nós! Se desejar nos presentear, criamos uma lista de presentes simbólicos onde você pode realizar o pagamento via Pix de forma simples."
   },
   "gifts": [
@@ -17,7 +17,7 @@
       "name": "Jogo de Pratos",
       "description": "Conjunto elegante de pratos de porcelana para servir nossa família",
       "value": 150.00,
-      "imageUrl": "/images/gifts/gift-001.jpg",
+      "imageUrl": "/images/gifts/gift-001.png",
       "category": "Cozinha",
       "available": true
     },
@@ -26,7 +26,7 @@
       "name": "Micro-ondas Espelhado",
       "description": "Praticidade e estilo para preparar deliciosas receitas",
       "value": 450.00,
-      "imageUrl": "/images/gifts/gift-002.jpg",
+      "imageUrl": "/images/gifts/gift-002.png",
       "category": "Eletrodomésticos",
       "available": true
     },
@@ -35,7 +35,7 @@
       "name": "Jogo de Toalhas de Banho",
       "description": "Conjunto macio e felpudo de toalhas 100% algodão",
       "value": 120.00,
-      "imageUrl": "/images/gifts/gift-003.jpg",
+      "imageUrl": "/images/gifts/gift-003.png",
       "category": "Cama, Mesa & Banho",
       "available": true
     },
@@ -44,7 +44,7 @@
       "name": "Cafeteira Nespresso",
       "description": "Para começarmos nossos dias com aquele café especial",
       "value": 350.00,
-      "imageUrl": "/images/gifts/gift-004.jpg",
+      "imageUrl": "/images/gifts/gift-004.png",
       "category": "Eletrodomésticos",
       "available": true
     },
@@ -53,7 +53,7 @@
       "name": "Fitas de LED decorativas",
       "description": "Iluminação aconchegante para a nossa nova sala de estar",
       "value": 80.00,
-      "imageUrl": "/images/gifts/gift-005.jpg",
+      "imageUrl": "/images/gifts/gift-005.png",
       "category": "Decoração",
       "available": true
     }

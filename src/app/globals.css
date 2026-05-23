@@ -1,23 +1,27 @@
 @import "tailwindcss";
 
 @theme inline {
-  /* Cores personalizadas do sistema de design romântico/editorial */
-  --color-bg-light: #FAF9F6;
-  --color-bg-warm: #F4F1EA;
-  --color-brand: #B8A18E;
-  --color-brand-hover: #A08A77;
-  --color-text-dark: #2A2A2A;
-  --color-text-muted: #6A6660;
+  /* Paleta N & A — fiel ao design Pencil */
+  --color-bg-light: #FAF8F5;
+  --color-bg-warm: #F5EFE8;
+  --color-bg-dark: #1C1412;
+  --color-bg-dark-muted: #3A3028;
+  --color-brand: #9B8264;
+  --color-brand-hover: #8B7254;
+  --color-text-dark: #1C1412;
+  --color-text-mid: #6B5B45;
+  --color-text-muted: #9B8264;
+  --color-border: #E8E0D5;
   --color-success-green: #2D6A4F;
 
   /* Fontes personalizadas */
-  --font-sans: var(--font-montserrat), system-ui, sans-serif;
-  --font-serif: var(--font-cormorant), Georgia, serif;
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-serif: var(--font-playfair), Georgia, serif;
 }
 
 :root {
-  --background: #FAF9F6;
-  --foreground: #2A2A2A;
+  --background: #FAF8F5;
+  --foreground: #1C1412;
 }
 
 body {
@@ -26,6 +30,10 @@ body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.border-elegant {
+  border-color: #E8E0D5;
 }
 
 /* Animações e transições personalizadas */
@@ -57,13 +65,3 @@ body {
   }
 }
 
-/* Utilitários extras para o visual editorial */
-.font-editorial-title {
-  font-family: var(--font-serif);
-  font-weight: 300;
-  letter-spacing: -0.02em;
-}
-
-.border-elegant {
-  border-color: #E8E2D9;
-}

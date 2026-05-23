@@ -3,7 +3,8 @@
 import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { Heart, Gift as GiftIcon, ArrowLeft, CheckCircle2, MessageCircle } from "lucide-react";
+import Image from "next/image";
+import { CheckCircle2, Heart, Users } from "lucide-react";
 import GiftModal from "./components/GiftModal";
 
 interface Gift {
@@ -26,8 +27,7 @@ export default function GiftsPageClient({ initialGifts }: GiftsPageClientProps) 
   const [selectedGift, setSelectedGift] = useState<Gift | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [activeCategory, setActiveCategory] = useState("Todos");
-  
-  // Mensagem de sucesso baseada na URL
+
   const searchParams = useSearchParams();
   const [showSuccessToast, setShowSuccessToast] = useState(false);
   const [successGiftName, setSuccessGiftName] = useState("");
@@ -35,28 +35,22 @@ export default function GiftsPageClient({ initialGifts }: GiftsPageClientProps) 
   useEffect(() => {
     const status = searchParams.get("status");
     const giftId = searchParams.get("giftId");
-
     if (status === "success" && giftId) {
       const gift = initialGifts.find((g) => g.id === giftId);
       if (gift) {
         setSuccessGiftName(gift.name);
         setShowSuccessToast(true);
-        // Esconde o toast automaticamente após 10 segundos
-        const timer = setTimeout(() => {
-          setShowSuccessToast(false);
-        }, 10000);
+        const timer = setTimeout(() => setShowSuccessToast(false), 10000);
         return () => clearTimeout(timer);
       }
     }
   }, [searchParams, initialGifts]);
 
-  // Lista única de categorias para filtros
   const categories = ["Todos", ...Array.from(new Set(initialGifts.map((g) => g.category)))];
-
-  // Filtra os presentes de acordo com a categoria selecionada
-  const filteredGifts = activeCategory === "Todos"
-    ? initialGifts
-    : initialGifts.filter((g) => g.category === activeCategory);
+  const filteredGifts =
+    activeCategory === "Todos"
+      ? initialGifts
+      : initialGifts.filter((g) => g.category === activeCategory);
 
   const handleOpenModal = (gift: Gift) => {
     setSelectedGift(gift);
@@ -65,81 +59,79 @@ export default function GiftsPageClient({ initialGifts }: GiftsPageClientProps) 
 
   const handleSuccessClose = () => {
     setIsModalOpen(false);
-    // Limpa a URL e recarrega para atualizar os dados
     window.location.href = "/presentes";
   };
 
   return (
-    <div className="flex-grow flex flex-col bg-bg-light min-h-screen">
-      {/* NAVBAR */}
-      <nav className="sticky top-0 z-40 bg-bg-light/80 backdrop-blur-md border-b border-elegant py-4 px-6 md:px-12 transition">
-        <div className="max-w-6xl mx-auto flex justify-between items-center">
-          <Link href="/" className="font-serif text-lg tracking-widest hover:text-brand transition flex items-center gap-2">
-            <ArrowLeft className="w-4 h-4 text-text-muted" /> Voltar
+    <div className="flex-grow flex flex-col bg-bg-light font-sans min-h-screen">
+
+      {/* ── NAVBAR ── */}
+      <nav className="sticky top-0 z-50 bg-white border-b border-elegant px-6 md:px-20 h-20 flex items-center justify-between">
+        <div className="flex items-center gap-8 md:gap-10">
+          <Link href="/" className="text-text-mid text-[13px] tracking-[1.5px] hover:text-brand transition">
+            Início
           </Link>
-          <span className="font-serif text-base tracking-widest text-text-dark uppercase">
-            Lista de Presentes
-          </span>
-          <div className="w-6" /> {/* Espaçador */}
+          <a href="#" className="text-text-mid text-[13px] tracking-[1.5px] hover:text-brand transition">
+            Nossa História
+          </a>
+          <span className="text-text-dark text-[13px] tracking-[1.5px]">Presentes</span>
         </div>
+
+        <span className="font-serif text-[22px] tracking-[6px] text-text-dark absolute left-1/2 -translate-x-1/2">
+          K &amp; L
+        </span>
+
+        <Link
+          href="/"
+          className="text-brand text-[12px] tracking-[1px] hover:text-brand-hover transition"
+        >
+          ← Voltar ao início
+        </Link>
       </nav>
 
-      {/* TOAST DE SUCESSO APRIMORADO */}
+      {/* ── TOAST DE SUCESSO ── */}
       {showSuccessToast && (
-        <div className="bg-[#2D6A4F]/10 border-b border-[#2D6A4F]/30 px-6 py-5 text-center relative animate-fade-in z-20">
-          <div className="max-w-2xl mx-auto flex flex-col md:flex-row items-center justify-center gap-3">
-            <CheckCircle2 className="w-6 h-6 text-[#2D6A4F] shrink-0" />
-            <div className="text-left text-sm">
-              <p className="font-bold text-[#2D6A4F] leading-tight">Muito obrigado pelo seu carinho!</p>
-              <p className="text-xs text-text-dark mt-0.5">
-                O seu presente para <span className="font-semibold">"{successGiftName}"</span> foi registrado no nosso sistema com sucesso!
-              </p>
-            </div>
-            {/* LINK WHATSAPP OPCIONAL PARA ENVIAR MENSAGEM */}
-            <a 
-              href={`https://wa.me/5573999760129?text=Ol%C3%A1%20Katharyna%20e%20Leonardo!%20Acabei%20de%20enviar%20um%20presente%20de%20casamento%20para%20voc%C3%AAs%3A%20${encodeURIComponent(successGiftName)}.%20Que%20voc%C3%AAs%20sejam%20muito%20felizes!`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-[#2D6A4F] hover:bg-[#1B4332] text-white text-xs px-4 py-2 rounded-lg font-semibold flex items-center gap-1.5 transition md:ml-4 shadow-sm"
-            >
-              <MessageCircle className="w-3.5 h-3.5" /> Enviar no WhatsApp
-            </a>
+        <div className="bg-bg-warm border-b border-elegant px-6 py-4 text-center relative animate-fade-in z-20">
+          <div className="max-w-2xl mx-auto flex items-center justify-center gap-3">
+            <CheckCircle2 className="w-5 h-5 text-brand shrink-0" />
+            <p className="text-[13px] text-text-dark">
+              Muito obrigado pelo carinho! O presente{" "}
+              <span className="font-semibold">"{successGiftName}"</span> foi registrado.
+            </p>
           </div>
-          <button 
-            onClick={() => setShowSuccessToast(false)} 
-            className="absolute right-4 top-1/2 -translate-y-1/2 text-text-muted hover:text-text-dark p-1 text-xs"
+          <button
+            onClick={() => setShowSuccessToast(false)}
+            className="absolute right-4 top-1/2 -translate-y-1/2 text-text-mid hover:text-text-dark text-xs p-1"
           >
             ✕
           </button>
         </div>
       )}
 
-      {/* MAIN CONTAINER */}
-      <main className="flex-grow max-w-6xl w-full mx-auto px-6 py-12">
-        {/* TEXTO DE BOAS-VINDAS */}
-        <div className="text-center max-w-2xl mx-auto mb-12 space-y-4">
-          <span className="text-[10px] uppercase tracking-widest bg-brand/10 text-brand px-3 py-1 rounded-full font-bold">
-            Presentes Simbólicos
-          </span>
-          <h2 className="font-serif text-3xl md:text-4xl font-light tracking-tight text-text-dark">
-            Ajude-nos a montar nossa casinha
-          </h2>
-          <p className="text-xs md:text-sm text-text-muted leading-relaxed">
-            Criamos uma lista de presentes simbólicos. Ao escolher um presente, você fará uma contribuição Pix via **InfinitePay sem taxas** diretamente para a nossa conta. Você também pode contribuir com cotas de qualquer valor nos nossos itens de vaquinha!
-          </p>
-          <div className="w-8 h-[1.5px] bg-brand mx-auto mt-4" />
-        </div>
+      {/* ── CABEÇALHO DA PÁGINA ── */}
+      <header className="bg-bg-warm flex flex-col items-center justify-center gap-4 py-16 px-6">
+        <span className="text-brand text-[10px] tracking-[4px] uppercase">Presentes</span>
+        <h1 className="font-serif text-[44px] md:text-[52px] text-text-dark font-normal">
+          Lista de Presentes
+        </h1>
+        <p className="text-text-mid text-[14px] leading-[1.6] text-center max-w-[560px]">
+          Escolha um presente com carinho. O pagamento é feito via Pix, de forma simples e segura.
+        </p>
+      </header>
 
-        {/* FILTROS DE CATEGORIA */}
-        <div className="flex flex-wrap justify-center gap-2 mb-12">
+      {/* ── CONTEÚDO ── */}
+      <main className="flex-grow px-6 md:px-20 py-16">
+
+        {/* FILTROS */}
+        <div className="flex flex-wrap justify-center gap-3 mb-14">
           {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
-              className={`px-4 py-2 rounded-full text-xs font-semibold tracking-wider transition ${
+              className={`px-5 py-2 text-[11px] tracking-[1.5px] uppercase transition ${
                 activeCategory === cat
-                  ? "bg-brand text-white shadow-md"
-                  : "bg-white border border-elegant hover:bg-bg-warm/30 text-text-muted"
+                  ? "bg-text-dark text-white"
+                  : "bg-white border border-elegant text-text-mid hover:border-brand hover:text-brand"
               }`}
             >
               {cat}
@@ -148,108 +140,88 @@ export default function GiftsPageClient({ initialGifts }: GiftsPageClientProps) 
         </div>
 
         {/* GRID DE PRESENTES */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-[1280px] mx-auto">
           {filteredGifts.map((gift) => {
             const isFullyPaid = !!gift.is_purchased;
             const isVaquinha = !!gift.is_crowdfunding;
             const collected = Number(gift.amount_collected || 0);
             const totalValue = Number(gift.value || 0);
-            // Calcula o percentual arrecadado para vaquinhas
             const pct = Math.min(Math.round((collected / totalValue) * 100), 100);
 
             return (
-              <div 
-                key={gift.id} 
-                className={`group bg-white border border-elegant rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between relative ${
-                  isFullyPaid && !isVaquinha ? "opacity-75" : ""
-                }`}
+              <div
+                key={gift.id}
+                className="bg-white border border-elegant flex flex-col relative overflow-hidden group"
               >
-                {/* SELO DE CATEGORIA */}
-                <span className="absolute top-4 left-4 z-10 text-[9px] uppercase tracking-widest bg-white/90 backdrop-blur-sm text-text-dark px-2.5 py-1 rounded-full font-bold shadow-sm border border-elegant">
-                  {gift.category}
-                </span>
-
-                {/* IMAGEM DO CARD COM HOVER EFFECT */}
-                <div className="relative aspect-video w-full overflow-hidden bg-bg-warm">
-                  <img 
-                    src={gift.imageUrl} 
-                    alt={gift.name} 
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
+                {/* IMAGEM */}
+                <div className="relative h-[220px] overflow-hidden bg-[#D4C4A8]">
+                  <Image
+                    src={gift.imageUrl}
+                    alt={gift.name}
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   />
-                  
-                  {/* OVERLAY COMPRADO */}
+
+                  {/* Mais desejado badge */}
+                  {gift.id === initialGifts[0]?.id && !isFullyPaid && (
+                    <div className="absolute top-4 left-4 bg-brand px-3.5 py-1.5">
+                      <span className="text-white text-[10px] tracking-[1px]">⭐ Mais desejado</span>
+                    </div>
+                  )}
+
+                  {/* Overlay presenteado */}
                   {isFullyPaid && !isVaquinha && (
-                    <div className="absolute inset-0 bg-text-dark/40 backdrop-blur-xs flex items-center justify-center animate-fade-in">
-                      <span className="bg-[#2D6A4F] text-white text-[10px] uppercase tracking-[0.2em] font-bold px-4 py-2 rounded-full shadow-md flex items-center gap-1.5">
-                        <CheckCircle2 className="w-3.5 h-3.5 stroke-[2.5]" /> Presenteado!
-                      </span>
+                    <div className="absolute inset-0 bg-text-dark/60 flex flex-col items-center justify-center gap-2">
+                      <span className="text-white text-2xl">✓</span>
+                      <span className="text-white text-[11px] tracking-[3px] uppercase">Presenteado</span>
                     </div>
                   )}
                 </div>
 
-                {/* DETALHES DO CARD */}
-                <div className="p-6 flex-grow flex flex-col justify-between">
-                  <div className="space-y-2">
-                    <div className="flex justify-between items-start">
-                      <h3 className="font-serif text-base font-semibold text-text-dark leading-tight">
-                        {gift.name}
-                      </h3>
-                      {/* TIPO DE PRESENTE */}
-                      {isVaquinha && (
-                        <span className="text-[9px] uppercase font-bold bg-[#B8A18E]/25 text-[#A08A77] px-2 py-0.5 rounded-sm">
-                          Vaquinha
-                        </span>
-                      )}
+                {/* DETALHES */}
+                <div className="p-5 flex flex-col gap-1.5">
+                  <h3 className="font-serif text-[18px] text-text-dark font-normal">{gift.name}</h3>
+                  <p className="text-text-mid text-[13px] leading-[1.5] line-clamp-2">
+                    {gift.description}
+                  </p>
+                </div>
+
+                {/* BARRA DE PROGRESSO (vaquinha) */}
+                {isVaquinha && (
+                  <div className="px-5 pb-2 space-y-1.5">
+                    <div className="flex justify-between text-[11px]">
+                      <span className="text-text-mid">Arrecadado: R$ {collected.toFixed(0)}</span>
+                      <span className="text-brand font-semibold">{pct}%</span>
                     </div>
-                    <p className="text-xs text-text-muted leading-relaxed line-clamp-3">
-                      {gift.description}
+                    <div className="w-full h-1.5 bg-bg-warm overflow-hidden">
+                      <div
+                        className="h-full bg-brand transition-all duration-1000"
+                        style={{ width: `${pct}%` }}
+                      />
+                    </div>
+                    <p className="text-[10px] text-text-mid tracking-wider">
+                      Meta: R$ {totalValue.toFixed(0)}
                     </p>
                   </div>
+                )}
 
-                  {/* BARRA DE PROGRESSO OU VALOR UNITÁRIO */}
-                  <div className="mt-6 pt-4 border-t border-elegant/50 space-y-3">
-                    {isVaquinha ? (
-                      <div className="space-y-1.5">
-                        <div className="flex justify-between text-xs font-semibold">
-                          <span className="text-text-muted">Progresso:</span>
-                          <span className="text-[#2D6A4F] font-bold">{pct}%</span>
-                        </div>
-                        {/* BARRA */}
-                        <div className="w-full h-2.5 bg-bg-warm rounded-full overflow-hidden border border-elegant/50 shadow-inner">
-                          <div 
-                            className="h-full bg-gradient-to-r from-brand to-[#2D6A4F] rounded-full transition-all duration-1000"
-                            style={{ width: `${pct}%` }}
-                          />
-                        </div>
-                        <div className="flex justify-between text-[10px] text-text-muted uppercase font-semibold tracking-wider pt-0.5">
-                          <span>R$ {collected.toFixed(2)} arrecadados</span>
-                          <span>Meta: R$ {totalValue.toFixed(2)}</span>
-                        </div>
-                      </div>
-                    ) : (
-                      <div className="flex justify-between items-center">
-                        <span className="text-xs text-text-muted uppercase tracking-wider font-semibold">Valor unitário:</span>
-                        <span className="font-bold text-[#2d6a4f] text-base">R$ {totalValue.toFixed(2)}</span>
-                      </div>
-                    )}
+                {/* RODAPÉ DO CARD */}
+                <div className="px-5 pb-5 flex items-center justify-between mt-auto pt-2">
+                  <span className="font-serif text-[20px] text-brand font-normal">
+                    {isVaquinha ? `R$ ${totalValue.toFixed(0)}` : `R$ ${totalValue.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}`}
+                  </span>
 
-                    {/* BOTÃO PRESENTEAR */}
-                    {isFullyPaid && !isVaquinha ? (
-                      <button
-                        disabled
-                        className="w-full bg-[#E8E2D9] text-text-muted py-3 px-4 rounded-xl font-semibold tracking-wider text-xs uppercase cursor-not-allowed flex items-center justify-center gap-1.5"
-                      >
-                        Já Presenteado 💝
-                      </button>
-                    ) : (
-                      <button
-                        onClick={() => handleOpenModal(gift)}
-                        className="w-full bg-[#2D6A4F] hover:bg-[#1B4332] text-white py-3 px-4 rounded-xl font-semibold tracking-wider text-xs uppercase transition shadow-md hover:shadow-lg flex items-center justify-center gap-1.5 cursor-pointer transform hover:-translate-y-0.5 duration-200"
-                      >
-                        <GiftIcon className="w-3.5 h-3.5" /> Presentear
-                      </button>
-                    )}
-                  </div>
+                  {isFullyPaid && !isVaquinha ? (
+                    <span className="text-brand text-[12px]">Presenteado 💛</span>
+                  ) : (
+                    <button
+                      onClick={() => handleOpenModal(gift)}
+                      className="bg-text-dark text-white text-[12px] tracking-[1px] px-5 py-2.5 hover:bg-brand transition cursor-pointer"
+                    >
+                      Presentear
+                    </button>
+                  )}
                 </div>
               </div>
             );
@@ -257,20 +229,19 @@ export default function GiftsPageClient({ initialGifts }: GiftsPageClientProps) 
         </div>
       </main>
 
-      {/* MODAL DE PRESENTEAR */}
-      <GiftModal 
+      {/* ── MODAL ── */}
+      <GiftModal
         gift={selectedGift}
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         onSuccess={handleSuccessClose}
       />
 
-      {/* FOOTER */}
-      <footer className="py-12 px-6 bg-white border-t border-elegant text-center mt-12">
-        <p className="font-serif text-lg italic text-brand mb-2">Katharyna &amp; Leonardo</p>
-        <p className="text-[10px] text-text-muted tracking-widest uppercase">
-          © 2026 · Feito com amor 💕
-        </p>
+      {/* ── FOOTER ── */}
+      <footer className="h-20 bg-bg-dark flex items-center justify-center mt-16">
+        <span className="text-text-mid text-[12px] tracking-[2px]">
+          K &amp; L · 11.10.2026 · com muito amor
+        </span>
       </footer>
     </div>
   );

@@ -1,25 +1,22 @@
 import type { Metadata } from "next";
-import { Montserrat, Cormorant_Garamond } from "next/font/google";
+import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 
-// Configuração da fonte Montserrat (Sans-serif para corpo e botões)
-const montserrat = Montserrat({
-  variable: "--font-montserrat",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
   weight: ["300", "400", "500", "600"],
   display: "swap",
 });
 
-// Configuração da fonte Cormorant Garamond (Serif para títulos editoriais)
-const cormorant = Cormorant_Garamond({
-  variable: "--font-cormorant",
+const playfair = Playfair_Display({
+  variable: "--font-playfair",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["400", "500", "600", "700"],
   style: ["normal", "italic"],
   display: "swap",
 });
 
-// Metadados SEO refinados para o site de casamento
 export const metadata: Metadata = {
   title: "Katharyna & Leonardo | Nosso Casamento",
   description: "Seja bem-vindo ao nosso site de casamento! Conheça nossa história, confira os detalhes do evento e nos presenteie de forma simples com nossa lista de presentes e vaquinha Pix.",
@@ -45,7 +42,7 @@ export default function RootLayout({
   return (
     <html
       lang="pt-BR"
-      className={`${montserrat.variable} ${cormorant.variable} h-full antialiased scroll-smooth`}
+      className={`${inter.variable} ${playfair.variable} h-full antialiased scroll-smooth`}
     >
       <body className="min-h-full flex flex-col bg-bg-light text-text-dark selection:bg-brand selection:text-white">
         {children}

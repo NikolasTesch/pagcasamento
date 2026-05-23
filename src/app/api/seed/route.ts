@@ -64,7 +64,7 @@ export async function GET() {
         name: g.name,
         description: g.description,
         value: Number(g.value),
-        imageUrl: g.imageUrl || `/images/gifts/${g.id}.jpg`,
+        imageUrl: g.imageUrl || `/images/gifts/${g.id}.png`,
         category: g.category,
         is_crowdfunding: false,
         amount_collected: 0,
@@ -72,7 +72,7 @@ export async function GET() {
       })),
       ...crowdfundingGifts.map((g: any) => ({
         ...g,
-        imageUrl: `/images/gifts/${g.id}.jpg`,
+        imageUrl: `/images/gifts/${g.id}.png`,
         amount_collected: 0,
         is_purchased: false,
       }))

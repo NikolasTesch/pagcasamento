@@ -50,7 +50,7 @@ export default function HomePage() {
         {/* Imagem de Fundo Parallax-style */}
         <div 
           className="absolute inset-0 bg-cover bg-center transition-transform duration-1000 scale-105"
-          style={{ backgroundImage: "url('/images/casal.jpg')" }}
+          style={{ backgroundImage: "url('/images/casal.png')" }}
         />
         {/* Overlay elegante e quente */}
         <div className="absolute inset-0 bg-gradient-to-t from-bg-light via-text-dark/40 to-text-dark/20" />
