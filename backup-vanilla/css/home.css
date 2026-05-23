@@ -1,0 +1,231 @@
+/* ── HERO ─────────────────────────────────── */
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem 1.5rem;
+  background-color: #2A2A2A;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.55) 100%);
+}
+
+.hero__content {
+  position: relative;
+  z-index: 1;
+  max-width: 600px;
+  color: #fff;
+}
+
+.hero__eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.75);
+  margin-bottom: 1rem;
+}
+
+.hero__names {
+  font-family: var(--font-serif);
+  font-size: clamp(3rem, 10vw, 5.5rem);
+  font-weight: 400;
+  line-height: 1.1;
+  margin-bottom: 1.25rem;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.3);
+}
+
+.hero__ampersand {
+  font-style: italic;
+  color: rgba(255,255,255,0.8);
+}
+
+.hero__date {
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.85);
+  margin-bottom: 2.5rem;
+}
+
+.hero__cta {
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(8px);
+  border: 1.5px solid rgba(255,255,255,0.5);
+  color: #fff;
+  padding: 0.85rem 2rem;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background var(--transition), border-color var(--transition);
+  display: inline-block;
+  text-decoration: none;
+}
+
+.hero__cta:hover {
+  background: rgba(255,255,255,0.25);
+}
+
+/* ── EVENT DETAILS ────────────────────────── */
+.event-details {
+  background: var(--color-bg-warm);
+  padding: 3.5rem 1.5rem;
+}
+
+.event-details__inner {
+  max-width: 800px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  text-align: center;
+}
+
+.event-detail__icon {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.event-detail__label {
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-bottom: 0.4rem;
+}
+
+.event-detail__value {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  color: var(--color-text-dark);
+  line-height: 1.3;
+}
+
+.event-detail__sub {
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  margin-top: 0.25rem;
+}
+
+.event-detail__link {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  color: var(--color-brand-dark);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ── COUPLE STORY ─────────────────────────── */
+.couple-story {
+  background: var(--color-bg-light);
+  padding: 4rem 1.5rem;
+  text-align: center;
+}
+
+.couple-story__inner {
+  max-width: 620px;
+  margin: 0 auto;
+}
+
+.couple-story__eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-brand);
+  margin-bottom: 1rem;
+}
+
+.couple-story__title {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 6vw, 3rem);
+  font-weight: 400;
+  font-style: italic;
+  color: var(--color-text-dark);
+  margin-bottom: 1.5rem;
+  line-height: 1.25;
+}
+
+.couple-story__text {
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: var(--color-text-muted);
+  margin-bottom: 2rem;
+}
+
+.couple-story__divider {
+  width: 40px;
+  height: 1px;
+  background: var(--color-brand);
+  margin: 0 auto 2rem;
+}
+
+.couple-story__message {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  font-style: italic;
+  color: var(--color-text-dark);
+  margin-bottom: 2.5rem;
+  line-height: 1.6;
+}
+
+/* ── GIFT CTA SECTION ─────────────────────── */
+.gift-cta {
+  background: var(--color-bg-warm);
+  padding: 3rem 1.5rem;
+  text-align: center;
+}
+
+.gift-cta__inner {
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.gift-cta__title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.6rem, 5vw, 2.2rem);
+  font-weight: 400;
+  margin-bottom: 0.75rem;
+}
+
+.gift-cta__sub {
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  margin-bottom: 1.75rem;
+  line-height: 1.6;
+}
+
+/* ── FOOTER ───────────────────────────────── */
+.site-footer {
+  background: var(--color-text-dark);
+  color: rgba(255,255,255,0.5);
+  text-align: center;
+  padding: 1.5rem;
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+}
