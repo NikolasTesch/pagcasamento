@@ -84,7 +84,7 @@ export default function HomePage() {
         <div className="flex-1 flex gap-[3px] min-h-[300px] md:min-h-0">
           <div className="flex-1 relative bg-[#C9B8A0]">
             <Image
-              src="/images/hero-1.jpg"
+              src="/images/hero-1.png"
               alt={`${couple.firstName} e ${couple.secondName}`}
               fill
               className="object-cover"
@@ -94,7 +94,7 @@ export default function HomePage() {
           <div className="flex-1 flex flex-col gap-[3px]">
             <div className="flex-1 relative bg-[#DDD0BE]">
               <Image
-                src="/images/hero-2.jpg"
+                src="/images/hero-2.png"
                 alt={`${couple.firstName} e ${couple.secondName}`}
                 fill
                 className="object-cover"
@@ -103,7 +103,7 @@ export default function HomePage() {
             </div>
             <div className="flex-1 relative bg-[#B8A890]">
               <Image
-                src="/images/hero-3.jpg"
+                src="/images/hero-3.png"
                 alt={`${couple.firstName} e ${couple.secondName}`}
                 fill
                 className="object-cover"
@@ -155,7 +155,7 @@ export default function HomePage() {
         <div className="md:w-[640px] shrink-0 flex gap-1 min-h-[280px] md:min-h-0">
           <div className="flex-1 relative bg-[#E2D4C2]">
             <Image
-              src="/images/story-1.jpg"
+              src="/images/story-1.png"
               alt="Nossa história"
               fill
               className="object-cover"
@@ -165,7 +165,7 @@ export default function HomePage() {
           <div className="flex-1 flex flex-col gap-1">
             <div className="flex-1 relative bg-[#BDA88C]">
               <Image
-                src="/images/story-2.jpg"
+                src="/images/story-2.png"
                 alt="Nossa história"
                 fill
                 className="object-cover"
@@ -174,7 +174,7 @@ export default function HomePage() {
             </div>
             <div className="flex-1 relative bg-[#D4C4A8]">
               <Image
-                src="/images/story-3.jpg"
+                src="/images/story-3.png"
                 alt="Nossa história"
                 fill
                 className="object-cover"

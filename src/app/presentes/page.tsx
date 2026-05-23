@@ -65,9 +65,9 @@ export default async function PresentesPage() {
           value: Number(g.value),
           imageUrl: g.imageUrl || `/images/gifts/${g.id}.png`,
           category: g.category,
-          is_crowdfunding: false, // Por padrão, no original não há vaquinhas
-          amount_collected: 0,
-          is_purchased: !g.available, // available: false significa que foi comprado
+          is_crowdfunding: !!g.is_crowdfunding,
+          amount_collected: Number(g.amount_collected || 0),
+          is_purchased: !g.available,
         }));
       }
     } catch (fsError) {

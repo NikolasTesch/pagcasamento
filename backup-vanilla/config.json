@@ -56,6 +56,39 @@
       "imageUrl": "/images/gifts/gift-005.png",
       "category": "Decoração",
       "available": true
+    },
+    {
+      "id": "vaquinha-001",
+      "name": "Lua de Mel dos Sonhos",
+      "description": "Ajude-nos a realizar a viagem de lua de mel que sempre sonhamos — uma semana inesquecível para começarmos nossa vida juntos.",
+      "value": 5000.00,
+      "imageUrl": "/images/gifts/vaquinha-001.png",
+      "category": "Viagem",
+      "available": true,
+      "is_crowdfunding": true,
+      "amount_collected": 0
+    },
+    {
+      "id": "vaquinha-002",
+      "name": "Geladeira Duplex Inox",
+      "description": "Uma geladeira espaçosa e moderna para guardar tudo com organização e estilo na nossa nova casa.",
+      "value": 3500.00,
+      "imageUrl": "/images/gifts/vaquinha-002.png",
+      "category": "Eletrodomésticos",
+      "available": true,
+      "is_crowdfunding": true,
+      "amount_collected": 0
+    },
+    {
+      "id": "vaquinha-003",
+      "name": "Smart TV 65\"",
+      "description": "Uma Smart TV grande para as noites de cinema em casa, assistindo filmes e séries abraçadinhos no sofá.",
+      "value": 2800.00,
+      "imageUrl": "/images/gifts/vaquinha-003.png",
+      "category": "Eletrônicos",
+      "available": true,
+      "is_crowdfunding": true,
+      "amount_collected": 0
     }
   ],
   "pix": {
