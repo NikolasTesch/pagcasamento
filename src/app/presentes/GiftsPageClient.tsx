@@ -182,8 +182,8 @@ export default function GiftsPageClient({ initialGifts }: GiftsPageClientProps) 
 
                     {/* META TOTAL SOBRE A IMAGEM */}
                     <div className="absolute bottom-4 left-5">
-                      <p className="text-white/50 text-[9px] uppercase tracking-widest mb-0.5">Meta total</p>
-                      <p className="text-white font-serif text-[26px] leading-none font-normal">
+                      <p className="text-white/50 text-[10px] uppercase tracking-widest mb-1">Meta total</p>
+                      <p className="text-white font-serif text-[32px] md:text-[36px] leading-none font-bold tracking-tight">
                         R$ {totalValue.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}
                       </p>
                     </div>
@@ -215,11 +215,11 @@ export default function GiftsPageClient({ initialGifts }: GiftsPageClientProps) 
                           style={{ width: `${pct}%` }}
                         />
                       </div>
-                      <div className="flex justify-between text-[10px]">
-                        <span className="text-[#52BE80] font-semibold">
+                      <div className="flex justify-between text-[12px]">
+                        <span className="text-[#52BE80] font-bold">
                           R$ {collected.toLocaleString("pt-BR", { minimumFractionDigits: 2 })} arrecadados
                         </span>
-                        <span className="text-white/40">
+                        <span className="text-white/60">
                           Faltam R$ {remaining.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}
                         </span>
                       </div>
@@ -300,20 +300,20 @@ export default function GiftsPageClient({ initialGifts }: GiftsPageClientProps) 
                 {/* BARRA DE PROGRESSO (vaquinha pequena) */}
                 {isVaquinha && (
                   <div className="px-5 pb-2 space-y-1.5">
-                    <div className="flex justify-between text-[11px]">
-                      <span className="text-text-mid">Arrecadado: R$ {collected.toFixed(0)}</span>
-                      <span className="text-brand font-semibold">{pct}%</span>
+                    <div className="flex justify-between text-[13px]">
+                      <span className="text-text-mid">Arrecadado: R$ {collected.toLocaleString("pt-BR", { minimumFractionDigits: 0 })}</span>
+                      <span className="text-brand font-bold">{pct}%</span>
                     </div>
-                    <div className="w-full h-1.5 bg-bg-warm overflow-hidden">
+                    <div className="w-full h-2 bg-bg-warm overflow-hidden">
                       <div className="h-full bg-brand transition-all duration-1000" style={{ width: `${pct}%` }} />
                     </div>
-                    <p className="text-[10px] text-text-mid tracking-wider">Meta: R$ {totalValue.toFixed(0)}</p>
+                    <p className="text-[12px] text-text-mid tracking-wider">Meta: R$ {totalValue.toLocaleString("pt-BR", { minimumFractionDigits: 0 })}</p>
                   </div>
                 )}
 
                 {/* RODAPÉ DO CARD */}
                 <div className="px-5 pb-5 flex items-center justify-between mt-auto pt-2">
-                  <span className="font-serif text-[20px] text-brand font-normal">
+                  <span className="font-serif text-[26px] md:text-[28px] text-brand font-semibold tracking-tight">
                     R$ {totalValue.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}
                   </span>
 

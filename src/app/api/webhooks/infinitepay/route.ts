@@ -9,14 +9,19 @@ export async function POST(req: Request) {
 
     const { order_nsu, status, amount, transaction_nsu } = body;
 
-    // 1. Validação de segurança básica
-    // Verifica se há token de validação de seguranca no header
+    // 1. Validação de segurança híbrida
+    // Verifica se há token válido no query parameter 'secret' ou nos cabeçalhos HTTP
+    const { searchParams } = new URL(req.url);
+    const tokenQuery = searchParams.get("secret");
     const tokenHeader = req.headers.get("x-webhook-secret") || req.headers.get("Authorization");
     const secretToken = process.env.WEBHOOK_SECRET_TOKEN || "token_secreto_para_validar_webhook_aqui";
 
-    if (tokenHeader && tokenHeader !== secretToken && `Bearer ${secretToken}` !== tokenHeader) {
-      console.warn("[Webhook InfinitePay] Alerta: Assinatura de webhook inválida!");
-      // Retornamos 401 Unauthorized em caso de token incompatível
+    const isAuthorized = 
+      (tokenHeader && (tokenHeader === secretToken || `Bearer ${secretToken}` === tokenHeader)) ||
+      (tokenQuery && tokenQuery === secretToken);
+
+    if (!isAuthorized) {
+      console.warn("[Webhook InfinitePay] Alerta: Token de autenticação do webhook ausente ou inválido!");
       return NextResponse.json({ success: false, message: "Não autorizado." }, { status: 401 });
     }
 

@@ -114,7 +114,7 @@ export async function POST(req: Request) {
     const payload = {
       handle: infinitePayTag,
       redirect_url: `${siteUrl}/presentes?status=success&giftId=${giftId}`,
-      webhook_url: `${siteUrl}/api/webhooks/infinitepay`,
+      webhook_url: `${siteUrl}/api/webhooks/infinitepay?secret=${encodeURIComponent(process.env.WEBHOOK_SECRET_TOKEN || "token_secreto_para_validar_webhook_aqui")}`,
       order_nsu: order_nsu,
       items: [
         {
