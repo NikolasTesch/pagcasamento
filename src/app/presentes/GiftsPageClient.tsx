@@ -147,7 +147,121 @@ export default function GiftsPageClient({ initialGifts }: GiftsPageClientProps) 
             const collected = Number(gift.amount_collected || 0);
             const totalValue = Number(gift.value || 0);
             const pct = Math.min(Math.round((collected / totalValue) * 100), 100);
+            const isVaquinhaGrande = isVaquinha && totalValue >= 1000;
 
+            // ── CARD ESPECIAL DE VAQUINHA (≥ R$1.000) ───────────────────────
+            if (isVaquinhaGrande) {
+              const remaining = Math.max(totalValue - collected, 0);
+              const isComplete = pct >= 100;
+
+              return (
+                <div
+                  key={gift.id}
+                  className="group relative flex flex-col overflow-hidden border border-[#3D2418]/20 bg-gradient-to-br from-[#2C1A10] to-[#3D2418]"
+                  style={{ gridColumn: "span 1" }}
+                >
+                  {/* FAIXA TOPO */}
+                  <div className="bg-brand px-5 py-2 flex items-center justify-between shrink-0">
+                    <div className="flex items-center gap-1.5">
+                      <Users className="w-3 h-3 text-white/80" />
+                      <span className="text-white text-[9px] uppercase tracking-[0.25em] font-bold">Vaquinha Coletiva</span>
+                    </div>
+                    <span className="text-white/60 text-[9px] uppercase tracking-wider">{gift.category}</span>
+                  </div>
+
+                  {/* IMAGEM */}
+                  <div className="relative h-[200px] overflow-hidden shrink-0">
+                    <Image
+                      src={gift.imageUrl}
+                      alt={gift.name}
+                      fill
+                      className="object-cover brightness-[0.65] transition-transform duration-700 group-hover:scale-105"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#2C1A10]/95 via-[#2C1A10]/30 to-transparent" />
+
+                    {/* META TOTAL SOBRE A IMAGEM */}
+                    <div className="absolute bottom-4 left-5">
+                      <p className="text-white/50 text-[9px] uppercase tracking-widest mb-0.5">Meta total</p>
+                      <p className="text-white font-serif text-[26px] leading-none font-normal">
+                        R$ {totalValue.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}
+                      </p>
+                    </div>
+
+                    {isComplete && (
+                      <div className="absolute inset-0 bg-[#1B4332]/70 flex flex-col items-center justify-center gap-2">
+                        <CheckCircle2 className="w-8 h-8 text-[#52BE80]" />
+                        <span className="text-white text-[11px] tracking-[3px] uppercase font-semibold">Meta Atingida!</span>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* CORPO */}
+                  <div className="p-5 flex flex-col gap-4 flex-grow">
+                    <div>
+                      <h3 className="font-serif text-[19px] text-white font-normal leading-tight mb-1">{gift.name}</h3>
+                      <p className="text-white/50 text-[12px] leading-relaxed line-clamp-2">{gift.description}</p>
+                    </div>
+
+                    {/* BARRA DE PROGRESSO */}
+                    <div className="space-y-1.5">
+                      <div className="flex justify-between items-center text-[11px]">
+                        <span className="text-white/50 uppercase tracking-wider">Progresso</span>
+                        <span className={`font-bold ${isComplete ? "text-[#52BE80]" : "text-brand"}`}>{pct}%</span>
+                      </div>
+                      <div className="w-full h-2 bg-white/10 overflow-hidden">
+                        <div
+                          className={`h-full transition-all duration-1000 ${isComplete ? "bg-[#27AE60]" : "bg-brand"}`}
+                          style={{ width: `${pct}%` }}
+                        />
+                      </div>
+                      <div className="flex justify-between text-[10px]">
+                        <span className="text-[#52BE80] font-semibold">
+                          R$ {collected.toLocaleString("pt-BR", { minimumFractionDigits: 2 })} arrecadados
+                        </span>
+                        <span className="text-white/40">
+                          Faltam R$ {remaining.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* COTAS SUGERIDAS */}
+                    {!isComplete && (
+                      <div className="space-y-1.5">
+                        <p className="text-white/40 text-[9px] uppercase tracking-widest">Sugestões de cota</p>
+                        <div className="flex gap-2">
+                          {[50, 100, 200].map((cota) => (
+                            <button
+                              key={cota}
+                              onClick={() => handleOpenModal(gift)}
+                              className="flex-1 border border-white/20 hover:border-brand hover:bg-brand/10 text-white/70 hover:text-white text-[10px] font-semibold py-2 transition cursor-pointer"
+                            >
+                              R$ {cota}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* BOTÃO */}
+                    {isComplete ? (
+                      <button disabled className="w-full bg-[#27AE60]/20 text-[#52BE80] py-3 text-[11px] tracking-[1.5px] uppercase cursor-not-allowed flex items-center justify-center gap-2">
+                        <CheckCircle2 className="w-3.5 h-3.5" /> Meta Atingida
+                      </button>
+                    ) : (
+                      <button
+                        onClick={() => handleOpenModal(gift)}
+                        className="w-full bg-brand hover:bg-brand-hover text-white text-[11px] tracking-[1.5px] uppercase py-3 transition flex items-center justify-center gap-2 cursor-pointer"
+                      >
+                        <Heart className="w-3.5 h-3.5 fill-white" /> Contribuir com uma Cota
+                      </button>
+                    )}
+                  </div>
+                </div>
+              );
+            }
+
+            // ── CARD PADRÃO ──────────────────────────────────────────────────
             return (
               <div
                 key={gift.id}
@@ -163,14 +277,12 @@ export default function GiftsPageClient({ initialGifts }: GiftsPageClientProps) 
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   />
 
-                  {/* Mais desejado badge */}
                   {gift.id === initialGifts[0]?.id && !isFullyPaid && (
                     <div className="absolute top-4 left-4 bg-brand px-3.5 py-1.5">
                       <span className="text-white text-[10px] tracking-[1px]">⭐ Mais desejado</span>
                     </div>
                   )}
 
-                  {/* Overlay presenteado */}
                   {isFullyPaid && !isVaquinha && (
                     <div className="absolute inset-0 bg-text-dark/60 flex flex-col items-center justify-center gap-2">
                       <span className="text-white text-2xl">✓</span>
@@ -182,12 +294,10 @@ export default function GiftsPageClient({ initialGifts }: GiftsPageClientProps) 
                 {/* DETALHES */}
                 <div className="p-5 flex flex-col gap-1.5">
                   <h3 className="font-serif text-[18px] text-text-dark font-normal">{gift.name}</h3>
-                  <p className="text-text-mid text-[13px] leading-[1.5] line-clamp-2">
-                    {gift.description}
-                  </p>
+                  <p className="text-text-mid text-[13px] leading-[1.5] line-clamp-2">{gift.description}</p>
                 </div>
 
-                {/* BARRA DE PROGRESSO (vaquinha) */}
+                {/* BARRA DE PROGRESSO (vaquinha pequena) */}
                 {isVaquinha && (
                   <div className="px-5 pb-2 space-y-1.5">
                     <div className="flex justify-between text-[11px]">
@@ -195,21 +305,16 @@ export default function GiftsPageClient({ initialGifts }: GiftsPageClientProps) 
                       <span className="text-brand font-semibold">{pct}%</span>
                     </div>
                     <div className="w-full h-1.5 bg-bg-warm overflow-hidden">
-                      <div
-                        className="h-full bg-brand transition-all duration-1000"
-                        style={{ width: `${pct}%` }}
-                      />
+                      <div className="h-full bg-brand transition-all duration-1000" style={{ width: `${pct}%` }} />
                     </div>
-                    <p className="text-[10px] text-text-mid tracking-wider">
-                      Meta: R$ {totalValue.toFixed(0)}
-                    </p>
+                    <p className="text-[10px] text-text-mid tracking-wider">Meta: R$ {totalValue.toFixed(0)}</p>
                   </div>
                 )}
 
                 {/* RODAPÉ DO CARD */}
                 <div className="px-5 pb-5 flex items-center justify-between mt-auto pt-2">
                   <span className="font-serif text-[20px] text-brand font-normal">
-                    {isVaquinha ? `R$ ${totalValue.toFixed(0)}` : `R$ ${totalValue.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}`}
+                    R$ {totalValue.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}
                   </span>
 
                   {isFullyPaid && !isVaquinha ? (
