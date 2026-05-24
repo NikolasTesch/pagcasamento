@@ -281,7 +281,7 @@ export default function GiftModal({ gift, isOpen, onClose, onSuccess }: GiftModa
                   className="w-full h-12 bg-text-dark text-white text-[13px] tracking-wider hover:bg-brand transition flex items-center justify-center gap-2"
                 >
                   <CreditCard className="w-4 h-4" />
-                  {isSimulated ? "Pagar (Modo Teste)" : "Ir para Pagamento Pix"}
+                  Ir para Pagamento Pix
                 </a>
               </div>
 

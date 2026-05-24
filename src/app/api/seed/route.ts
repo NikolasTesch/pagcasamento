@@ -18,6 +18,24 @@ export async function GET() {
 
     const giftsCollection = db.collection("gifts");
 
+    // 1.5. Zerar o banco de dados deletando documentos das coleções 'gifts', 'pending_contributions' e 'contributions'
+    const giftsSnapshot = await db.collection("gifts").get();
+    const pendingSnapshot = await db.collection("pending_contributions").get();
+    const contributionsSnapshot = await db.collection("contributions").get();
+
+    const deleteBatch = db.batch();
+    giftsSnapshot.docs.forEach((doc: any) => {
+      deleteBatch.delete(doc.ref);
+    });
+    pendingSnapshot.docs.forEach((doc: any) => {
+      deleteBatch.delete(doc.ref);
+    });
+    contributionsSnapshot.docs.forEach((doc: any) => {
+      deleteBatch.delete(doc.ref);
+    });
+    await deleteBatch.commit();
+    console.log(`[Seed API] Banco zerado com sucesso: deletados ${giftsSnapshot.size} presentes, ${pendingSnapshot.size} pendentes, ${contributionsSnapshot.size} contribuições.`);
+
     // 2. Lê a configuração do config.json original a partir do backup
     const configPath = path.join(process.cwd(), "backup-vanilla", "config.json");
     let initialGifts = [];
@@ -66,9 +84,9 @@ export async function GET() {
         value: Number(g.value),
         imageUrl: g.imageUrl || `/images/gifts/${g.id}.png`,
         category: g.category,
-        is_crowdfunding: false,
-        amount_collected: 0,
-        is_purchased: false,
+        is_crowdfunding: g.is_crowdfunding !== undefined ? !!g.is_crowdfunding : false,
+        amount_collected: Number(g.amount_collected || 0),
+        is_purchased: !g.available,
       })),
       ...crowdfundingGifts.map((g: any) => ({
         ...g,

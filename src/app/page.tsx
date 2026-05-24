@@ -1,5 +1,19 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { X, ChevronLeft, ChevronRight } from "lucide-react";
+
+const GALLERY_IMAGES = [
+  { src: "/images/hero-1.png", alt: "Katharyna & Leonardo - Momentos" },
+  { src: "/images/hero-2.png", alt: "Katharyna & Leonardo - Abraçados" },
+  { src: "/images/hero-3.png", alt: "Katharyna & Leonardo - Sorrindo" },
+  { src: "/images/story-1.png", alt: "Katharyna & Leonardo - Cumplicidade" },
+  { src: "/images/story-3.png", alt: "Katharyna & Leonardo - Amor" },
+  { src: "/images/story-2.png", alt: "Katharyna & Leonardo - Juntos" },
+  { src: "/images/casal.png", alt: "Katharyna & Leonardo - Felicidade" },
+];
 
 const couple = {
   firstName: "Katharyna",
@@ -19,6 +33,46 @@ const couple = {
 };
 
 export default function HomePage() {
+  const [activeImageIndex, setActiveImageIndex] = useState<number | null>(null);
+
+  // Lightbox Handlers
+  const openLightbox = (index: number) => {
+    setActiveImageIndex(index);
+    document.body.style.overflow = "hidden"; // Prevent scrolling behind
+  };
+
+  const closeLightbox = () => {
+    setActiveImageIndex(null);
+    document.body.style.overflow = ""; // Restore scrolling
+  };
+
+  const nextImage = (e?: React.MouseEvent) => {
+    if (e) e.stopPropagation();
+    if (activeImageIndex !== null) {
+      setActiveImageIndex((prev) => (prev !== null && prev < GALLERY_IMAGES.length - 1 ? prev + 1 : 0));
+    }
+  };
+
+  const prevImage = (e?: React.MouseEvent) => {
+    if (e) e.stopPropagation();
+    if (activeImageIndex !== null) {
+      setActiveImageIndex((prev) => (prev !== null && prev > 0 ? prev - 1 : GALLERY_IMAGES.length - 1));
+    }
+  };
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (activeImageIndex === null) return;
+      if (e.key === "Escape") closeLightbox();
+      if (e.key === "ArrowRight") nextImage();
+      if (e.key === "ArrowLeft") prevImage();
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [activeImageIndex]);
+
   return (
     <div className="flex-grow flex flex-col bg-bg-light font-sans">
 
@@ -82,33 +136,52 @@ export default function HomePage() {
 
         {/* Mosaico de fotos */}
         <div className="flex-1 flex gap-[3px] min-h-[300px] md:min-h-0">
-          <div className="flex-1 relative bg-[#C9B8A0]">
+          <div 
+            onClick={() => openLightbox(0)}
+            className="flex-1 relative bg-[#C9B8A0] overflow-hidden group cursor-pointer"
+          >
             <Image
               src="/images/hero-1.png"
               alt={`${couple.firstName} e ${couple.secondName}`}
               fill
-              className="object-cover"
+              className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
               sizes="(max-width: 768px) 50vw, 30vw"
+              priority
             />
+            <div className="absolute inset-0 bg-black/15 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+              <span className="bg-white/95 text-text-dark text-[10px] tracking-[2px] px-3.5 py-2 uppercase rounded-sm shadow-sm backdrop-blur-[2px]">Ampliar</span>
+            </div>
           </div>
           <div className="flex-1 flex flex-col gap-[3px]">
-            <div className="flex-1 relative bg-[#DDD0BE]">
+            <div 
+              onClick={() => openLightbox(1)}
+              className="flex-1 relative bg-[#DDD0BE] overflow-hidden group cursor-pointer"
+            >
               <Image
                 src="/images/hero-2.png"
                 alt={`${couple.firstName} e ${couple.secondName}`}
                 fill
-                className="object-cover"
+                className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                 sizes="(max-width: 768px) 50vw, 20vw"
               />
+              <div className="absolute inset-0 bg-black/15 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                <span className="bg-white/95 text-text-dark text-[10px] tracking-[2px] px-3.5 py-2 uppercase rounded-sm shadow-sm backdrop-blur-[2px]">Ampliar</span>
+              </div>
             </div>
-            <div className="flex-1 relative bg-[#B8A890]">
+            <div 
+              onClick={() => openLightbox(2)}
+              className="flex-1 relative bg-[#B8A890] overflow-hidden group cursor-pointer"
+            >
               <Image
                 src="/images/hero-3.png"
                 alt={`${couple.firstName} e ${couple.secondName}`}
                 fill
-                className="object-cover"
+                className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                 sizes="(max-width: 768px) 50vw, 20vw"
               />
+              <div className="absolute inset-0 bg-black/15 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                <span className="bg-white/95 text-text-dark text-[10px] tracking-[2px] px-3.5 py-2 uppercase rounded-sm shadow-sm backdrop-blur-[2px]">Ampliar</span>
+              </div>
             </div>
           </div>
         </div>
@@ -153,33 +226,51 @@ export default function HomePage() {
       <section id="historia" className="flex flex-col md:flex-row md:h-[620px]">
         {/* Mosaico de fotos */}
         <div className="md:w-[640px] shrink-0 flex gap-1 min-h-[280px] md:min-h-0">
-          <div className="flex-1 relative bg-[#E2D4C2]">
+          <div 
+            onClick={() => openLightbox(3)}
+            className="flex-1 relative bg-[#E2D4C2] overflow-hidden group cursor-pointer"
+          >
             <Image
               src="/images/story-1.png"
               alt="Nossa história"
               fill
-              className="object-cover"
+              className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
               sizes="(max-width: 768px) 50vw, 25vw"
             />
+            <div className="absolute inset-0 bg-black/15 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+              <span className="bg-white/95 text-text-dark text-[10px] tracking-[2px] px-3.5 py-2 uppercase rounded-sm shadow-sm backdrop-blur-[2px]">Ampliar</span>
+            </div>
           </div>
           <div className="flex-1 flex flex-col gap-1">
-            <div className="flex-1 relative bg-[#BDA88C]">
+            <div 
+              onClick={() => openLightbox(5)}
+              className="flex-1 relative bg-[#BDA88C] overflow-hidden group cursor-pointer"
+            >
               <Image
                 src="/images/story-2.png"
                 alt="Nossa história"
                 fill
-                className="object-cover"
+                className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                 sizes="(max-width: 768px) 50vw, 18vw"
               />
+              <div className="absolute inset-0 bg-black/15 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                <span className="bg-white/95 text-text-dark text-[10px] tracking-[2px] px-3.5 py-2 uppercase rounded-sm shadow-sm backdrop-blur-[2px]">Ampliar</span>
+              </div>
             </div>
-            <div className="flex-1 relative bg-[#D4C4A8]">
+            <div 
+              onClick={() => openLightbox(4)}
+              className="flex-1 relative bg-[#D4C4A8] overflow-hidden group cursor-pointer"
+            >
               <Image
                 src="/images/story-3.png"
                 alt="Nossa história"
                 fill
-                className="object-cover"
+                className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                 sizes="(max-width: 768px) 50vw, 18vw"
               />
+              <div className="absolute inset-0 bg-black/15 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                <span className="bg-white/95 text-text-dark text-[10px] tracking-[2px] px-3.5 py-2 uppercase rounded-sm shadow-sm backdrop-blur-[2px]">Ampliar</span>
+              </div>
             </div>
           </div>
         </div>
@@ -197,6 +288,147 @@ export default function HomePage() {
           </p>
 
           <div className="w-[50px] h-px bg-brand" />
+        </div>
+      </section>
+
+      {/* ── GALERIA DE FOTOS ── */}
+      <section className="bg-bg-light py-20 px-6 md:px-20 border-t border-elegant">
+        <div className="flex flex-col items-center text-center mb-12">
+          <span className="text-brand text-[10px] tracking-[4px] uppercase mb-3">Galeria</span>
+          <h2 className="font-serif text-[36px] md:text-[44px] leading-tight text-text-dark font-normal">
+            Nossos Momentos
+          </h2>
+          <div className="w-[50px] h-px bg-brand mt-4" />
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 max-w-[1200px] mx-auto">
+          {/* Foto 1 (Grande) */}
+          <div 
+            onClick={() => openLightbox(0)}
+            className="md:col-span-2 md:row-span-2 relative group overflow-hidden cursor-pointer bg-bg-warm rounded-sm h-[400px] md:h-[500px] shadow-sm transition-all duration-300 hover:shadow-md"
+          >
+            <Image
+              src="/images/hero-1.png"
+              alt="Katharyna & Leonardo - Momentos"
+              fill
+              className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+              sizes="(max-width: 768px) 100vw, 50vw"
+            />
+            <div className="absolute inset-0 bg-black/15 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+              <span className="bg-white/95 text-text-dark text-[11px] tracking-[2px] px-4.5 py-2.5 uppercase rounded-sm shadow-sm backdrop-blur-[2px]">Visualizar</span>
+            </div>
+          </div>
+
+          {/* Foto 2 */}
+          <div 
+            onClick={() => openLightbox(1)}
+            className="relative group overflow-hidden cursor-pointer bg-bg-warm rounded-sm h-[242px] shadow-sm transition-all duration-300 hover:shadow-md"
+          >
+            <Image
+              src="/images/hero-2.png"
+              alt="Katharyna & Leonardo - Momentos"
+              fill
+              className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+              sizes="(max-width: 768px) 50vw, 25vw"
+            />
+            <div className="absolute inset-0 bg-black/15 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+              <span className="bg-white/95 text-text-dark text-[11px] tracking-[2px] px-4.5 py-2.5 uppercase rounded-sm shadow-sm backdrop-blur-[2px]">Visualizar</span>
+            </div>
+          </div>
+
+          {/* Foto 3 */}
+          <div 
+            onClick={() => openLightbox(2)}
+            className="relative group overflow-hidden cursor-pointer bg-bg-warm rounded-sm h-[242px] shadow-sm transition-all duration-300 hover:shadow-md"
+          >
+            <Image
+              src="/images/hero-3.png"
+              alt="Katharyna & Leonardo - Momentos"
+              fill
+              className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+              sizes="(max-width: 768px) 50vw, 25vw"
+            />
+            <div className="absolute inset-0 bg-black/15 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+              <span className="bg-white/95 text-text-dark text-[11px] tracking-[2px] px-4.5 py-2.5 uppercase rounded-sm shadow-sm backdrop-blur-[2px]">Visualizar</span>
+            </div>
+          </div>
+
+          {/* Foto 4 */}
+          <div 
+            onClick={() => openLightbox(3)}
+            className="relative group overflow-hidden cursor-pointer bg-bg-warm rounded-sm h-[242px] shadow-sm transition-all duration-300 hover:shadow-md"
+          >
+            <Image
+              src="/images/story-1.png"
+              alt="Katharyna & Leonardo - Momentos"
+              fill
+              className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+              sizes="(max-width: 768px) 50vw, 25vw"
+            />
+            <div className="absolute inset-0 bg-black/15 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+              <span className="bg-white/95 text-text-dark text-[11px] tracking-[2px] px-4.5 py-2.5 uppercase rounded-sm shadow-sm backdrop-blur-[2px]">Visualizar</span>
+            </div>
+          </div>
+
+          {/* Foto 5 */}
+          <div 
+            onClick={() => openLightbox(4)}
+            className="relative group overflow-hidden cursor-pointer bg-bg-warm rounded-sm h-[242px] shadow-sm transition-all duration-300 hover:shadow-md"
+          >
+            <Image
+              src="/images/story-3.png"
+              alt="Katharyna & Leonardo - Momentos"
+              fill
+              className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+              sizes="(max-width: 768px) 50vw, 25vw"
+            />
+            <div className="absolute inset-0 bg-black/15 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+              <span className="bg-white/95 text-text-dark text-[11px] tracking-[2px] px-4.5 py-2.5 uppercase rounded-sm shadow-sm backdrop-blur-[2px]">Visualizar</span>
+            </div>
+          </div>
+
+          {/* Foto 6 (Larga) */}
+          <div 
+            onClick={() => openLightbox(5)}
+            className="md:col-span-2 relative group overflow-hidden cursor-pointer bg-bg-warm rounded-sm h-[242px] shadow-sm transition-all duration-300 hover:shadow-md"
+          >
+            <Image
+              src="/images/story-2.png"
+              alt="Katharyna & Leonardo - Momentos"
+              fill
+              className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+              sizes="(max-width: 768px) 100vw, 50vw"
+            />
+            <div className="absolute inset-0 bg-black/15 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+              <span className="bg-white/95 text-text-dark text-[11px] tracking-[2px] px-4.5 py-2.5 uppercase rounded-sm shadow-sm backdrop-blur-[2px]">Visualizar</span>
+            </div>
+          </div>
+
+          {/* Foto 7 */}
+          <div 
+            onClick={() => openLightbox(6)}
+            className="relative group overflow-hidden cursor-pointer bg-bg-warm rounded-sm h-[242px] shadow-sm transition-all duration-300 hover:shadow-md"
+          >
+            <Image
+              src="/images/casal.png"
+              alt="Katharyna & Leonardo - Momentos"
+              fill
+              className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+              sizes="(max-width: 768px) 50vw, 25vw"
+            />
+            <div className="absolute inset-0 bg-black/15 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+              <span className="bg-white/95 text-text-dark text-[11px] tracking-[2px] px-4.5 py-2.5 uppercase rounded-sm shadow-sm backdrop-blur-[2px]">Visualizar</span>
+            </div>
+          </div>
+
+          {/* Card Editorial */}
+          <div className="bg-bg-warm border border-brand/20 p-6 flex flex-col justify-center items-center text-center rounded-sm h-[242px] shadow-sm">
+            <span className="font-serif text-[28px] tracking-[4px] text-brand mb-2">K & L</span>
+            <p className="text-text-mid text-[12px] leading-relaxed italic max-w-[200px]">
+              "O amor é a luz que ilumina o início de uma eternidade juntos."
+            </p>
+            <div className="w-8 h-[1px] bg-brand mt-4" />
+          </div>
         </div>
       </section>
 
@@ -226,6 +458,62 @@ export default function HomePage() {
           {couple.initials} · {couple.dateFooter} · com muito amor
         </span>
       </footer>
+
+      {/* ── LIGHTBOX MODAL ── */}
+      {activeImageIndex !== null && (
+        <div 
+          onClick={closeLightbox}
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 backdrop-blur-md transition-opacity duration-300 animate-fade-in"
+        >
+          {/* Botão Fechar */}
+          <button 
+            onClick={closeLightbox}
+            className="absolute top-6 right-6 z-[110] p-3 text-white/80 hover:text-white bg-black/25 hover:bg-black/55 rounded-full transition-all duration-300 hover:rotate-90 flex items-center justify-center cursor-pointer border border-white/10"
+            aria-label="Fechar galeria"
+          >
+            <X size={24} />
+          </button>
+
+          {/* Botão Anterior */}
+          <button 
+            onClick={prevImage}
+            className="absolute left-4 md:left-8 z-[110] p-4 text-white/80 hover:text-white hover:scale-105 bg-black/25 hover:bg-black/55 rounded-full transition-all duration-300 flex items-center justify-center cursor-pointer border border-white/10"
+            aria-label="Imagem anterior"
+          >
+            <ChevronLeft size={28} />
+          </button>
+
+          {/* Imagem */}
+          <div 
+            onClick={(e) => e.stopPropagation()} // Prevent closing when clicking the image itself
+            className="relative max-w-[90vw] max-h-[80vh] md:max-w-[80vw] md:max-h-[85vh] transition-transform duration-500 flex flex-col items-center"
+          >
+            <div className="relative w-[90vw] h-[70vh] md:w-[75vw] md:h-[80vh]">
+              <Image
+                src={GALLERY_IMAGES[activeImageIndex].src}
+                alt={GALLERY_IMAGES[activeImageIndex].alt}
+                fill
+                className="object-contain select-none"
+                priority
+              />
+            </div>
+            
+            {/* Legenda/Contador */}
+            <span className="text-white/60 text-[12px] tracking-[3px] uppercase mt-4 select-none font-sans">
+              Foto {activeImageIndex + 1} de {GALLERY_IMAGES.length}
+            </span>
+          </div>
+
+          {/* Botão Próximo */}
+          <button 
+            onClick={nextImage}
+            className="absolute right-4 md:right-8 z-[110] p-4 text-white/80 hover:text-white hover:scale-105 bg-black/25 hover:bg-black/55 rounded-full transition-all duration-300 flex items-center justify-center cursor-pointer border border-white/10"
+            aria-label="Próxima imagem"
+          >
+            <ChevronRight size={28} />
+          </button>
+        </div>
+      )}
     </div>
   );
 }

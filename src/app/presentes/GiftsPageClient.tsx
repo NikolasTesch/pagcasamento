@@ -52,6 +52,15 @@ export default function GiftsPageClient({ initialGifts }: GiftsPageClientProps) 
       ? initialGifts
       : initialGifts.filter((g) => g.category === activeCategory);
 
+  // Ordenar para colocar os itens de vaquinha (crowdfunding) por último
+  const sortedGifts = [...filteredGifts].sort((a, b) => {
+    const aCrowd = !!a.is_crowdfunding;
+    const bCrowd = !!b.is_crowdfunding;
+    if (aCrowd && !bCrowd) return 1;
+    if (!aCrowd && bCrowd) return -1;
+    return 0;
+  });
+
   const handleOpenModal = (gift: Gift) => {
     setSelectedGift(gift);
     setIsModalOpen(true);
@@ -141,7 +150,7 @@ export default function GiftsPageClient({ initialGifts }: GiftsPageClientProps) 
 
         {/* GRID DE PRESENTES */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-[1280px] mx-auto">
-          {filteredGifts.map((gift) => {
+          {sortedGifts.map((gift) => {
             const isFullyPaid = !!gift.is_purchased;
             const isVaquinha = !!gift.is_crowdfunding;
             const collected = Number(gift.amount_collected || 0);
