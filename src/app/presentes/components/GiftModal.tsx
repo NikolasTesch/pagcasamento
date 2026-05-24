@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { X, CreditCard, Send } from "lucide-react";
 
 interface Gift {
@@ -35,14 +35,17 @@ export default function GiftModal({ gift, isOpen, onClose, onSuccess }: GiftModa
   const [error, setError] = useState("");
   const [step, setStep] = useState<"form" | "payment">("form");
 
+  // Reset/inicializa o valor do presente quando ele for aberto ou alterado
+  useEffect(() => {
+    if (gift) {
+      setAmount(gift.is_crowdfunding ? 0 : gift.value);
+    }
+  }, [gift]);
+
   if (!isOpen || !gift) return null;
 
   const isVaquinha = !!gift.is_crowdfunding;
   const presets = [50, 100, 200, 500];
-
-  if (amount === 0 && !isVaquinha) {
-    setAmount(gift.value);
-  }
 
   const handlePresetSelect = (val: number) => {
     setAmount(val);

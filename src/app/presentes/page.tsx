@@ -2,6 +2,7 @@ import { db } from "@/lib/firebase";
 import GiftsPageClient from "./GiftsPageClient";
 import * as fs from "fs";
 import * as path from "path";
+import { Suspense } from "react";
 
 // Garante que a página sempre consulte o banco dinamicamente a cada requisição
 export const revalidate = 0;
@@ -136,5 +137,9 @@ export default async function PresentesPage() {
     ];
   }
 
-  return <GiftsPageClient initialGifts={gifts} />;
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center bg-[#FAF9F6] font-sans text-[#6A6660]">Carregando lista de presentes...</div>}>
+      <GiftsPageClient initialGifts={gifts} />
+    </Suspense>
+  );
 }

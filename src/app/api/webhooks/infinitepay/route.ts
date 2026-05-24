@@ -1,37 +1,70 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/firebase";
-import * as admin from "firebase-admin";
+import { createHmac, timingSafeEqual } from "crypto";
+
+function verifyWebhookSignature(
+  rawBody: string,
+  secret: string,
+  receivedSignature: string | null,
+  querySecret: string | null
+): boolean {
+  // Prioridade 1: HMAC-SHA256 via header x-infinitepay-signature (mais seguro)
+  if (receivedSignature && secret) {
+    try {
+      const expected = createHmac("sha256", secret).update(rawBody).digest("hex");
+      const expectedBuf = Buffer.from(`sha256=${expected}`);
+      const receivedBuf = Buffer.from(receivedSignature);
+      if (expectedBuf.length === receivedBuf.length) {
+        return timingSafeEqual(expectedBuf, receivedBuf);
+      }
+    } catch {
+      // fallthrough para validação por query param
+    }
+  }
+
+  // Prioridade 2: token simples no query param ?secret= (compatibilidade)
+  if (querySecret && secret) {
+    return querySecret === secret;
+  }
+
+  return false;
+}
 
 export async function POST(req: Request) {
   try {
-    const body = await req.json();
+    const rawBody = await req.text();
+    let body: any;
+    try {
+      body = JSON.parse(rawBody);
+    } catch {
+      return NextResponse.json({ success: false, message: "Payload inválido." }, { status: 400 });
+    }
+
     console.log("[Webhook InfinitePay] Payload recebido:", body);
 
     const { order_nsu, status, amount, transaction_nsu } = body;
 
-    // 1. Validação de segurança híbrida
-    // Verifica se há token válido no query parameter 'secret' ou nos cabeçalhos HTTP
+    // 1. Validação de segurança
     const { searchParams } = new URL(req.url);
-    const tokenQuery = searchParams.get("secret");
-    const tokenHeader = req.headers.get("x-webhook-secret") || req.headers.get("Authorization");
-    const secretToken = process.env.WEBHOOK_SECRET_TOKEN || "token_secreto_para_validar_webhook_aqui";
+    const querySecret = searchParams.get("secret");
+    const hmacHeader = req.headers.get("x-infinitepay-signature");
+    const secretToken = process.env.WEBHOOK_SECRET_TOKEN || "";
 
-    const isAuthorized = 
-      (tokenHeader && (tokenHeader === secretToken || `Bearer ${secretToken}` === tokenHeader)) ||
-      (tokenQuery && tokenQuery === secretToken);
+    const isAuthorized = verifyWebhookSignature(rawBody, secretToken, hmacHeader, querySecret);
 
     if (!isAuthorized) {
-      console.warn("[Webhook InfinitePay] Alerta: Token de autenticação do webhook ausente ou inválido!");
+      console.warn("[Webhook InfinitePay] Token de autenticação ausente ou inválido.");
       return NextResponse.json({ success: false, message: "Não autorizado." }, { status: 401 });
     }
 
     // 2. Validações básicas do corpo
-    if (!order_nsu || !status || !transaction_nsu) {
+    // Nota: O campo 'status' é opcional pois as notificações do webhook da InfinitePay ocorrem exclusivamente na aprovação do pagamento.
+    if (!order_nsu || !transaction_nsu) {
       return NextResponse.json({ success: false, message: "Payload incompleto." }, { status: 400 });
     }
 
-    // Apenas processa se for aprovado
-    if (status !== "approved" && status !== "paid") {
+    // Apenas ignora se um status for passado explicitamente e não for aprovado/pago (ex: simulações personalizadas)
+    if (status && status !== "approved" && status !== "paid") {
       console.log(`[Webhook InfinitePay] Transação ${order_nsu} ignorada. Status: ${status}`);
       return NextResponse.json({ success: true, message: "Status ignorado." }, { status: 200 });
     }

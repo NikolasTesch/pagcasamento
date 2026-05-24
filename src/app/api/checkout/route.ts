@@ -93,7 +93,7 @@ export async function POST(req: Request) {
     const apiToken = process.env.INFINITEPAY_API_TOKEN;
 
     // 4. Modo Simulado / Teste (Se chaves da InfinitePay não estiverem configuradas no .env.local)
-    const isConfigured = apiToken && apiToken !== "seu_token_api_aqui" && infinitePayTag && infinitePayTag !== "sua_tag_aqui";
+    const isConfigured = infinitePayTag && infinitePayTag !== "sua_tag_aqui";
 
     if (!isConfigured) {
       console.log(`[InfinitePay Simulator] Gerando link de simulação para order_nsu: ${order_nsu}`);
@@ -111,11 +111,13 @@ export async function POST(req: Request) {
     // 5. Integração Real com InfinitePay Checkout API
     const priceInCents = Math.round(Number(amount) * 100);
 
+    const webhookSecret = process.env.WEBHOOK_SECRET_TOKEN || "";
     const payload = {
       handle: infinitePayTag,
       redirect_url: `${siteUrl}/presentes?status=success&giftId=${giftId}`,
-      webhook_url: `${siteUrl}/api/webhooks/infinitepay?secret=${encodeURIComponent(process.env.WEBHOOK_SECRET_TOKEN || "token_secreto_para_validar_webhook_aqui")}`,
+      webhook_url: `${siteUrl}/api/webhooks/infinitepay?secret=${encodeURIComponent(webhookSecret)}`,
       order_nsu: order_nsu,
+      payment_methods: ["pix"],
       items: [
         {
           quantity: 1,
@@ -126,13 +128,17 @@ export async function POST(req: Request) {
     };
 
     try {
+      const headers: Record<string, string> = {
+        "Content-Type": "application/json",
+      };
+
+      if (apiToken && apiToken !== "seu_token_api_aqui" && apiToken !== "seu_bearer_token_aqui") {
+        headers["Authorization"] = `Bearer ${apiToken}`;
+      }
+
       const response = await fetch("https://api.checkout.infinitepay.io/links", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${apiToken}`,
-          "x-api-token": apiToken,
-        },
+        headers,
         body: JSON.stringify(payload),
       });
 
