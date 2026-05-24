@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { X, Copy, Check, Send } from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";
 
@@ -35,6 +35,9 @@ export default function GiftModal({ gift, isOpen, onClose, onSuccess }: GiftModa
   const [copied, setCopied] = useState(false);
   const [error, setError] = useState("");
   const [step, setStep] = useState<"form" | "payment">("form");
+
+  const touchStartY = useRef<number>(0);
+  const [dragOffset, setDragOffset] = useState(0);
 
   useEffect(() => {
     if (gift) {
@@ -144,18 +147,50 @@ export default function GiftModal({ gift, isOpen, onClose, onSuccess }: GiftModa
     setPixCode("");
     setCopied(false);
     setError("");
+    setDragOffset(0);
     onClose();
   };
 
+  const handleDragStart = (e: React.TouchEvent) => {
+    touchStartY.current = e.touches[0].clientY;
+  };
+
+  const handleDragMove = (e: React.TouchEvent) => {
+    const delta = e.touches[0].clientY - touchStartY.current;
+    if (delta > 0) setDragOffset(delta); // só para baixo
+  };
+
+  const handleDragEnd = () => {
+    if (dragOffset > 120) {
+      handleClose();
+    } else {
+      setDragOffset(0);
+    }
+  };
+
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-text-dark/50 backdrop-blur-sm">
+    <div
+      className="fixed inset-0 z-50 flex items-end sm:items-center justify-center sm:p-4 bg-text-dark/50 backdrop-blur-sm"
+      onClick={(e) => { if (e.target === e.currentTarget) handleClose(); }}
+    >
       <div
-        className="bg-white w-full max-w-md shadow-2xl overflow-hidden animate-slide-up flex flex-col font-sans"
+        className="bg-white w-full sm:max-w-md shadow-2xl overflow-hidden animate-slide-up flex flex-col font-sans rounded-t-2xl sm:rounded-none"
         role="dialog"
         aria-modal="true"
+        style={{ transform: `translateY(${dragOffset}px)`, transition: dragOffset === 0 ? "transform 0.3s ease" : "none" }}
       >
+        {/* Handle visual — apenas mobile (arraste para fechar) */}
+        <div
+          className="flex justify-center pt-3 pb-1 sm:hidden cursor-grab active:cursor-grabbing touch-none"
+          onTouchStart={handleDragStart}
+          onTouchMove={handleDragMove}
+          onTouchEnd={handleDragEnd}
+        >
+          <div className="w-10 h-1 bg-elegant rounded-full" />
+        </div>
+
         {/* ── HEADER ── */}
-        <div className="flex justify-between items-center px-6 py-4 border-b border-elegant">
+        <div className="flex justify-between items-center px-6 py-3 sm:py-4 border-b border-elegant">
           <span className="text-text-mid text-[10px] tracking-[3px] uppercase">
             {step === "form" ? "Confirmar Presente" : "Pagamento Pix"}
           </span>
@@ -170,14 +205,14 @@ export default function GiftModal({ gift, isOpen, onClose, onSuccess }: GiftModa
 
         {/* ── IMAGEM DO PRESENTE ── */}
         <div
-          className="h-[160px] relative flex flex-col justify-end p-5"
+          className="h-[120px] sm:h-[160px] relative flex flex-col justify-end p-5"
           style={{ background: "linear-gradient(180deg, #C8B8A0 0%, #8B7050 100%)" }}
         >
-          <span className="font-serif text-[20px] text-white font-normal">{gift.name}</span>
+          <span className="font-serif text-[18px] sm:text-[20px] text-white font-normal">{gift.name}</span>
         </div>
 
         {/* ── CONTEÚDO ── */}
-        <div className="overflow-y-auto max-h-[65vh]">
+        <div className="overflow-y-auto max-h-[calc(100svh-220px)] sm:max-h-[65vh]">
           {step === "form" ? (
             /* ════════ STEP 1 — FORM ════════ */
             <form onSubmit={handleSubmit} className="flex flex-col">
@@ -282,7 +317,7 @@ export default function GiftModal({ gift, isOpen, onClose, onSuccess }: GiftModa
               </div>
 
               {/* QR Code */}
-              <div className="px-6 py-6 border-b border-elegant flex flex-col items-center gap-4">
+              <div className="px-6 py-4 sm:py-6 border-b border-elegant flex flex-col items-center gap-3 sm:gap-4">
                 <div className="p-3 border border-elegant">
                   <QRCodeSVG
                     value={pixCode}

@@ -75,8 +75,9 @@ export default function GiftsPageClient({ initialGifts }: GiftsPageClientProps) 
     <div className="flex-grow flex flex-col bg-bg-light font-sans min-h-screen">
 
       {/* ── NAVBAR ── */}
-      <nav className="sticky top-0 z-50 bg-white border-b border-elegant px-6 md:px-20 h-20 flex items-center justify-between">
-        <div className="flex items-center gap-8 md:gap-10">
+      <nav className="sticky top-0 z-50 bg-white border-b border-elegant px-5 md:px-20 h-16 md:h-20 flex items-center justify-between">
+        {/* Desktop: links à esquerda */}
+        <div className="hidden md:flex items-center gap-10">
           <Link href="/" className="text-text-mid text-[13px] tracking-[1.5px] hover:text-brand transition">
             Início
           </Link>
@@ -86,15 +87,19 @@ export default function GiftsPageClient({ initialGifts }: GiftsPageClientProps) 
           <span className="text-text-dark text-[13px] tracking-[1.5px]">Presentes</span>
         </div>
 
-        <span className="font-serif text-[22px] tracking-[6px] text-text-dark absolute left-1/2 -translate-x-1/2">
+        {/* Mobile: espaçador para equilibrar o logo centralizado */}
+        <div className="md:hidden w-14" />
+
+        <span className="font-serif text-[20px] md:text-[22px] tracking-[5px] md:tracking-[6px] text-text-dark absolute left-1/2 -translate-x-1/2">
           K &amp; L
         </span>
 
         <Link
           href="/"
-          className="text-brand text-[12px] tracking-[1px] hover:text-brand-hover transition"
+          className="text-brand text-[11px] md:text-[12px] tracking-[1px] hover:text-brand-hover transition whitespace-nowrap"
         >
-          ← Voltar ao início
+          <span className="md:hidden">← Início</span>
+          <span className="hidden md:inline">← Voltar ao início</span>
         </Link>
       </nav>
 
@@ -118,26 +123,26 @@ export default function GiftsPageClient({ initialGifts }: GiftsPageClientProps) 
       )}
 
       {/* ── CABEÇALHO DA PÁGINA ── */}
-      <header className="bg-bg-warm flex flex-col items-center justify-center gap-4 py-16 px-6">
+      <header className="bg-bg-warm flex flex-col items-center justify-center gap-3 md:gap-4 py-10 md:py-16 px-6">
         <span className="text-brand text-[10px] tracking-[4px] uppercase">Presentes</span>
-        <h1 className="font-serif text-[44px] md:text-[52px] text-text-dark font-normal">
+        <h1 className="font-serif text-[30px] md:text-[52px] text-text-dark font-normal text-center">
           Lista de Presentes
         </h1>
-        <p className="text-text-mid text-[14px] leading-[1.6] text-center max-w-[560px]">
+        <p className="text-text-mid text-[13px] md:text-[14px] leading-[1.6] text-center max-w-[560px]">
           Escolha um presente com carinho. O pagamento é feito via Pix, de forma simples e segura.
         </p>
       </header>
 
       {/* ── CONTEÚDO ── */}
-      <main className="flex-grow px-6 md:px-20 py-16">
+      <main className="flex-grow px-4 md:px-20 py-8 md:py-16">
 
         {/* FILTROS */}
-        <div className="flex flex-wrap justify-center gap-3 mb-14">
+        <div className="flex flex-wrap justify-center gap-2 md:gap-3 mb-8 md:mb-14">
           {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
-              className={`px-5 py-2 text-[11px] tracking-[1.5px] uppercase transition ${
+              className={`px-4 md:px-5 py-2 text-[10px] md:text-[11px] tracking-[1.5px] uppercase transition ${
                 activeCategory === cat
                   ? "bg-text-dark text-white"
                   : "bg-white border border-elegant text-text-mid hover:border-brand hover:text-brand"
@@ -149,7 +154,7 @@ export default function GiftsPageClient({ initialGifts }: GiftsPageClientProps) 
         </div>
 
         {/* GRID DE PRESENTES */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-[1280px] mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 max-w-[1280px] mx-auto">
           {sortedGifts.map((gift) => {
             const isFullyPaid = !!gift.is_purchased;
             const isVaquinha = !!gift.is_crowdfunding;
@@ -352,7 +357,7 @@ export default function GiftsPageClient({ initialGifts }: GiftsPageClientProps) 
       />
 
       {/* ── FOOTER ── */}
-      <footer className="h-20 bg-bg-dark flex items-center justify-center mt-16">
+      <footer className="h-16 md:h-20 bg-bg-dark flex items-center justify-center mt-10 md:mt-16">
         <span className="text-text-mid text-[12px] tracking-[2px]">
           K &amp; L · 11.10.2026 · com muito amor
         </span>

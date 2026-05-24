@@ -30,6 +30,18 @@ body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Evita bounce scroll no iOS */
+  overscroll-behavior: none;
+}
+
+/* Touch targets mínimos para mobile */
+button, a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Previne zoom automático em inputs no iOS (requer font-size >= 16px) */
+input, textarea, select {
+  font-size: 16px;
 }
 
 .border-elegant {

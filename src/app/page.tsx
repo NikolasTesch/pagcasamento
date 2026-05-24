@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
@@ -34,16 +34,18 @@ const couple = {
 
 export default function HomePage() {
   const [activeImageIndex, setActiveImageIndex] = useState<number | null>(null);
+  const touchStartX = useRef<number>(0);
+  const touchStartY = useRef<number>(0);
 
   // Lightbox Handlers
   const openLightbox = (index: number) => {
     setActiveImageIndex(index);
-    document.body.style.overflow = "hidden"; // Prevent scrolling behind
+    document.body.style.overflow = "hidden";
   };
 
   const closeLightbox = () => {
     setActiveImageIndex(null);
-    document.body.style.overflow = ""; // Restore scrolling
+    document.body.style.overflow = "";
   };
 
   const nextImage = (e?: React.MouseEvent) => {
@@ -57,6 +59,21 @@ export default function HomePage() {
     if (e) e.stopPropagation();
     if (activeImageIndex !== null) {
       setActiveImageIndex((prev) => (prev !== null && prev > 0 ? prev - 1 : GALLERY_IMAGES.length - 1));
+    }
+  };
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.changedTouches[0].clientX;
+    touchStartY.current = e.changedTouches[0].clientY;
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    const deltaX = touchStartX.current - e.changedTouches[0].clientX;
+    const deltaY = touchStartY.current - e.changedTouches[0].clientY;
+    // Só swipe horizontal quando o movimento X for dominante
+    if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 50) {
+      if (deltaX > 0) nextImage();
+      else prevImage();
     }
   };
 
@@ -77,8 +94,9 @@ export default function HomePage() {
     <div className="flex-grow flex flex-col bg-bg-light font-sans">
 
       {/* ── NAVBAR ── */}
-      <nav className="sticky top-0 z-50 bg-white border-b border-elegant px-6 md:px-20 h-20 flex items-center justify-between">
-        <div className="flex items-center gap-8 md:gap-10">
+      <nav className="sticky top-0 z-50 bg-white border-b border-elegant px-5 md:px-20 h-16 md:h-20 flex items-center justify-between">
+        {/* Desktop: links à esquerda */}
+        <div className="hidden md:flex items-center gap-10">
           <Link href="/" className="text-text-mid text-[13px] tracking-[1.5px] hover:text-brand transition">
             Início
           </Link>
@@ -90,31 +108,35 @@ export default function HomePage() {
           </Link>
         </div>
 
-        <span className="font-serif text-[22px] tracking-[6px] text-text-dark absolute left-1/2 -translate-x-1/2">
+        {/* Mobile: espaçador para equilibrar o logo centralizado */}
+        <div className="md:hidden w-14" />
+
+        <span className="font-serif text-[20px] md:text-[22px] tracking-[5px] md:tracking-[6px] text-text-dark absolute left-1/2 -translate-x-1/2">
           {couple.initials}
         </span>
 
         <Link
           href="/presentes"
-          className="bg-text-dark text-white text-[11px] tracking-[2px] px-5 md:px-7 py-3 hover:bg-brand transition"
+          className="bg-text-dark text-white text-[10px] md:text-[11px] tracking-[1.5px] md:tracking-[2px] px-4 md:px-7 py-2.5 md:py-3 hover:bg-brand transition whitespace-nowrap"
         >
-          LISTA DE PRESENTES
+          <span className="md:hidden">PRESENTES</span>
+          <span className="hidden md:inline">LISTA DE PRESENTES</span>
         </Link>
       </nav>
 
       {/* ── HERO ── */}
       <section className="flex flex-col md:flex-row md:h-[700px]">
         {/* Coluna de texto */}
-        <div className="md:w-[580px] shrink-0 bg-bg-light flex flex-col justify-center gap-7 px-6 md:px-20 py-16 md:py-0">
+        <div className="md:w-[580px] shrink-0 bg-bg-light flex flex-col justify-center gap-5 md:gap-7 px-6 md:px-20 py-10 md:py-0">
           <span className="text-brand text-[11px] tracking-[4px] uppercase">Casamento</span>
 
-          <h1 className="font-serif text-[56px] md:text-[72px] leading-[1.05] text-text-dark font-normal">
+          <h1 className="font-serif text-[44px] md:text-[72px] leading-[1.05] text-text-dark font-normal">
             {couple.firstName}
             <br />
             <span>&amp; {couple.secondName}</span>
           </h1>
 
-          <p className="text-text-mid text-[15px] leading-[1.7]">
+          <p className="text-text-mid text-[14px] md:text-[15px] leading-[1.7]">
             Uma história de amor que começa aqui,
             <br className="hidden md:block" />
             para durar uma vida inteira.
@@ -128,14 +150,14 @@ export default function HomePage() {
 
           <Link
             href="/presentes"
-            className="self-start bg-brand text-white text-[11px] tracking-[2.5px] px-9 py-[15px] hover:bg-brand-hover transition"
+            className="self-start bg-brand text-white text-[11px] tracking-[2.5px] px-8 md:px-9 py-4 md:py-[15px] hover:bg-brand-hover transition"
           >
             VER LISTA DE PRESENTES
           </Link>
         </div>
 
         {/* Mosaico de fotos */}
-        <div className="flex-1 flex gap-[3px] min-h-[300px] md:min-h-0">
+        <div className="flex-1 flex gap-[3px] min-h-[280px] md:min-h-0">
           <div 
             onClick={() => openLightbox(0)}
             className="flex-1 relative bg-[#C9B8A0] overflow-hidden group cursor-pointer"
@@ -225,7 +247,7 @@ export default function HomePage() {
       {/* ── NOSSA HISTÓRIA ── */}
       <section id="historia" className="flex flex-col md:flex-row md:h-[620px]">
         {/* Mosaico de fotos */}
-        <div className="md:w-[640px] shrink-0 flex gap-1 min-h-[280px] md:min-h-0">
+        <div className="md:w-[640px] shrink-0 flex gap-1 min-h-[300px] md:min-h-0">
           <div 
             onClick={() => openLightbox(3)}
             className="flex-1 relative bg-[#E2D4C2] overflow-hidden group cursor-pointer"
@@ -276,10 +298,10 @@ export default function HomePage() {
         </div>
 
         {/* Texto */}
-        <div className="flex-1 flex flex-col justify-center gap-7 px-6 md:px-20 py-16 md:py-0">
+        <div className="flex-1 flex flex-col justify-center gap-5 md:gap-7 px-6 md:px-20 py-10 md:py-0">
           <span className="text-brand text-[10px] tracking-[4px] uppercase">Nossa História</span>
 
-          <h2 className="font-serif text-[36px] md:text-[40px] leading-[1.2] text-text-dark font-normal">
+          <h2 className="font-serif text-[30px] md:text-[40px] leading-[1.2] text-text-dark font-normal">
             Uma história<br />escrita no destino
           </h2>
 
@@ -292,20 +314,20 @@ export default function HomePage() {
       </section>
 
       {/* ── GALERIA DE FOTOS ── */}
-      <section className="bg-bg-light py-20 px-6 md:px-20 border-t border-elegant">
-        <div className="flex flex-col items-center text-center mb-12">
+      <section className="bg-bg-light py-12 md:py-20 px-4 md:px-20 border-t border-elegant">
+        <div className="flex flex-col items-center text-center mb-8 md:mb-12">
           <span className="text-brand text-[10px] tracking-[4px] uppercase mb-3">Galeria</span>
-          <h2 className="font-serif text-[36px] md:text-[44px] leading-tight text-text-dark font-normal">
+          <h2 className="font-serif text-[28px] md:text-[44px] leading-tight text-text-dark font-normal">
             Nossos Momentos
           </h2>
           <div className="w-[50px] h-px bg-brand mt-4" />
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 max-w-[1200px] mx-auto">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4 max-w-[1200px] mx-auto">
           {/* Foto 1 (Grande) */}
-          <div 
+          <div
             onClick={() => openLightbox(0)}
-            className="md:col-span-2 md:row-span-2 relative group overflow-hidden cursor-pointer bg-bg-warm rounded-sm h-[400px] md:h-[500px] shadow-sm transition-all duration-300 hover:shadow-md"
+            className="col-span-2 md:col-span-2 md:row-span-2 relative group overflow-hidden cursor-pointer bg-bg-warm rounded-sm h-[260px] sm:h-[340px] md:h-[500px] shadow-sm transition-all duration-300 hover:shadow-md"
           >
             <Image
               src="/images/hero-1.png"
@@ -320,9 +342,9 @@ export default function HomePage() {
           </div>
 
           {/* Foto 2 */}
-          <div 
+          <div
             onClick={() => openLightbox(1)}
-            className="relative group overflow-hidden cursor-pointer bg-bg-warm rounded-sm h-[242px] shadow-sm transition-all duration-300 hover:shadow-md"
+            className="relative group overflow-hidden cursor-pointer bg-bg-warm rounded-sm h-[160px] sm:h-[200px] md:h-[242px] shadow-sm transition-all duration-300 hover:shadow-md"
           >
             <Image
               src="/images/hero-2.png"
@@ -337,9 +359,9 @@ export default function HomePage() {
           </div>
 
           {/* Foto 3 */}
-          <div 
+          <div
             onClick={() => openLightbox(2)}
-            className="relative group overflow-hidden cursor-pointer bg-bg-warm rounded-sm h-[242px] shadow-sm transition-all duration-300 hover:shadow-md"
+            className="relative group overflow-hidden cursor-pointer bg-bg-warm rounded-sm h-[160px] sm:h-[200px] md:h-[242px] shadow-sm transition-all duration-300 hover:shadow-md"
           >
             <Image
               src="/images/hero-3.png"
@@ -354,9 +376,9 @@ export default function HomePage() {
           </div>
 
           {/* Foto 4 */}
-          <div 
+          <div
             onClick={() => openLightbox(3)}
-            className="relative group overflow-hidden cursor-pointer bg-bg-warm rounded-sm h-[242px] shadow-sm transition-all duration-300 hover:shadow-md"
+            className="relative group overflow-hidden cursor-pointer bg-bg-warm rounded-sm h-[160px] sm:h-[200px] md:h-[242px] shadow-sm transition-all duration-300 hover:shadow-md"
           >
             <Image
               src="/images/story-1.png"
@@ -371,9 +393,9 @@ export default function HomePage() {
           </div>
 
           {/* Foto 5 */}
-          <div 
+          <div
             onClick={() => openLightbox(4)}
-            className="relative group overflow-hidden cursor-pointer bg-bg-warm rounded-sm h-[242px] shadow-sm transition-all duration-300 hover:shadow-md"
+            className="relative group overflow-hidden cursor-pointer bg-bg-warm rounded-sm h-[160px] sm:h-[200px] md:h-[242px] shadow-sm transition-all duration-300 hover:shadow-md"
           >
             <Image
               src="/images/story-3.png"
@@ -388,9 +410,9 @@ export default function HomePage() {
           </div>
 
           {/* Foto 6 (Larga) */}
-          <div 
+          <div
             onClick={() => openLightbox(5)}
-            className="md:col-span-2 relative group overflow-hidden cursor-pointer bg-bg-warm rounded-sm h-[242px] shadow-sm transition-all duration-300 hover:shadow-md"
+            className="col-span-2 relative group overflow-hidden cursor-pointer bg-bg-warm rounded-sm h-[160px] sm:h-[200px] md:h-[242px] shadow-sm transition-all duration-300 hover:shadow-md"
           >
             <Image
               src="/images/story-2.png"
@@ -405,9 +427,9 @@ export default function HomePage() {
           </div>
 
           {/* Foto 7 */}
-          <div 
+          <div
             onClick={() => openLightbox(6)}
-            className="relative group overflow-hidden cursor-pointer bg-bg-warm rounded-sm h-[242px] shadow-sm transition-all duration-300 hover:shadow-md"
+            className="relative group overflow-hidden cursor-pointer bg-bg-warm rounded-sm h-[160px] sm:h-[200px] md:h-[242px] shadow-sm transition-all duration-300 hover:shadow-md"
           >
             <Image
               src="/images/casal.png"
@@ -422,7 +444,7 @@ export default function HomePage() {
           </div>
 
           {/* Card Editorial */}
-          <div className="bg-bg-warm border border-brand/20 p-6 flex flex-col justify-center items-center text-center rounded-sm h-[242px] shadow-sm">
+          <div className="bg-bg-warm border border-brand/20 p-4 md:p-6 flex flex-col justify-center items-center text-center rounded-sm h-[160px] sm:h-[200px] md:h-[242px] shadow-sm">
             <span className="font-serif text-[28px] tracking-[4px] text-brand mb-2">K & L</span>
             <p className="text-text-mid text-[12px] leading-relaxed italic max-w-[200px]">
               "O amor é a luz que ilumina o início de uma eternidade juntos."
@@ -433,10 +455,10 @@ export default function HomePage() {
       </section>
 
       {/* ── GIFT CTA ── */}
-      <section className="bg-bg-warm flex flex-col items-center justify-center gap-8 py-24 px-6">
+      <section className="bg-bg-warm flex flex-col items-center justify-center gap-6 md:gap-8 py-14 md:py-24 px-6">
         <span className="text-brand text-[10px] tracking-[4px] uppercase">Lista de Presentes</span>
 
-        <h2 className="font-serif text-[36px] md:text-[44px] leading-[1.2] text-text-dark text-center font-normal max-w-[600px]">
+        <h2 className="font-serif text-[28px] md:text-[44px] leading-[1.2] text-text-dark text-center font-normal max-w-[600px]">
           Presenteie o casal<br />com muito amor
         </h2>
 
@@ -446,14 +468,14 @@ export default function HomePage() {
 
         <Link
           href="/presentes"
-          className="bg-brand text-white text-[11px] tracking-[2.5px] px-12 py-4 hover:bg-brand-hover transition"
+          className="bg-brand text-white text-[11px] tracking-[2.5px] px-10 md:px-12 py-4 hover:bg-brand-hover transition"
         >
           VER TODOS OS PRESENTES
         </Link>
       </section>
 
       {/* ── FOOTER ── */}
-      <footer className="h-20 bg-bg-dark flex items-center justify-center">
+      <footer className="h-16 md:h-20 bg-bg-dark flex items-center justify-center">
         <span className="text-text-mid text-[12px] tracking-[2px]">
           {couple.initials} · {couple.dateFooter} · com muito amor
         </span>
@@ -461,34 +483,36 @@ export default function HomePage() {
 
       {/* ── LIGHTBOX MODAL ── */}
       {activeImageIndex !== null && (
-        <div 
+        <div
           onClick={closeLightbox}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
           className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 backdrop-blur-md transition-opacity duration-300 animate-fade-in"
         >
           {/* Botão Fechar */}
-          <button 
+          <button
             onClick={closeLightbox}
-            className="absolute top-6 right-6 z-[110] p-3 text-white/80 hover:text-white bg-black/25 hover:bg-black/55 rounded-full transition-all duration-300 hover:rotate-90 flex items-center justify-center cursor-pointer border border-white/10"
+            className="absolute top-4 right-4 md:top-6 md:right-6 z-[110] p-3 text-white/80 hover:text-white bg-black/25 hover:bg-black/55 rounded-full transition-all duration-300 hover:rotate-90 flex items-center justify-center cursor-pointer border border-white/10"
             aria-label="Fechar galeria"
           >
-            <X size={24} />
+            <X size={22} />
           </button>
 
-          {/* Botão Anterior */}
-          <button 
+          {/* Botões laterais — ocultos no mobile (usa swipe) */}
+          <button
             onClick={prevImage}
-            className="absolute left-4 md:left-8 z-[110] p-4 text-white/80 hover:text-white hover:scale-105 bg-black/25 hover:bg-black/55 rounded-full transition-all duration-300 flex items-center justify-center cursor-pointer border border-white/10"
+            className="hidden md:flex absolute left-8 z-[110] p-4 text-white/80 hover:text-white hover:scale-105 bg-black/25 hover:bg-black/55 rounded-full transition-all duration-300 items-center justify-center cursor-pointer border border-white/10"
             aria-label="Imagem anterior"
           >
             <ChevronLeft size={28} />
           </button>
 
           {/* Imagem */}
-          <div 
-            onClick={(e) => e.stopPropagation()} // Prevent closing when clicking the image itself
-            className="relative max-w-[90vw] max-h-[80vh] md:max-w-[80vw] md:max-h-[85vh] transition-transform duration-500 flex flex-col items-center"
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="relative flex flex-col items-center"
           >
-            <div className="relative w-[90vw] h-[70vh] md:w-[75vw] md:h-[80vh]">
+            <div className="relative w-[92vw] h-[72vh] md:w-[75vw] md:h-[80vh]">
               <Image
                 src={GALLERY_IMAGES[activeImageIndex].src}
                 alt={GALLERY_IMAGES[activeImageIndex].alt}
@@ -497,17 +521,22 @@ export default function HomePage() {
                 priority
               />
             </div>
-            
-            {/* Legenda/Contador */}
-            <span className="text-white/60 text-[12px] tracking-[3px] uppercase mt-4 select-none font-sans">
-              Foto {activeImageIndex + 1} de {GALLERY_IMAGES.length}
-            </span>
+
+            {/* Contador + dica de swipe no mobile */}
+            <div className="flex flex-col items-center gap-1 mt-4">
+              <span className="text-white/60 text-[12px] tracking-[3px] uppercase select-none font-sans">
+                Foto {activeImageIndex + 1} de {GALLERY_IMAGES.length}
+              </span>
+              <span className="md:hidden text-white/35 text-[11px] tracking-[1.5px] select-none font-sans">
+                ← deslize para navegar →
+              </span>
+            </div>
           </div>
 
-          {/* Botão Próximo */}
-          <button 
+          {/* Botão Próximo — oculto no mobile */}
+          <button
             onClick={nextImage}
-            className="absolute right-4 md:right-8 z-[110] p-4 text-white/80 hover:text-white hover:scale-105 bg-black/25 hover:bg-black/55 rounded-full transition-all duration-300 flex items-center justify-center cursor-pointer border border-white/10"
+            className="hidden md:flex absolute right-8 z-[110] p-4 text-white/80 hover:text-white hover:scale-105 bg-black/25 hover:bg-black/55 rounded-full transition-all duration-300 items-center justify-center cursor-pointer border border-white/10"
             aria-label="Próxima imagem"
           >
             <ChevronRight size={28} />
