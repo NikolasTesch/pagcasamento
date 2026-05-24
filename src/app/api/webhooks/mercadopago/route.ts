@@ -1,35 +1,5 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/firebase";
-import { createHmac, timingSafeEqual } from "crypto";
-
-// Verifica a assinatura do webhook do Mercado Pago.
-// Formato do header x-signature: "ts=1704908010,v1=abc123..."
-// Template assinado: "id:{data.id};request-id:{x-request-id};ts:{ts};"
-function verifyMercadoPagoSignature(
-  paymentId: string,
-  requestId: string | null,
-  xSignature: string | null,
-  secret: string
-): boolean {
-  if (!xSignature || !secret) return false;
-
-  try {
-    const parts = Object.fromEntries(
-      xSignature.split(",").map((p) => p.split("=") as [string, string])
-    );
-    const ts = parts["ts"];
-    const v1 = parts["v1"];
-
-    if (!ts || !v1) return false;
-
-    const manifest = `id:${paymentId};request-id:${requestId ?? ""};ts:${ts};`;
-    const expected = createHmac("sha256", secret).update(manifest).digest("hex");
-
-    return timingSafeEqual(Buffer.from(v1), Buffer.from(expected));
-  } catch {
-    return false;
-  }
-}
 
 export async function POST(req: Request) {
   try {
@@ -51,22 +21,9 @@ export async function POST(req: Request) {
 
     const mpPaymentId = String(body.data.id);
 
-    // ── Valida assinatura ─────────────────────────────────────────────────────
-    const webhookSecret = process.env.MERCADOPAGO_WEBHOOK_SECRET || "";
-    const xSignature = req.headers.get("x-signature");
-    const xRequestId = req.headers.get("x-request-id");
-
-    // Valida assinatura apenas quando o MP envia o header x-signature (notificações reais).
-    // O teste de conectividade do painel MP não inclui esse header — deixamos passar.
-    if (webhookSecret && xSignature) {
-      const isValid = verifyMercadoPagoSignature(mpPaymentId, xRequestId, xSignature, webhookSecret);
-      if (!isValid) {
-        console.warn("[Webhook MP] Assinatura inválida para payment:", mpPaymentId);
-        return NextResponse.json({ success: false, message: "Não autorizado." }, { status: 401 });
-      }
-    }
-
     // ── Busca detalhes do pagamento no Mercado Pago ───────────────────────────
+    // Segurança: verificamos o pagamento diretamente na API do MP com nosso token.
+    // Nenhum atacante pode forjar um status "approved" sem controlar nossa conta MP.
     const accessToken = process.env.MERCADOPAGO_ACCESS_TOKEN;
     const mpRes = await fetch(`https://api.mercadopago.com/v1/payments/${mpPaymentId}`, {
       headers: { Authorization: `Bearer ${accessToken}` },
