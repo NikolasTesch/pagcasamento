@@ -33,9 +33,9 @@ export async function GET(req: Request) {
 
     if (isDemoMode) {
       // Carrega informações diretamente dos parâmetros da URL no modo de demonstração
-      giftId = searchParams.get("giftId") || "gift-001";
-      giftName = searchParams.get("giftName") || "Presente Simbólico";
-      guestName = searchParams.get("guestName") || "Convidado de Teste";
+      giftId = escapeHtml(searchParams.get("giftId") || "gift-001");
+      giftName = escapeHtml(searchParams.get("giftName") || "Presente Simbólico");
+      guestName = escapeHtml(searchParams.get("guestName") || "Convidado de Teste");
       amount = Number(searchParams.get("amount") || 100);
     } else {
       // Busca o pedido pendente real no Firestore
@@ -277,18 +277,14 @@ export async function GET(req: Request) {
             }
 
             try {
-              const secret = '${process.env.WEBHOOK_SECRET_TOKEN || ""}';
-              const response = await fetch('/api/webhooks/infinitepay?secret=' + encodeURIComponent(secret), {
+              const response = await fetch('/api/checkout/simulate/confirm', {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                  order_nsu: '${order_nsu}',
-                  status: 'approved',
-                  amount: ${Math.round(amount * 100)},
-                  transaction_nsu: 'SIM-TX-' + Math.floor(Math.random() * 1000000),
-                  metadata: {}
+                  order_nsu: '${escapeHtml(order_nsu)}',
+                  amount: ${Math.round(amount * 100)}
                 })
               });
 
@@ -336,9 +332,47 @@ export async function GET(req: Request) {
       headers: { "Content-Type": "text/html; charset=utf-8" },
     });
   } catch (error: any) {
-    return new NextResponse(`<h1>Erro interno: ${error.message}</h1>`, {
+    return new NextResponse(`<h1>Erro interno</h1>`, {
       status: 500,
       headers: { "Content-Type": "text/html; charset=utf-8" },
     });
+  }
+}
+
+// POST /api/checkout/simulate/confirm
+// Recebe order_nsu do client-side e dispara a confirmação internamente (server-to-server),
+// mantendo o WEBHOOK_SECRET_TOKEN fora do HTML enviado ao browser.
+export async function POST(req: Request) {
+  try {
+    const { order_nsu, amount } = await req.json();
+
+    if (!order_nsu || typeof order_nsu !== "string") {
+      return NextResponse.json({ success: false, message: "order_nsu inválido." }, { status: 400 });
+    }
+
+    const secret = process.env.WEBHOOK_SECRET_TOKEN || "";
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+    const transaction_nsu = "SIM-TX-" + Math.floor(Math.random() * 1_000_000);
+
+    const response = await fetch(`${siteUrl}/api/webhooks/infinitepay?secret=${encodeURIComponent(secret)}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        order_nsu,
+        status: "approved",
+        amount: Number(amount) || 0,
+        transaction_nsu,
+        metadata: {},
+      }),
+    });
+
+    if (!response.ok) {
+      const text = await response.text();
+      return NextResponse.json({ success: false, message: text }, { status: response.status });
+    }
+
+    return NextResponse.json({ success: true });
+  } catch (error: any) {
+    return NextResponse.json({ success: false, message: "Erro interno." }, { status: 500 });
   }
 }

@@ -3,7 +3,16 @@ import { db } from "@/lib/firebase";
 import * as fs from "fs";
 import * as path from "path";
 
-export async function GET() {
+export async function GET(req: Request) {
+  // Exige token de admin para proteger a operação destrutiva de re-seed
+  const { searchParams } = new URL(req.url);
+  const adminToken = searchParams.get("admin_token") ?? req.headers.get("x-admin-token") ?? "";
+  const expectedToken = process.env.SEED_ADMIN_TOKEN ?? "";
+
+  if (!expectedToken || adminToken !== expectedToken) {
+    return NextResponse.json({ success: false, message: "Não autorizado." }, { status: 401 });
+  }
+
   try {
     // 1. Verifica se o Firebase foi configurado nas variáveis de ambiente
     if (!process.env.FIREBASE_PROJECT_ID || !process.env.FIREBASE_CLIENT_EMAIL) {
