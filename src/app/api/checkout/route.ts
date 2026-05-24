@@ -15,7 +15,10 @@ export async function POST(req: Request) {
       );
     }
 
-    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+    const requestUrl = new URL(req.url);
+    const siteUrl =
+      process.env.NEXT_PUBLIC_SITE_URL ||
+      (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : `${requestUrl.protocol}//${requestUrl.host}`);
 
     // Bypass do banco de dados no modo de demonstração completo (se Firebase não estiver configurado)
     if (!isFirebaseConfigured) {
