@@ -1,11 +1,5 @@
 import { NextResponse } from "next/server";
-import { db, isFirebaseConfigured } from "@/lib/firebase";
-import * as fs from "fs";
-import * as path from "path";
-
-// Código PIX simulado para modo demo/teste (formato EMV válido para gerar QR code)
-const DEMO_PIX_CODE =
-  "00020126580014br.gov.bcb.pix0136demo-pix-key-casamento@email.com5204000053039865802BR5925CASAMENTO DEMO PRESENTE6009SAO PAULO62070503***6304DEMO";
+import { db } from "@/lib/firebase";
 
 export async function POST(req: Request) {
   try {
@@ -18,34 +12,7 @@ export async function POST(req: Request) {
       );
     }
 
-    // ── MODO DEMO (sem Firebase) ──────────────────────────────────────────────
-    if (!isFirebaseConfigured) {
-      console.log("[Checkout API] Firebase não configurado. Ativando Modo Demo.");
-
-      let giftName = "Presente Simbólico de Casamento";
-      try {
-        const configPath = path.join(process.cwd(), "backup-vanilla", "config.json");
-        if (fs.existsSync(configPath)) {
-          const fileData = fs.readFileSync(configPath, "utf-8");
-          const config = JSON.parse(fileData);
-          const matchedGift = config.gifts?.find((g: any) => g.id === giftId);
-          if (matchedGift) giftName = matchedGift.name;
-        }
-      } catch (err) {
-        console.warn("Não foi possível ler o nome do presente do config.json:", err);
-      }
-
-      return NextResponse.json({
-        success: true,
-        simulated: true,
-        pixCode: DEMO_PIX_CODE,
-        giftName,
-        order_nsu: "demo-" + Date.now(),
-        message: "PIX simulado gerado em Modo de Demonstração.",
-      });
-    }
-
-    // ── BUSCA O PRESENTE NO FIRESTORE ────────────────────────────────────────
+    // ── Valida presente no Firestore ──────────────────────────────────────────
     const giftDocRef = db.collection("gifts").doc(giftId);
     const giftDoc = await giftDocRef.get();
 
@@ -65,7 +32,7 @@ export async function POST(req: Request) {
       );
     }
 
-    // ── REGISTRA INTENÇÃO DE PAGAMENTO ───────────────────────────────────────
+    // ── Registra intenção de pagamento ────────────────────────────────────────
     const pendingRef = db.collection("pending_contributions").doc();
     const order_nsu = pendingRef.id;
 
@@ -80,99 +47,72 @@ export async function POST(req: Request) {
       created_at: new Date(),
     });
 
-    const apiToken = process.env.INFINITEPAY_API_TOKEN;
-    const isConfigured = apiToken && apiToken !== "seu_token_api_aqui" && apiToken !== "seu_bearer_token_aqui";
+    // ── Cria cobrança PIX no Mercado Pago ─────────────────────────────────────
+    const accessToken = process.env.MERCADOPAGO_ACCESS_TOKEN;
 
-    // ── MODO TESTE (sem chaves da InfinitePay) ───────────────────────────────
-    if (!isConfigured) {
-      console.log(`[InfinitePay Simulator] Gerando PIX simulado para order_nsu: ${order_nsu}`);
-      return NextResponse.json({
-        success: true,
-        simulated: true,
-        pixCode: DEMO_PIX_CODE,
-        giftName: giftData?.name,
-        order_nsu,
-        message: "PIX simulado gerado (Modo de Teste sem chaves API).",
-      });
+    if (!accessToken) {
+      console.error("[Checkout] MERCADOPAGO_ACCESS_TOKEN não configurado.");
+      return NextResponse.json(
+        { success: false, message: "Configuração de pagamento ausente no servidor." },
+        { status: 500 }
+      );
     }
 
-    // ── INTEGRAÇÃO REAL — InfinitePay PIX Charges API ────────────────────────
-    const priceInCents = Math.round(Number(amount) * 100);
-    const requestUrl = new URL(req.url);
-    const siteUrl =
-      process.env.NEXT_PUBLIC_SITE_URL ||
-      (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : `${requestUrl.protocol}//${requestUrl.host}`);
-
-    const webhookSecret = process.env.WEBHOOK_SECRET_TOKEN || "";
-
-    const pixPayload = {
-      amount: priceInCents,
-      payment_method: "pix",
+    const mpPayload = {
+      transaction_amount: Number(amount),
       description: `Casamento: ${giftData?.name} (De: ${guestName})`,
-      external_id: order_nsu,
-      pix: {
-        expiration_in_minutes: 1440, // 24h
-      },
-      customer: {
-        name: guestName,
+      payment_method_id: "pix",
+      external_reference: order_nsu,
+      payer: {
         email: "convidado@casamento.com.br",
+        first_name: guestName.split(" ")[0] || "Convidado",
+        last_name: guestName.split(" ").slice(1).join(" ") || "Casamento",
       },
-      notification_url: `${siteUrl}/api/webhooks/infinitepay?secret=${encodeURIComponent(webhookSecret)}`,
     };
 
-    try {
-      const response = await fetch("https://api.infinitepay.io/v2/charges", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${apiToken}`,
-        },
-        body: JSON.stringify(pixPayload),
-      });
+    const mpResponse = await fetch("https://api.mercadopago.com/v1/payments", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+        "X-Idempotency-Key": order_nsu,
+      },
+      body: JSON.stringify(mpPayload),
+    });
 
-      if (!response.ok) {
-        const errorText = await response.text();
-        console.error("Erro na API PIX da InfinitePay:", errorText);
-        throw new Error(`API retornou status ${response.status}`);
-      }
-
-      const data = await response.json();
-
-      // InfinitePay retorna o código EMV PIX em data.pix.qr_code
-      const pixCode =
-        data?.pix?.qr_code ||
-        data?.pix_qr_code ||
-        data?.payment?.pix?.qr_code;
-
-      if (!pixCode) {
-        console.error("InfinitePay não retornou pix.qr_code:", JSON.stringify(data));
-        throw new Error("QR code PIX não retornado pela API.");
-      }
-
-      // Atualiza o pending_contribution com o ID da cobrança
-      await pendingRef.update({ charge_id: data.id || data.charge_id || "" });
-
-      return NextResponse.json({
-        success: true,
-        simulated: false,
-        pixCode,
-        giftName: giftData?.name,
-        order_nsu,
-        message: "PIX gerado com sucesso via InfinitePay!",
-      });
-    } catch (apiError: any) {
-      console.error("Falha na API InfinitePay PIX, alternando para simulação:", apiError.message);
-      return NextResponse.json({
-        success: true,
-        simulated: true,
-        pixCode: DEMO_PIX_CODE,
-        giftName: giftData?.name,
-        order_nsu,
-        message: "Erro na API InfinitePay, PIX simulado de segurança gerado.",
-      });
+    if (!mpResponse.ok) {
+      const errorText = await mpResponse.text();
+      console.error("[Checkout] Erro na API do Mercado Pago:", errorText);
+      return NextResponse.json(
+        { success: false, message: "Não foi possível gerar o PIX. Tente novamente." },
+        { status: 502 }
+      );
     }
+
+    const mpData = await mpResponse.json();
+
+    const pixCode = mpData?.point_of_interaction?.transaction_data?.qr_code;
+    const mpPaymentId = mpData?.id;
+
+    if (!pixCode) {
+      console.error("[Checkout] Mercado Pago não retornou qr_code:", JSON.stringify(mpData));
+      return NextResponse.json(
+        { success: false, message: "PIX não retornado pelo Mercado Pago." },
+        { status: 502 }
+      );
+    }
+
+    // Salva o ID do pagamento MP no pending para o webhook encontrar depois
+    await pendingRef.update({ mp_payment_id: String(mpPaymentId) });
+
+    return NextResponse.json({
+      success: true,
+      pixCode,
+      order_nsu,
+      message: "PIX gerado com sucesso!",
+    });
   } catch (error: any) {
-    console.error("Erro ao processar checkout:", error);
+    console.error("[Checkout] Erro interno:", error);
     return NextResponse.json(
       { success: false, message: "Erro interno no servidor ao criar PIX." },
       { status: 500 }

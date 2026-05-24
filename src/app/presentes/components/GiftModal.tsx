@@ -32,7 +32,6 @@ export default function GiftModal({ gift, isOpen, onClose, onSuccess }: GiftModa
 
   const [loading, setLoading] = useState(false);
   const [pixCode, setPixCode] = useState("");
-  const [isSimulated, setIsSimulated] = useState(false);
   const [copied, setCopied] = useState(false);
   const [error, setError] = useState("");
   const [step, setStep] = useState<"form" | "payment">("form");
@@ -107,7 +106,6 @@ export default function GiftModal({ gift, isOpen, onClose, onSuccess }: GiftModa
       if (!response.ok) throw new Error(resData.message || "Erro ao processar presente.");
 
       setPixCode(resData.pixCode);
-      setIsSimulated(!!resData.simulated);
       setStep("payment");
     } catch (err: any) {
       setError(err.message || "Não foi possível gerar o Pix.");
@@ -285,12 +283,6 @@ export default function GiftModal({ gift, isOpen, onClose, onSuccess }: GiftModa
 
               {/* QR Code */}
               <div className="px-6 py-6 border-b border-elegant flex flex-col items-center gap-4">
-                {isSimulated && (
-                  <p className="text-[10px] tracking-wider text-text-mid uppercase bg-amber-50 border border-amber-200 px-3 py-1.5 text-center">
-                    Modo Demo — QR Code ilustrativo
-                  </p>
-                )}
-
                 <div className="p-3 border border-elegant">
                   <QRCodeSVG
                     value={pixCode}
