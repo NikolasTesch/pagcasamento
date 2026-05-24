@@ -32,6 +32,24 @@ export async function POST(req: Request) {
       );
     }
 
+    // Valida o amount contra o valor oficial do presente no servidor
+    if (!giftData?.is_crowdfunding) {
+      if (Number(amount) !== Number(giftData?.value)) {
+        return NextResponse.json(
+          { success: false, message: "Valor incorreto para este presente." },
+          { status: 400 }
+        );
+      }
+    } else {
+      const remaining = Number(giftData?.value || 0) - Number(giftData?.amount_collected || 0);
+      if (Number(amount) < 1 || Number(amount) > remaining) {
+        return NextResponse.json(
+          { success: false, message: "Valor fora do intervalo permitido para contribuição." },
+          { status: 400 }
+        );
+      }
+    }
+
     // ── Registra intenção de pagamento ────────────────────────────────────────
     const pendingRef = db.collection("pending_contributions").doc();
     const order_nsu = pendingRef.id;
@@ -70,21 +88,30 @@ export async function POST(req: Request) {
       },
     };
 
-    const mpResponse = await fetch("https://api.mercadopago.com/v1/payments", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${accessToken}`,
-        "X-Idempotency-Key": order_nsu,
-      },
-      body: JSON.stringify(mpPayload),
-    });
+    let mpResponse: Response;
+    try {
+      mpResponse = await fetch("https://api.mercadopago.com/v1/payments", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+          "X-Idempotency-Key": order_nsu,
+        },
+        body: JSON.stringify(mpPayload),
+      });
+    } catch (e: any) {
+      console.error("[Checkout] Erro de rede ao chamar Mercado Pago:", e.message);
+      return NextResponse.json(
+        { success: false, message: "Não foi possível conectar ao Mercado Pago." },
+        { status: 502 }
+      );
+    }
 
     if (!mpResponse.ok) {
       const errorText = await mpResponse.text();
-      console.error("[Checkout] Erro na API do Mercado Pago:", errorText);
+      console.error(`[Checkout] Mercado Pago retornou ${mpResponse.status}:`, errorText);
       return NextResponse.json(
-        { success: false, message: "Não foi possível gerar o PIX. Tente novamente." },
+        { success: false, message: `Erro Mercado Pago (${mpResponse.status}): ${errorText}` },
         { status: 502 }
       );
     }
@@ -112,9 +139,9 @@ export async function POST(req: Request) {
       message: "PIX gerado com sucesso!",
     });
   } catch (error: any) {
-    console.error("[Checkout] Erro interno:", error);
+    console.error("[Checkout] Erro interno inesperado:", error.message, error.stack);
     return NextResponse.json(
-      { success: false, message: "Erro interno no servidor ao criar PIX." },
+      { success: false, message: `Erro interno: ${error.message}` },
       { status: 500 }
     );
   }
