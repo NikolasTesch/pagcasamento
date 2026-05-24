@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { X, CreditCard, Send } from "lucide-react";
+import { X, Copy, Check, Send } from "lucide-react";
+import { QRCodeSVG } from "qrcode.react";
 
 interface Gift {
   id: string;
@@ -30,12 +31,12 @@ export default function GiftModal({ gift, isOpen, onClose, onSuccess }: GiftModa
   const [customAmount, setCustomAmount] = useState("");
 
   const [loading, setLoading] = useState(false);
-  const [paymentUrl, setPaymentUrl] = useState("");
+  const [pixCode, setPixCode] = useState("");
   const [isSimulated, setIsSimulated] = useState(false);
+  const [copied, setCopied] = useState(false);
   const [error, setError] = useState("");
   const [step, setStep] = useState<"form" | "payment">("form");
 
-  // Reset/inicializa o valor do presente quando ele for aberto ou alterado
   useEffect(() => {
     if (gift) {
       setAmount(gift.is_crowdfunding ? 0 : gift.value);
@@ -56,6 +57,24 @@ export default function GiftModal({ gift, isOpen, onClose, onSuccess }: GiftModa
     setCustomAmount(val);
     const num = parseFloat(val);
     setAmount(!isNaN(num) && num > 0 ? num : 0);
+  };
+
+  const handleCopyPix = async () => {
+    try {
+      await navigator.clipboard.writeText(pixCode);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 3000);
+    } catch {
+      // fallback para navegadores sem clipboard API
+      const el = document.createElement("textarea");
+      el.value = pixCode;
+      document.body.appendChild(el);
+      el.select();
+      document.execCommand("copy");
+      document.body.removeChild(el);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 3000);
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -87,7 +106,7 @@ export default function GiftModal({ gift, isOpen, onClose, onSuccess }: GiftModa
       const resData = await response.json();
       if (!response.ok) throw new Error(resData.message || "Erro ao processar presente.");
 
-      setPaymentUrl(resData.paymentUrl);
+      setPixCode(resData.pixCode);
       setIsSimulated(!!resData.simulated);
       setStep("payment");
     } catch (err: any) {
@@ -112,7 +131,7 @@ export default function GiftModal({ gift, isOpen, onClose, onSuccess }: GiftModa
         }),
       });
     } catch (_) {
-      // Falha silenciosa — mensagem é um extra
+      // Falha silenciosa
     }
     setMessageSent(true);
   };
@@ -124,7 +143,8 @@ export default function GiftModal({ gift, isOpen, onClose, onSuccess }: GiftModa
     setMessageSent(false);
     setAmount(0);
     setCustomAmount("");
-    setPaymentUrl("");
+    setPixCode("");
+    setCopied(false);
     setError("");
     onClose();
   };
@@ -163,7 +183,6 @@ export default function GiftModal({ gift, isOpen, onClose, onSuccess }: GiftModa
           {step === "form" ? (
             /* ════════ STEP 1 — FORM ════════ */
             <form onSubmit={handleSubmit} className="flex flex-col">
-              {/* Confirmação */}
               <div className="px-6 pt-6 pb-4 border-b border-elegant">
                 <span className="text-brand text-[9px] tracking-[3px] uppercase block mb-3">
                   Confirmar Presente
@@ -177,7 +196,6 @@ export default function GiftModal({ gift, isOpen, onClose, onSuccess }: GiftModa
                 </p>
               </div>
 
-              {/* Valor customizado (vaquinha) */}
               {isVaquinha && (
                 <div className="px-6 py-4 border-b border-elegant space-y-3">
                   <span className="text-brand text-[9px] tracking-[3px] uppercase block">
@@ -210,7 +228,6 @@ export default function GiftModal({ gift, isOpen, onClose, onSuccess }: GiftModa
                 </div>
               )}
 
-              {/* Nome */}
               <div className="px-6 py-4 border-b border-elegant">
                 <span className="text-brand text-[9px] tracking-[3px] uppercase block mb-2">
                   Seu Nome *
@@ -225,11 +242,8 @@ export default function GiftModal({ gift, isOpen, onClose, onSuccess }: GiftModa
                 />
               </div>
 
-              {error && (
-                <p className="px-6 pt-3 text-xs text-red-500">{error}</p>
-              )}
+              {error && <p className="px-6 pt-3 text-xs text-red-500">{error}</p>}
 
-              {/* Botão */}
               <div className="px-6 py-5 space-y-3">
                 <button
                   type="submit"
@@ -249,43 +263,82 @@ export default function GiftModal({ gift, isOpen, onClose, onSuccess }: GiftModa
             </form>
 
           ) : (
-            /* ════════ STEP 2 — PAYMENT ════════ */
+            /* ════════ STEP 2 — PIX INLINE ════════ */
             <div className="flex flex-col">
-              {/* Resumo do pagamento */}
+              {/* Resumo */}
               <div className="px-6 pt-6 pb-4 border-b border-elegant">
-                <span className="text-brand text-[9px] tracking-[3px] uppercase block mb-3">
-                  Resumo
-                </span>
-                <div className="space-y-2">
-                  <div className="flex justify-between text-[13px]">
-                    <span className="text-text-mid">Presente:</span>
-                    <span className="text-text-dark font-medium">{gift.name}</span>
-                  </div>
-                  <div className="flex justify-between text-[13px]">
-                    <span className="text-text-mid">De:</span>
-                    <span className="text-text-dark font-medium">{guestName}</span>
-                  </div>
-                  <div className="flex justify-between items-center text-[15px] pt-2 border-t border-elegant mt-2">
-                    <span className="text-text-mid">Valor:</span>
-                    <span className="font-serif text-[22px] text-brand">{`R$ ${amount.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}`}</span>
-                  </div>
+                <div className="flex justify-between text-[13px] mb-1">
+                  <span className="text-text-mid">Presente:</span>
+                  <span className="text-text-dark font-medium">{gift.name}</span>
+                </div>
+                <div className="flex justify-between text-[13px]">
+                  <span className="text-text-mid">De:</span>
+                  <span className="text-text-dark font-medium">{guestName}</span>
+                </div>
+                <div className="flex justify-between items-center text-[15px] pt-2 border-t border-elegant mt-2">
+                  <span className="text-text-mid">Valor:</span>
+                  <span className="font-serif text-[22px] text-brand">
+                    R$ {amount.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}
+                  </span>
                 </div>
               </div>
 
-              {/* Botão de pagamento */}
-              <div className="px-6 py-5 border-b border-elegant space-y-3">
-                <a
-                  href={paymentUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full h-12 bg-text-dark text-white text-[13px] tracking-wider hover:bg-brand transition flex items-center justify-center gap-2"
-                >
-                  <CreditCard className="w-4 h-4" />
-                  Ir para Pagamento Pix
-                </a>
+              {/* QR Code */}
+              <div className="px-6 py-6 border-b border-elegant flex flex-col items-center gap-4">
+                {isSimulated && (
+                  <p className="text-[10px] tracking-wider text-text-mid uppercase bg-amber-50 border border-amber-200 px-3 py-1.5 text-center">
+                    Modo Demo — QR Code ilustrativo
+                  </p>
+                )}
+
+                <div className="p-3 border border-elegant">
+                  <QRCodeSVG
+                    value={pixCode}
+                    size={180}
+                    level="M"
+                    includeMargin={false}
+                  />
+                </div>
+
+                <p className="text-[12px] text-text-mid text-center leading-relaxed">
+                  Abra o app do seu banco, escolha{" "}
+                  <strong>Pagar com Pix → QR Code</strong> e aponte a câmera.
+                </p>
               </div>
 
-              {/* Mensagem ao casal — inline na tela de pagamento */}
+              {/* Copia e Cola */}
+              <div className="px-6 py-5 border-b border-elegant">
+                <span className="text-brand text-[9px] tracking-[3px] uppercase block mb-3">
+                  Ou use Pix Copia e Cola
+                </span>
+                <div className="flex items-center gap-2">
+                  <p className="flex-1 text-[10px] text-text-mid font-mono bg-bg-warm px-3 py-2 truncate select-all">
+                    {pixCode}
+                  </p>
+                  <button
+                    type="button"
+                    onClick={handleCopyPix}
+                    className="flex-shrink-0 h-9 px-4 border border-elegant text-text-mid text-[11px] tracking-wider hover:border-brand hover:text-brand transition flex items-center gap-1.5 cursor-pointer"
+                  >
+                    {copied ? (
+                      <>
+                        <Check className="w-3.5 h-3.5 text-green-600" />
+                        <span className="text-green-600">Copiado!</span>
+                      </>
+                    ) : (
+                      <>
+                        <Copy className="w-3.5 h-3.5" />
+                        Copiar
+                      </>
+                    )}
+                  </button>
+                </div>
+                <p className="text-[11px] text-text-mid mt-2">
+                  Cole no campo PIX do seu banco e confirme o pagamento.
+                </p>
+              </div>
+
+              {/* Mensagem ao casal */}
               <div className="px-6 py-5 border-b border-elegant">
                 <span className="text-brand text-[9px] tracking-[3px] uppercase block mb-3">
                   Deixar uma mensagem ao casal

@@ -94,45 +94,18 @@ async function runSeed() {
       ];
     }
 
-    // 3. ADICIONAR ITENS CROWDFUNDING
-    const crowdfundingGifts = [
-      {
-        id: "gift-006",
-        name: "Cotas para Viagem de Lua de Mel",
-        description: "Contribua com qualquer valor para nos ajudar a curtir a nossa inesquecível viagem de Lua de Mel em Porto de Galinhas!",
-        value: 3000.00,
-        category: "Lua de Mel",
-        is_crowdfunding: true,
-      },
-      {
-        id: "gift-007",
-        name: "Geladeira Frost Free Inverse",
-        description: "Geladeira duplex moderna com freezer invertido para a nossa nova cozinha",
-        value: 4200.00,
-        category: "Eletrodomésticos",
-        is_crowdfunding: true,
-      }
-    ];
-
-    const allGiftsToSeed = [
-      ...initialGifts.map((g) => ({
-        id: g.id,
-        name: g.name,
-        description: g.description,
-        value: Number(g.value),
-        imageUrl: g.imageUrl || `/images/gifts/${g.id}.png`,
-        category: g.category,
-        is_crowdfunding: g.is_crowdfunding !== undefined ? !!g.is_crowdfunding : false,
-        amount_collected: Number(g.amount_collected || 0),
-        is_purchased: !g.available,
-      })),
-      ...crowdfundingGifts.map((g) => ({
-        ...g,
-        imageUrl: `/images/gifts/${g.id}.png`,
-        amount_collected: 0,
-        is_purchased: false,
-      }))
-    ];
+    // 3. MAPEIA A LISTA OFICIAL DE PRESENTES A PARTIR DO CONFIG.JSON DE BACKUP
+    const allGiftsToSeed = initialGifts.map((g) => ({
+      id: g.id,
+      name: g.name,
+      description: g.description,
+      value: Number(g.value),
+      imageUrl: g.imageUrl || `/images/gifts/${g.id}.png`,
+      category: g.category,
+      is_crowdfunding: g.is_crowdfunding !== undefined ? !!g.is_crowdfunding : false,
+      amount_collected: Number(g.amount_collected || 0),
+      is_purchased: !g.available,
+    }));
 
     // 4. GRAVAR NOVOS DADOS
     console.log(`3. Gravando ${allGiftsToSeed.length} presentes semeados...`);
