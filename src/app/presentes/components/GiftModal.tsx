@@ -303,8 +303,8 @@ export default function GiftModal({ gift, isOpen, onClose, onSuccess }: GiftModa
                 <span className="text-brand text-[9px] tracking-[3px] uppercase block mb-3">
                   Ou use Pix Copia e Cola
                 </span>
-                <div className="flex items-center gap-2">
-                  <p className="flex-1 text-[10px] text-text-mid font-mono bg-bg-warm px-3 py-2 truncate select-all">
+                <div className="flex items-start gap-2">
+                  <p className="flex-1 text-[10px] text-text-mid font-mono bg-bg-warm px-3 py-2 break-all select-all max-h-20 overflow-y-auto">
                     {pixCode}
                   </p>
                   <button
