@@ -30,8 +30,10 @@ export async function POST(req: Request) {
     });
 
     if (!mpRes.ok) {
-      console.error("[Webhook MP] Erro ao buscar pagamento:", mpPaymentId);
-      return NextResponse.json({ success: false, message: "Erro ao consultar pagamento." }, { status: 502 });
+      // Pagamento não encontrado na API do MP (ex: ID fictício do teste de conectividade).
+      // Retorna 200 para o MP não considerar o endpoint com falha.
+      console.warn("[Webhook MP] Pagamento não encontrado na API MP:", mpPaymentId, "status:", mpRes.status);
+      return NextResponse.json({ success: true, message: "Pagamento não encontrado." }, { status: 200 });
     }
 
     const payment = await mpRes.json();
