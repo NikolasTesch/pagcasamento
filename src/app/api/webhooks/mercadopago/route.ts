@@ -87,7 +87,9 @@ export async function POST(req: Request) {
     const currentCollected = Number(giftData?.amount_collected || 0);
     const newCollected = currentCollected + Number(pendingData?.amount);
     const isCrowdfunding = !!giftData?.is_crowdfunding;
-    const isFullyPaid = isCrowdfunding ? newCollected >= Number(giftData?.value || 0) : true;
+    const isFullyPaid = isCrowdfunding
+      ? newCollected >= Number(giftData?.value || 0)
+      : Number(pendingData?.amount) >= Number(giftData?.value || 0);
 
     batch.update(giftDocRef, {
       amount_collected: newCollected,
