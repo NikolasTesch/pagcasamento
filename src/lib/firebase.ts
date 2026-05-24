@@ -19,8 +19,25 @@ try {
 
   if (hasCredentials) {
     if (!admin.apps.length) {
+      // Limpa aspas extras que podem ter sido adicionadas por erros de digitação/cópia
+      let cleanKey = privateKey!.trim();
+      while (
+        (cleanKey.startsWith('"') && cleanKey.endsWith('"')) ||
+        (cleanKey.startsWith("'") && cleanKey.endsWith("'"))
+      ) {
+        cleanKey = cleanKey.slice(1, -1).trim();
+      }
+      
+      // Garante remoção de aspas duplas adicionais no início ou no fim devido a typos
+      if (cleanKey.startsWith('"')) {
+        cleanKey = cleanKey.replace(/^"+/, "");
+      }
+      if (cleanKey.endsWith('"')) {
+        cleanKey = cleanKey.replace(/"+$/, "");
+      }
+
       // Corrige quebras de linha formatadas na string do .env
-      const formattedKey = privateKey!.replace(/\\n/g, "\n");
+      const formattedKey = cleanKey.replace(/\\n/g, "\n");
 
       admin.initializeApp({
         credential: admin.credential.cert({
