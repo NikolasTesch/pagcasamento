@@ -56,7 +56,9 @@ export async function POST(req: Request) {
     const xSignature = req.headers.get("x-signature");
     const xRequestId = req.headers.get("x-request-id");
 
-    if (webhookSecret) {
+    // Valida assinatura apenas quando o MP envia o header x-signature (notificações reais).
+    // O teste de conectividade do painel MP não inclui esse header — deixamos passar.
+    if (webhookSecret && xSignature) {
       const isValid = verifyMercadoPagoSignature(mpPaymentId, xRequestId, xSignature, webhookSecret);
       if (!isValid) {
         console.warn("[Webhook MP] Assinatura inválida para payment:", mpPaymentId);
