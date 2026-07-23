@@ -7,6 +7,7 @@ import Image from "next/image";
 import { CheckCircle2, Heart, Users } from "lucide-react";
 import GiftModal from "./components/GiftModal";
 import Navbar from "@/components/Navbar";
+import FloralDecoration from "@/components/FloralDecoration";
 import Footer from "@/components/Footer";
 
 interface Gift {
@@ -74,7 +75,10 @@ export default function GiftsPageClient({ initialGifts }: GiftsPageClientProps) 
   };
 
   return (
-    <div className="flex-grow flex flex-col bg-bg-light font-sans min-h-screen">
+    <div className="relative flex-grow flex flex-col bg-bg-light font-sans min-h-screen">
+
+      {/* ── FLORAL DECORATION ── */}
+      <FloralDecoration position="both" size="sm" />
 
       {/* ── NAVBAR ── */}
       <Navbar
@@ -87,7 +91,7 @@ export default function GiftsPageClient({ initialGifts }: GiftsPageClientProps) 
         rightSlot={
           <Link
             href="/"
-            className="text-brand text-[11px] md:text-[12px] tracking-[1px] hover:text-brand-hover transition whitespace-nowrap"
+            className="text-text-mid text-[11px] md:text-[12px] tracking-[1px] hover:text-brand-hover transition whitespace-nowrap"
           >
             <span className="md:hidden">← Início</span>
             <span className="hidden md:inline">← Voltar ao início</span>
@@ -99,7 +103,7 @@ export default function GiftsPageClient({ initialGifts }: GiftsPageClientProps) 
       {showSuccessToast && (
         <div className="bg-bg-warm border-b border-elegant px-6 py-4 text-center relative animate-fade-in z-20">
           <div className="max-w-2xl mx-auto flex items-center justify-center gap-3">
-            <CheckCircle2 className="w-5 h-5 text-brand shrink-0" />
+            <CheckCircle2 className="w-5 h-5 text-brand-light shrink-0" />
             <p className="text-[13px] text-text-dark">
               Muito obrigado pelo carinho! O presente{" "}
               <span className="font-semibold">"{successGiftName}"</span> foi registrado.
@@ -116,7 +120,7 @@ export default function GiftsPageClient({ initialGifts }: GiftsPageClientProps) 
 
       {/* ── CABEÇALHO DA PÁGINA ── */}
       <header className="bg-bg-warm flex flex-col items-center justify-center gap-3 md:gap-4 py-10 md:py-16 px-6">
-        <span className="text-brand text-[10px] tracking-[4px] uppercase">Presentes</span>
+        <span className="text-text-mid text-[10px] tracking-[4px] uppercase">Presentes</span>
         <h1 className="font-serif text-[30px] md:text-[52px] text-text-dark font-normal text-center">
           Lista de Presentes
         </h1>
@@ -308,7 +312,7 @@ export default function GiftsPageClient({ initialGifts }: GiftsPageClientProps) 
                   <div className="px-5 pb-2 space-y-1.5">
                     <div className="flex justify-between text-[13px]">
                       <span className="text-text-mid">Arrecadado: R$ {collected.toLocaleString("pt-BR", { minimumFractionDigits: 0 })}</span>
-                      <span className="text-brand font-bold">{pct}%</span>
+                      <span className="text-text-mid font-bold">{pct}%</span>
                     </div>
                     <div className="w-full h-2 bg-bg-warm overflow-hidden">
                       <div className="h-full bg-brand transition-all duration-1000" style={{ width: `${pct}%` }} />
@@ -324,7 +328,7 @@ export default function GiftsPageClient({ initialGifts }: GiftsPageClientProps) 
                   </span>
 
                   {isFullyPaid && !isVaquinha ? (
-                    <span className="text-brand text-[12px]">Presenteado 💛</span>
+                    <span className="text-text-mid text-[12px]">Presenteado 💛</span>
                   ) : (
                     <button
                       onClick={() => handleOpenModal(gift)}

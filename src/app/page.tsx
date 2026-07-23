@@ -3,16 +3,19 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { X } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import CountdownTimer from "@/components/CountdownTimer";
 import ScrollReveal from "@/components/ScrollReveal";
 import MapSection from "@/components/MapSection";
 import Footer from "@/components/Footer";
 import GalleryLightbox from "@/components/GalleryLightbox";
+import FloralDecoration from "@/components/FloralDecoration";
 import { couple, GALLERY_IMAGES } from "@/data/couple";
 
 export default function HomePage() {
   const [activeImageIndex, setActiveImageIndex] = useState<number | null>(null);
+  const [isInvitationOpen, setIsInvitationOpen] = useState(false);
 
   // Lightbox Handlers
   const openLightbox = (index: number) => {
@@ -44,7 +47,10 @@ export default function HomePage() {
   };
 
   return (
-    <div className="flex-grow flex flex-col bg-bg-light font-sans">
+    <div className="relative flex-grow flex flex-col bg-bg-light font-sans">
+      {/* ── FLORAL DECORATION ── */}
+      <FloralDecoration position="both" />
+
       {/* ── NAVBAR ── */}
       <Navbar
         items={[
@@ -68,9 +74,9 @@ export default function HomePage() {
       <section className="flex flex-col md:flex-row md:h-[700px]">
         {/* Coluna de texto */}
         <ScrollReveal delay={100} className="md:w-[580px] shrink-0 bg-bg-light flex flex-col justify-center gap-5 md:gap-7 px-6 md:px-20 py-10 md:py-0">
-          <span className="text-brand text-[11px] tracking-[4px] uppercase">Casamento</span>
+          <span className="text-text-mid text-[11px] tracking-[4px] uppercase">Casamento</span>
 
-          <h1 className="font-serif text-[44px] md:text-[72px] leading-[1.05] text-text-dark font-normal">
+          <h1 className="font-script text-[44px] md:text-[72px] leading-[1.05] text-brand drop-shadow-sm">
             {couple.firstName}
             <br />
             <span>&amp; {couple.secondName}</span>
@@ -84,7 +90,7 @@ export default function HomePage() {
 
           <div className="flex items-center gap-4">
             <div className="w-10 h-px bg-brand" />
-            <span className="text-brand text-[12px] tracking-[3px]">{couple.dateShort}</span>
+            <span className="text-text-mid text-[12px] tracking-[3px]">{couple.dateShort}</span>
             <div className="w-10 h-px bg-brand" />
           </div>
 
@@ -158,7 +164,7 @@ export default function HomePage() {
       <ScrollReveal delay={200}>
       <section className="bg-bg-dark py-10 md:h-[180px] flex flex-col md:flex-row items-center divide-y md:divide-y-0 divide-bg-dark-muted">
         <div className="flex-1 w-full flex flex-col items-center justify-center gap-3 py-8 md:py-0">
-          <span className="text-brand text-[10px] tracking-[3px] uppercase">Data</span>
+          <span className="text-brand-light text-[10px] tracking-[3px] uppercase">Data</span>
           <div className="w-[30px] h-px bg-brand" />
           <span className="text-white text-[15px] tracking-[0.5px]">{couple.date}</span>
         </div>
@@ -166,7 +172,7 @@ export default function HomePage() {
         <div className="hidden md:block w-px h-20 bg-bg-dark-muted" />
 
         <div className="flex-1 w-full flex flex-col items-center justify-center gap-3 py-8 md:py-0">
-          <span className="text-brand text-[10px] tracking-[3px] uppercase">Local</span>
+          <span className="text-brand-light text-[10px] tracking-[3px] uppercase">Local</span>
           <div className="w-[30px] h-px bg-brand" />
           <span className="text-white text-[15px] tracking-[0.5px]">
             {couple.venueName} · {couple.venueCity}
@@ -175,7 +181,7 @@ export default function HomePage() {
             href={couple.mapsUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-brand text-[11px] tracking-[1px] hover:text-white transition"
+            className="text-brand-light text-[11px] tracking-[1px] hover:text-white transition"
           >
             Ver no Maps →
           </a>
@@ -184,7 +190,7 @@ export default function HomePage() {
         <div className="hidden md:block w-px h-20 bg-bg-dark-muted" />
 
         <div className="flex-1 w-full flex flex-col items-center justify-center gap-3 py-8 md:py-0">
-          <span className="text-brand text-[10px] tracking-[3px] uppercase">Horário</span>
+          <span className="text-brand-light text-[10px] tracking-[3px] uppercase">Horário</span>
           <div className="w-[30px] h-px bg-brand" />
           <span className="text-white text-[15px] tracking-[0.5px]">{couple.time}</span>
         </div>
@@ -252,7 +258,7 @@ export default function HomePage() {
 
         {/* Texto */}
         <div className="flex-1 flex flex-col justify-center gap-5 md:gap-7 px-6 md:px-20 py-10 md:py-0">
-          <span className="text-brand text-[10px] tracking-[4px] uppercase">Nossa História</span>
+          <span className="text-text-mid text-[10px] tracking-[4px] uppercase">Nossa História</span>
 
           <h2 className="font-serif text-[30px] md:text-[40px] leading-[1.2] text-text-dark font-normal">
             Uma história<br />escrita no destino
@@ -267,11 +273,45 @@ export default function HomePage() {
       </section>
       </ScrollReveal>
 
+      {/* ── O CONVITE ── */}
+      <ScrollReveal delay={350}>
+      <section className="bg-bg-warm/50 py-14 md:py-20 px-4 md:px-20 border-t border-elegant">
+        <div className="flex flex-col items-center text-center mb-8 md:mb-10">
+          <span className="text-text-mid text-[10px] tracking-[4px] uppercase mb-3">O Convite</span>
+          <h2 className="font-serif text-[28px] md:text-[44px] leading-tight text-text-dark font-normal">
+            Nosso Convite
+          </h2>
+          <div className="w-[50px] h-px bg-brand mt-4" />
+        </div>
+
+        <div
+          onClick={() => {
+            setIsInvitationOpen(true);
+            document.body.style.overflow = "hidden";
+          }}
+          className="max-w-[400px] mx-auto relative group cursor-pointer transition-transform duration-300 hover:scale-[1.02]"
+        >
+          <div className="relative w-full aspect-[3/4] shadow-lg border border-elegant bg-white overflow-hidden rounded-sm">
+            <Image
+              src="/images/convite.jpg"
+              alt="Convite de Casamento"
+              fill
+              className="object-contain"
+              sizes="(max-width: 640px) 100vw, 400px"
+            />
+          </div>
+          <p className="text-text-mid text-[11px] tracking-[2px] mt-4 text-center">
+            Clique para ampliar
+          </p>
+        </div>
+      </section>
+      </ScrollReveal>
+
       {/* ── GALERIA DE FOTOS ── */}
       <ScrollReveal delay={400}>
       <section className="bg-bg-light py-12 md:py-20 px-4 md:px-20 border-t border-elegant">
         <div className="flex flex-col items-center text-center mb-8 md:mb-12">
-          <span className="text-brand text-[10px] tracking-[4px] uppercase mb-3">Galeria</span>
+          <span className="text-text-mid text-[10px] tracking-[4px] uppercase mb-3">Galeria</span>
           <h2 className="font-serif text-[28px] md:text-[44px] leading-tight text-text-dark font-normal">
             Nossos Momentos
           </h2>
@@ -413,7 +453,7 @@ export default function HomePage() {
       {/* ── GIFT CTA ── */}
       <ScrollReveal delay={500}>
       <section className="bg-bg-warm flex flex-col items-center justify-center gap-6 md:gap-8 py-14 md:py-24 px-6">
-        <span className="text-brand text-[10px] tracking-[4px] uppercase">Lista de Presentes</span>
+        <span className="text-text-mid text-[10px] tracking-[4px] uppercase">Lista de Presentes</span>
 
         <h2 className="font-serif text-[28px] md:text-[44px] leading-[1.2] text-text-dark text-center font-normal max-w-[600px]">
           Presenteie o casal<br />com muito amor
@@ -434,6 +474,41 @@ export default function HomePage() {
 
       {/* ── FOOTER ── */}
       <Footer initials={couple.initials} date={couple.dateFooter} />
+
+      {/* ── INVITATION LIGHTBOX ── */}
+      {isInvitationOpen && (
+        <div
+          onClick={() => {
+            setIsInvitationOpen(false);
+            document.body.style.overflow = "";
+          }}
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 backdrop-blur-md transition-opacity duration-300 animate-fade-in"
+        >
+          <button
+            onClick={() => {
+              setIsInvitationOpen(false);
+              document.body.style.overflow = "";
+            }}
+            className="absolute top-4 right-4 md:top-6 md:right-6 z-[110] p-3 text-white/80 hover:text-white bg-black/25 hover:bg-black/55 rounded-full transition-all duration-300 hover:rotate-90 flex items-center justify-center cursor-pointer border border-white/10"
+            aria-label="Fechar"
+          >
+            <X size={22} />
+          </button>
+
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="relative w-[92vw] h-[72vh] md:w-[75vw] md:h-[80vh]"
+          >
+            <Image
+              src="/images/convite.jpg"
+              alt="Convite de Casamento"
+              fill
+              className="object-contain select-none"
+              priority
+            />
+          </div>
+        </div>
+      )}
 
       {/* ── LIGHTBOX MODAL ── */}
       <GalleryLightbox

@@ -19,7 +19,7 @@ export default function Footer({
     <footer
       className={`h-16 md:h-20 bg-bg-dark flex items-center justify-center ${className}`}
     >
-      <span className="text-text-mid text-[12px] tracking-[2px]">
+      <span className="text-text-muted text-[12px] tracking-[2px]">
         {initials} · {date} · {phrase}
       </span>
     </footer>

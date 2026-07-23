@@ -1,27 +1,33 @@
 @import "tailwindcss";
 
 @theme inline {
-  /* Paleta N & A — fiel ao design Pencil */
-  --color-bg-light: #FAF8F5;
-  --color-bg-warm: #F5EFE8;
-  --color-bg-dark: #1C1412;
-  --color-bg-dark-muted: #3A3028;
-  --color-brand: #9B8264;
-  --color-brand-hover: #8B7254;
-  --color-text-dark: #1C1412;
-  --color-text-mid: #6B5B45;
-  --color-text-muted: #9B8264;
+  /* Paleta do Convite — dourado, marfim, floral */
+  --color-bg-light: #FAF7F2;
+  --color-bg-warm: #F5F0E8;
+  --color-bg-dark: #3D372E;
+  --color-bg-dark-muted: #5C5549;
+  --color-brand: #B89736;
+  --color-brand-hover: #A38B42;
+  --color-brand-light: #D4AF37;
+  --color-text-dark: #3D372E;
+  --color-text-mid: #5C5549;
+  --color-text-muted: #A38B42;
   --color-border: #E8E0D5;
+  --color-floral-pink: #D86B81;
+  --color-floral-pink-dark: #8A2E43;
+  --color-floral-pink-light: #E8A3B1;
+  --color-floral-green: #4A6043;
   --color-success-green: #2D6A4F;
 
   /* Fontes personalizadas */
   --font-sans: var(--font-inter), system-ui, sans-serif;
   --font-serif: var(--font-playfair), Georgia, serif;
+  --font-script: var(--font-great-vibes), "Brush Script MT", cursive;
 }
 
 :root {
-  --background: #FAF8F5;
-  --foreground: #1C1412;
+  --background: #FAF7F2;
+  --foreground: #3D372E;
 }
 
 body {
@@ -37,6 +43,12 @@ body {
 /* Touch targets mínimos para mobile */
 button, a {
   -webkit-tap-highlight-color: transparent;
+}
+
+/* Selection color — brand dourado */
+::selection {
+  background-color: var(--color-brand);
+  color: #ffffff;
 }
 
 /* Previne zoom automático em inputs no iOS (requer font-size >= 16px) */
@@ -262,7 +274,7 @@ input, textarea, select {
 }
 
 .countdown-label {
-  @apply text-[10px] md:text-[11px] tracking-[3px] text-brand uppercase mt-2;
+  @apply text-[10px] md:text-[11px] tracking-[3px] text-text-mid uppercase mt-2;
 }
 
 /* ── Map Section ── */

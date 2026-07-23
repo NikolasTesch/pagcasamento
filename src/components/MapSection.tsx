@@ -13,7 +13,7 @@ export default function MapSection() {
   return (
     <section className="bg-bg-light py-12 md:py-20 px-4 md:px-20 border-t border-elegant">
       <div className="flex flex-col items-center text-center mb-8 md:mb-12">
-        <span className="text-brand text-[10px] tracking-[4px] uppercase mb-3">
+        <span className="text-text-mid text-[10px] tracking-[4px] uppercase mb-3">
           Localização
         </span>
         <h2 className="font-serif text-[28px] md:text-[44px] leading-tight text-text-dark font-normal">

@@ -55,7 +55,7 @@ export default function CountdownTimer() {
       <section className="countdown-container">
         <div className="countdown-grid !grid-cols-1 md:!grid-cols-1 max-w-[500px]">
           <div className="countdown-block !min-h-[120px] md:!min-h-[150px] flex items-center justify-center">
-            <span className="font-serif text-[22px] md:text-[32px] text-center text-brand leading-snug px-2">
+            <span className="font-serif text-[22px] md:text-[32px] text-center text-text-mid leading-snug px-2">
               🎉 Chegou o Grande Dia!
             </span>
           </div>

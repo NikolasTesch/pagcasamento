@@ -101,7 +101,7 @@ export default function Navbar({
             isActive(item.href) ? (
               <span
                 key={item.href}
-                className="text-brand text-[13px] tracking-[1.5px]"
+                className="text-text-mid text-[13px] tracking-[1.5px]"
               >
                 {item.label}
               </span>
@@ -169,7 +169,7 @@ export default function Navbar({
                 onClick={closeMenu}
                 className={`text-[14px] tracking-[2px] py-3 border-b border-elegant transition ${
                   isActive(item.href)
-                    ? "text-brand"
+                    ? "text-text-mid"
                     : "text-text-dark hover:text-brand"
                 }`}
                 style={{

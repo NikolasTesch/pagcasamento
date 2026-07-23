@@ -217,7 +217,7 @@ export default function GiftModal({ gift, isOpen, onClose, onSuccess }: GiftModa
             /* ════════ STEP 1 — FORM ════════ */
             <form onSubmit={handleSubmit} className="flex flex-col">
               <div className="px-6 pt-6 pb-4 border-b border-elegant">
-                <span className="text-brand text-[9px] tracking-[3px] uppercase block mb-3">
+                <span className="text-text-mid text-[9px] tracking-[3px] uppercase block mb-3">
                   Confirmar Presente
                 </span>
                 <p className="text-text-dark text-[14px] leading-[1.6]">
@@ -231,7 +231,7 @@ export default function GiftModal({ gift, isOpen, onClose, onSuccess }: GiftModa
 
               {isVaquinha && (
                 <div className="px-6 py-4 border-b border-elegant space-y-3">
-                  <span className="text-brand text-[9px] tracking-[3px] uppercase block">
+                  <span className="text-text-mid text-[9px] tracking-[3px] uppercase block">
                     Valor da Contribuição
                   </span>
                   <div className="grid grid-cols-4 gap-2">
@@ -262,7 +262,7 @@ export default function GiftModal({ gift, isOpen, onClose, onSuccess }: GiftModa
               )}
 
               <div className="px-6 py-4 border-b border-elegant">
-                <span className="text-brand text-[9px] tracking-[3px] uppercase block mb-2">
+                <span className="text-text-mid text-[9px] tracking-[3px] uppercase block mb-2">
                   Seu Nome *
                 </span>
                 <input
@@ -335,7 +335,7 @@ export default function GiftModal({ gift, isOpen, onClose, onSuccess }: GiftModa
 
               {/* Copia e Cola */}
               <div className="px-6 py-5 border-b border-elegant">
-                <span className="text-brand text-[9px] tracking-[3px] uppercase block mb-3">
+                <span className="text-text-mid text-[9px] tracking-[3px] uppercase block mb-3">
                   Ou use Pix Copia e Cola
                 </span>
                 <div className="flex items-start gap-2">
@@ -367,7 +367,7 @@ export default function GiftModal({ gift, isOpen, onClose, onSuccess }: GiftModa
 
               {/* Mensagem ao casal */}
               <div className="px-6 py-5 border-b border-elegant">
-                <span className="text-brand text-[9px] tracking-[3px] uppercase block mb-3">
+                <span className="text-text-mid text-[9px] tracking-[3px] uppercase block mb-3">
                   Deixar uma mensagem ao casal
                 </span>
 
@@ -400,7 +400,7 @@ export default function GiftModal({ gift, isOpen, onClose, onSuccess }: GiftModa
               <div className="px-6 py-5 flex justify-center">
                 <button
                   onClick={onSuccess}
-                  className="text-brand text-[13px] tracking-wider hover:text-brand-hover transition cursor-pointer"
+                  className="text-text-mid text-[13px] tracking-wider hover:text-brand-hover transition cursor-pointer"
                 >
                   ← Voltar à lista
                 </button>

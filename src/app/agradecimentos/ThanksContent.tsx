@@ -75,7 +75,7 @@ export default function ThanksContent() {
         </div>
 
         <div className="relative z-10 flex flex-col items-center text-center px-6 py-20 md:py-28 max-w-3xl mx-auto">
-          <span className="text-brand text-[11px] tracking-[4px] uppercase mb-4">
+          <span className="text-text-mid text-[11px] tracking-[4px] uppercase mb-4">
             {couple.firstName} & {couple.secondName}
           </span>
 
@@ -116,7 +116,7 @@ export default function ThanksContent() {
       <ScrollReveal delay={200}>
       <section className="bg-bg-light py-12 md:py-20 px-4 md:px-20">
         <div className="flex flex-col items-center text-center mb-8 md:mb-12">
-          <span className="text-brand text-[10px] tracking-[4px] uppercase mb-3">Galeria</span>
+          <span className="text-text-mid text-[10px] tracking-[4px] uppercase mb-3">Galeria</span>
           <h2 className="font-serif text-[28px] md:text-[44px] leading-tight text-text-dark font-normal">
             Momentos Especiais
           </h2>
