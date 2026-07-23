@@ -1,41 +1,18 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { X, ChevronLeft, ChevronRight } from "lucide-react";
-
-const GALLERY_IMAGES = [
-  { src: "/images/hero-1.png", alt: "Katharyna & Leonardo - Momentos" },
-  { src: "/images/hero-2.png", alt: "Katharyna & Leonardo - Abraçados" },
-  { src: "/images/hero-3.png", alt: "Katharyna & Leonardo - Sorrindo" },
-  { src: "/images/story-1.png", alt: "Katharyna & Leonardo - Cumplicidade" },
-  { src: "/images/story-3.png", alt: "Katharyna & Leonardo - Amor" },
-  { src: "/images/story-2.png", alt: "Katharyna & Leonardo - Juntos" },
-  { src: "/images/casal.png", alt: "Katharyna & Leonardo - Felicidade" },
-];
-
-const couple = {
-  firstName: "Katharyna",
-  secondName: "Leonardo",
-  initials: "K & L",
-  date: "11 de Outubro, 2026",
-  dateShort: "11 · 10 · 2026",
-  dateFooter: "11.10.2026",
-  time: "15h30 — Cerimônia",
-  venueName: "Sítio São Bento",
-  venueCity: "TX-BA",
-  venueAddress:
-    "Teixeira de Freitas - BA",
-  mapsUrl: "https://goo.gl/maps/pK5RkuVjvB13S3eM6?g_st=aw",
-  message:
-    "Ficamos extremamente felizes em contar com a sua presença neste dia tão especial para nós! Se desejar nos presentear, criamos uma lista de presentes simbólicos onde você pode realizar o pagamento via Pix de forma simples.",
-};
+import Navbar from "@/components/Navbar";
+import CountdownTimer from "@/components/CountdownTimer";
+import ScrollReveal from "@/components/ScrollReveal";
+import MapSection from "@/components/MapSection";
+import Footer from "@/components/Footer";
+import GalleryLightbox from "@/components/GalleryLightbox";
+import { couple, GALLERY_IMAGES } from "@/data/couple";
 
 export default function HomePage() {
   const [activeImageIndex, setActiveImageIndex] = useState<number | null>(null);
-  const touchStartX = useRef<number>(0);
-  const touchStartY = useRef<number>(0);
 
   // Lightbox Handlers
   const openLightbox = (index: number) => {
@@ -51,83 +28,46 @@ export default function HomePage() {
   const nextImage = (e?: React.MouseEvent) => {
     if (e) e.stopPropagation();
     if (activeImageIndex !== null) {
-      setActiveImageIndex((prev) => (prev !== null && prev < GALLERY_IMAGES.length - 1 ? prev + 1 : 0));
+      setActiveImageIndex((prev) =>
+        prev !== null && prev < GALLERY_IMAGES.length - 1 ? prev + 1 : 0
+      );
     }
   };
 
   const prevImage = (e?: React.MouseEvent) => {
     if (e) e.stopPropagation();
     if (activeImageIndex !== null) {
-      setActiveImageIndex((prev) => (prev !== null && prev > 0 ? prev - 1 : GALLERY_IMAGES.length - 1));
+      setActiveImageIndex((prev) =>
+        prev !== null && prev > 0 ? prev - 1 : GALLERY_IMAGES.length - 1
+      );
     }
   };
-
-  const handleTouchStart = (e: React.TouchEvent) => {
-    touchStartX.current = e.changedTouches[0].clientX;
-    touchStartY.current = e.changedTouches[0].clientY;
-  };
-
-  const handleTouchEnd = (e: React.TouchEvent) => {
-    const deltaX = touchStartX.current - e.changedTouches[0].clientX;
-    const deltaY = touchStartY.current - e.changedTouches[0].clientY;
-    // Só swipe horizontal quando o movimento X for dominante
-    if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 50) {
-      if (deltaX > 0) nextImage();
-      else prevImage();
-    }
-  };
-
-  // Keyboard navigation
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (activeImageIndex === null) return;
-      if (e.key === "Escape") closeLightbox();
-      if (e.key === "ArrowRight") nextImage();
-      if (e.key === "ArrowLeft") prevImage();
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [activeImageIndex]);
 
   return (
     <div className="flex-grow flex flex-col bg-bg-light font-sans">
-
       {/* ── NAVBAR ── */}
-      <nav className="sticky top-0 z-50 bg-white border-b border-elegant px-5 md:px-20 h-16 md:h-20 flex items-center justify-between">
-        {/* Desktop: links à esquerda */}
-        <div className="hidden md:flex items-center gap-10">
-          <Link href="/" className="text-text-mid text-[13px] tracking-[1.5px] hover:text-brand transition">
-            Início
+      <Navbar
+        items={[
+          { label: "Início", href: "/" },
+          { label: "Nossa História", href: "/#historia" },
+          { label: "Presentes", href: "/presentes" },
+        ]}
+        initials={couple.initials}
+        rightSlot={
+          <Link
+            href="/presentes"
+            className="bg-text-dark text-white text-[10px] md:text-[11px] tracking-[1.5px] md:tracking-[2px] px-4 md:px-7 py-2.5 md:py-3 hover:bg-brand transition whitespace-nowrap"
+          >
+            <span className="md:hidden">PRESENTES</span>
+            <span className="hidden md:inline">LISTA DE PRESENTES</span>
           </Link>
-          <a href="#historia" className="text-text-mid text-[13px] tracking-[1.5px] hover:text-brand transition">
-            Nossa História
-          </a>
-          <Link href="/presentes" className="text-text-mid text-[13px] tracking-[1.5px] hover:text-brand transition">
-            Presentes
-          </Link>
-        </div>
-
-        {/* Mobile: espaçador para equilibrar o logo centralizado */}
-        <div className="md:hidden w-14" />
-
-        <span className="font-serif text-[20px] md:text-[22px] tracking-[5px] md:tracking-[6px] text-text-dark absolute left-1/2 -translate-x-1/2">
-          {couple.initials}
-        </span>
-
-        <Link
-          href="/presentes"
-          className="bg-text-dark text-white text-[10px] md:text-[11px] tracking-[1.5px] md:tracking-[2px] px-4 md:px-7 py-2.5 md:py-3 hover:bg-brand transition whitespace-nowrap"
-        >
-          <span className="md:hidden">PRESENTES</span>
-          <span className="hidden md:inline">LISTA DE PRESENTES</span>
-        </Link>
-      </nav>
+        }
+      />
 
       {/* ── HERO ── */}
       <section className="flex flex-col md:flex-row md:h-[700px]">
         {/* Coluna de texto */}
-        <div className="md:w-[580px] shrink-0 bg-bg-light flex flex-col justify-center gap-5 md:gap-7 px-6 md:px-20 py-10 md:py-0">
+        <ScrollReveal delay={100} className="md:w-[580px] shrink-0 bg-bg-light flex flex-col justify-center gap-5 md:gap-7 px-6 md:px-20 py-10 md:py-0">
           <span className="text-brand text-[11px] tracking-[4px] uppercase">Casamento</span>
 
           <h1 className="font-serif text-[44px] md:text-[72px] leading-[1.05] text-text-dark font-normal">
@@ -154,11 +94,11 @@ export default function HomePage() {
           >
             VER LISTA DE PRESENTES
           </Link>
-        </div>
+        </ScrollReveal>
 
         {/* Mosaico de fotos */}
         <div className="flex-1 flex gap-[3px] min-h-[280px] md:min-h-0">
-          <div 
+          <div
             onClick={() => openLightbox(0)}
             className="flex-1 relative bg-[#C9B8A0] overflow-hidden group cursor-pointer"
           >
@@ -175,7 +115,7 @@ export default function HomePage() {
             </div>
           </div>
           <div className="flex-1 flex flex-col gap-[3px]">
-            <div 
+            <div
               onClick={() => openLightbox(1)}
               className="flex-1 relative bg-[#DDD0BE] overflow-hidden group cursor-pointer"
             >
@@ -190,7 +130,7 @@ export default function HomePage() {
                 <span className="bg-white/95 text-text-dark text-[10px] tracking-[2px] px-3.5 py-2 uppercase rounded-sm shadow-sm backdrop-blur-[2px]">Ampliar</span>
               </div>
             </div>
-            <div 
+            <div
               onClick={() => openLightbox(2)}
               className="flex-1 relative bg-[#B8A890] overflow-hidden group cursor-pointer"
             >
@@ -209,7 +149,13 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ── COUNTDOWN ── */}
+      <ScrollReveal delay={100}>
+        <CountdownTimer />
+      </ScrollReveal>
+
       {/* ── DETALHES DO EVENTO ── */}
+      <ScrollReveal delay={200}>
       <section className="bg-bg-dark py-10 md:h-[180px] flex flex-col md:flex-row items-center divide-y md:divide-y-0 divide-bg-dark-muted">
         <div className="flex-1 w-full flex flex-col items-center justify-center gap-3 py-8 md:py-0">
           <span className="text-brand text-[10px] tracking-[3px] uppercase">Data</span>
@@ -243,12 +189,19 @@ export default function HomePage() {
           <span className="text-white text-[15px] tracking-[0.5px]">{couple.time}</span>
         </div>
       </section>
+      </ScrollReveal>
+
+      {/* ── MAPA ── */}
+      <ScrollReveal delay={250}>
+        <MapSection />
+      </ScrollReveal>
 
       {/* ── NOSSA HISTÓRIA ── */}
+      <ScrollReveal delay={300}>
       <section id="historia" className="flex flex-col md:flex-row md:h-[620px]">
         {/* Mosaico de fotos */}
         <div className="md:w-[640px] shrink-0 flex gap-1 min-h-[300px] md:min-h-0">
-          <div 
+          <div
             onClick={() => openLightbox(3)}
             className="flex-1 relative bg-[#E2D4C2] overflow-hidden group cursor-pointer"
           >
@@ -264,7 +217,7 @@ export default function HomePage() {
             </div>
           </div>
           <div className="flex-1 flex flex-col gap-1">
-            <div 
+            <div
               onClick={() => openLightbox(5)}
               className="flex-1 relative bg-[#BDA88C] overflow-hidden group cursor-pointer"
             >
@@ -279,7 +232,7 @@ export default function HomePage() {
                 <span className="bg-white/95 text-text-dark text-[10px] tracking-[2px] px-3.5 py-2 uppercase rounded-sm shadow-sm backdrop-blur-[2px]">Ampliar</span>
               </div>
             </div>
-            <div 
+            <div
               onClick={() => openLightbox(4)}
               className="flex-1 relative bg-[#D4C4A8] overflow-hidden group cursor-pointer"
             >
@@ -312,8 +265,10 @@ export default function HomePage() {
           <div className="w-[50px] h-px bg-brand" />
         </div>
       </section>
+      </ScrollReveal>
 
       {/* ── GALERIA DE FOTOS ── */}
+      <ScrollReveal delay={400}>
       <section className="bg-bg-light py-12 md:py-20 px-4 md:px-20 border-t border-elegant">
         <div className="flex flex-col items-center text-center mb-8 md:mb-12">
           <span className="text-brand text-[10px] tracking-[4px] uppercase mb-3">Galeria</span>
@@ -453,8 +408,10 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+      </ScrollReveal>
 
       {/* ── GIFT CTA ── */}
+      <ScrollReveal delay={500}>
       <section className="bg-bg-warm flex flex-col items-center justify-center gap-6 md:gap-8 py-14 md:py-24 px-6">
         <span className="text-brand text-[10px] tracking-[4px] uppercase">Lista de Presentes</span>
 
@@ -473,76 +430,19 @@ export default function HomePage() {
           VER TODOS OS PRESENTES
         </Link>
       </section>
+      </ScrollReveal>
 
       {/* ── FOOTER ── */}
-      <footer className="h-16 md:h-20 bg-bg-dark flex items-center justify-center">
-        <span className="text-text-mid text-[12px] tracking-[2px]">
-          {couple.initials} · {couple.dateFooter} · com muito amor
-        </span>
-      </footer>
+      <Footer initials={couple.initials} date={couple.dateFooter} />
 
       {/* ── LIGHTBOX MODAL ── */}
-      {activeImageIndex !== null && (
-        <div
-          onClick={closeLightbox}
-          onTouchStart={handleTouchStart}
-          onTouchEnd={handleTouchEnd}
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 backdrop-blur-md transition-opacity duration-300 animate-fade-in"
-        >
-          {/* Botão Fechar */}
-          <button
-            onClick={closeLightbox}
-            className="absolute top-4 right-4 md:top-6 md:right-6 z-[110] p-3 text-white/80 hover:text-white bg-black/25 hover:bg-black/55 rounded-full transition-all duration-300 hover:rotate-90 flex items-center justify-center cursor-pointer border border-white/10"
-            aria-label="Fechar galeria"
-          >
-            <X size={22} />
-          </button>
-
-          {/* Botões laterais — ocultos no mobile (usa swipe) */}
-          <button
-            onClick={prevImage}
-            className="hidden md:flex absolute left-8 z-[110] p-4 text-white/80 hover:text-white hover:scale-105 bg-black/25 hover:bg-black/55 rounded-full transition-all duration-300 items-center justify-center cursor-pointer border border-white/10"
-            aria-label="Imagem anterior"
-          >
-            <ChevronLeft size={28} />
-          </button>
-
-          {/* Imagem */}
-          <div
-            onClick={(e) => e.stopPropagation()}
-            className="relative flex flex-col items-center"
-          >
-            <div className="relative w-[92vw] h-[72vh] md:w-[75vw] md:h-[80vh]">
-              <Image
-                src={GALLERY_IMAGES[activeImageIndex].src}
-                alt={GALLERY_IMAGES[activeImageIndex].alt}
-                fill
-                className="object-contain select-none"
-                priority
-              />
-            </div>
-
-            {/* Contador + dica de swipe no mobile */}
-            <div className="flex flex-col items-center gap-1 mt-4">
-              <span className="text-white/60 text-[12px] tracking-[3px] uppercase select-none font-sans">
-                Foto {activeImageIndex + 1} de {GALLERY_IMAGES.length}
-              </span>
-              <span className="md:hidden text-white/35 text-[11px] tracking-[1.5px] select-none font-sans">
-                ← deslize para navegar →
-              </span>
-            </div>
-          </div>
-
-          {/* Botão Próximo — oculto no mobile */}
-          <button
-            onClick={nextImage}
-            className="hidden md:flex absolute right-8 z-[110] p-4 text-white/80 hover:text-white hover:scale-105 bg-black/25 hover:bg-black/55 rounded-full transition-all duration-300 items-center justify-center cursor-pointer border border-white/10"
-            aria-label="Próxima imagem"
-          >
-            <ChevronRight size={28} />
-          </button>
-        </div>
-      )}
+      <GalleryLightbox
+        images={GALLERY_IMAGES}
+        activeIndex={activeImageIndex}
+        onClose={closeLightbox}
+        onNext={nextImage}
+        onPrev={prevImage}
+      />
     </div>
   );
 }

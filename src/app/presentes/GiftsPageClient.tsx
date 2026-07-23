@@ -6,6 +6,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { CheckCircle2, Heart, Users } from "lucide-react";
 import GiftModal from "./components/GiftModal";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 interface Gift {
   id: string;
@@ -75,33 +77,23 @@ export default function GiftsPageClient({ initialGifts }: GiftsPageClientProps) 
     <div className="flex-grow flex flex-col bg-bg-light font-sans min-h-screen">
 
       {/* ── NAVBAR ── */}
-      <nav className="sticky top-0 z-50 bg-white border-b border-elegant px-5 md:px-20 h-16 md:h-20 flex items-center justify-between">
-        {/* Desktop: links à esquerda */}
-        <div className="hidden md:flex items-center gap-10">
-          <Link href="/" className="text-text-mid text-[13px] tracking-[1.5px] hover:text-brand transition">
-            Início
+      <Navbar
+        items={[
+          { label: "Início", href: "/" },
+          { label: "Nossa História", href: "/#historia" },
+          { label: "Presentes", href: "/presentes" },
+        ]}
+        activeHref="/presentes"
+        rightSlot={
+          <Link
+            href="/"
+            className="text-brand text-[11px] md:text-[12px] tracking-[1px] hover:text-brand-hover transition whitespace-nowrap"
+          >
+            <span className="md:hidden">← Início</span>
+            <span className="hidden md:inline">← Voltar ao início</span>
           </Link>
-          <a href="#" className="text-text-mid text-[13px] tracking-[1.5px] hover:text-brand transition">
-            Nossa História
-          </a>
-          <span className="text-text-dark text-[13px] tracking-[1.5px]">Presentes</span>
-        </div>
-
-        {/* Mobile: espaçador para equilibrar o logo centralizado */}
-        <div className="md:hidden w-14" />
-
-        <span className="font-serif text-[20px] md:text-[22px] tracking-[5px] md:tracking-[6px] text-text-dark absolute left-1/2 -translate-x-1/2">
-          K &amp; L
-        </span>
-
-        <Link
-          href="/"
-          className="text-brand text-[11px] md:text-[12px] tracking-[1px] hover:text-brand-hover transition whitespace-nowrap"
-        >
-          <span className="md:hidden">← Início</span>
-          <span className="hidden md:inline">← Voltar ao início</span>
-        </Link>
-      </nav>
+        }
+      />
 
       {/* ── TOAST DE SUCESSO ── */}
       {showSuccessToast && (
@@ -357,11 +349,7 @@ export default function GiftsPageClient({ initialGifts }: GiftsPageClientProps) 
       />
 
       {/* ── FOOTER ── */}
-      <footer className="h-16 md:h-20 bg-bg-dark flex items-center justify-center mt-10 md:mt-16">
-        <span className="text-text-mid text-[12px] tracking-[2px]">
-          K &amp; L · 11.10.2026 · com muito amor
-        </span>
-      </footer>
+      <Footer className="mt-10 md:mt-16" />
     </div>
   );
 }
