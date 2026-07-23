@@ -100,7 +100,7 @@ async function runSeed() {
       name: g.name,
       description: g.description,
       value: Number(g.value),
-      imageUrl: g.imageUrl || `/images/gifts/${g.id}.png`,
+      imageUrl: g.imageUrl || `/images/gifts/${g.id}.webp`,
       category: g.category,
       is_crowdfunding: g.is_crowdfunding !== undefined ? !!g.is_crowdfunding : false,
       amount_collected: Number(g.amount_collected || 0),
