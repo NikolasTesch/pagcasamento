@@ -14,7 +14,7 @@ export default function LoadingScreen() {
         return;
       }
     } catch {
-      // sessionStorage pode não estar disponível (SSR /隐私 mode)
+      // sessionStorage pode não estar disponível (SSR / privacidade)
     }
 
     // Pular se usuário prefere animações reduzidas
@@ -33,7 +33,7 @@ export default function LoadingScreen() {
       if (dismissed) return;
       dismissed = true;
       setIsFading(true);
-      // Após a transição de fade (700ms), esconde completamente
+      // Após a transição de fade (500ms), esconde completamente
       setTimeout(() => {
         setIsVisible(false);
         try {
@@ -41,23 +41,23 @@ export default function LoadingScreen() {
         } catch {
           // silent
         }
-      }, 700);
+      }, 500);
     };
 
-    // Auto-dismiss após 2.5s
-    const timer = setTimeout(dismiss, 2500);
+    // Auto-dismiss após 1.5s (reduzido de 2.5s)
+    const timer = setTimeout(dismiss, 1500);
 
-    // Ou quando a página terminar de carregar
-    if (document.readyState === "complete") {
+    // Ou quando o DOM estiver pronto (não espera imagens)
+    if (document.readyState === "interactive" || document.readyState === "complete") {
       clearTimeout(timer);
       dismiss();
     } else {
-      window.addEventListener("load", dismiss, { once: true });
+      document.addEventListener("DOMContentLoaded", dismiss, { once: true });
     }
 
     return () => {
       clearTimeout(timer);
-      window.removeEventListener("load", dismiss);
+      document.removeEventListener("DOMContentLoaded", dismiss);
     };
   }, []);
 

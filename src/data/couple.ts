@@ -4,13 +4,13 @@ export type GalleryImage = {
 };
 
 export const GALLERY_IMAGES: GalleryImage[] = [
-  { src: "/images/hero-1.png", alt: "Katharyna & Leonardo - Momentos" },
-  { src: "/images/hero-2.png", alt: "Katharyna & Leonardo - Abraçados" },
-  { src: "/images/hero-3.png", alt: "Katharyna & Leonardo - Sorrindo" },
-  { src: "/images/story-1.png", alt: "Katharyna & Leonardo - Cumplicidade" },
-  { src: "/images/story-3.png", alt: "Katharyna & Leonardo - Amor" },
-  { src: "/images/story-2.png", alt: "Katharyna & Leonardo - Juntos" },
-  { src: "/images/casal.png", alt: "Katharyna & Leonardo - Felicidade" },
+  { src: "/images/hero-1.webp", alt: "Katharyna & Leonardo - Momentos" },
+  { src: "/images/hero-2.webp", alt: "Katharyna & Leonardo - Abraçados" },
+  { src: "/images/hero-3.webp", alt: "Katharyna & Leonardo - Sorrindo" },
+  { src: "/images/story-1.webp", alt: "Katharyna & Leonardo - Cumplicidade" },
+  { src: "/images/story-3.webp", alt: "Katharyna & Leonardo - Amor" },
+  { src: "/images/story-2.webp", alt: "Katharyna & Leonardo - Juntos" },
+  { src: "/images/casal.webp", alt: "Katharyna & Leonardo - Felicidade" },
 ];
 
 export const couple = {

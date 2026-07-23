@@ -1,8 +1,11 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, lazy, Suspense } from "react";
 import { X, Copy, Check, Send } from "lucide-react";
-import { QRCodeSVG } from "qrcode.react";
+
+const QRCodeSVG = lazy(() =>
+  import("qrcode.react").then((mod) => ({ default: mod.QRCodeSVG }))
+);
 
 interface Gift {
   id: string;
@@ -319,12 +322,14 @@ export default function GiftModal({ gift, isOpen, onClose, onSuccess }: GiftModa
               {/* QR Code */}
               <div className="px-6 py-4 sm:py-6 border-b border-elegant flex flex-col items-center gap-3 sm:gap-4">
                 <div className="p-3 border border-elegant">
-                  <QRCodeSVG
-                    value={pixCode}
-                    size={180}
-                    level="M"
-                    includeMargin={false}
-                  />
+                  <Suspense fallback={<div className="w-[180px] h-[180px] bg-bg-warm animate-pulse" />}>
+                    <QRCodeSVG
+                      value={pixCode}
+                      size={180}
+                      level="M"
+                      includeMargin={false}
+                    />
+                  </Suspense>
                 </div>
 
                 <p className="text-[12px] text-text-mid text-center leading-relaxed">

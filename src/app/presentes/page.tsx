@@ -4,8 +4,8 @@ import * as fs from "fs";
 import * as path from "path";
 import { Suspense } from "react";
 
-// Garante que a página sempre consulte o banco dinamicamente a cada requisição
-export const revalidate = 0;
+// Permite que o Next.js armazene a página em cache por 10 segundos (ISR), tornando a navegação instantânea
+export const revalidate = 10;
 
 interface Gift {
   id: string;
@@ -36,7 +36,7 @@ export default async function PresentesPage() {
             name: data.name,
             description: data.description,
             value: Number(data.value || 0),
-            imageUrl: data.imageUrl || `/images/gifts/${doc.id}.png`,
+            imageUrl: data.imageUrl || `/images/gifts/${doc.id}.webp`,
             category: data.category,
             is_crowdfunding: !!data.is_crowdfunding,
             amount_collected: Number(data.amount_collected || 0),
@@ -64,7 +64,7 @@ export default async function PresentesPage() {
           name: g.name,
           description: g.description,
           value: Number(g.value),
-          imageUrl: g.imageUrl || `/images/gifts/${g.id}.png`,
+          imageUrl: g.imageUrl || `/images/gifts/${g.id}.webp`,
           category: g.category,
           is_crowdfunding: !!g.is_crowdfunding,
           amount_collected: Number(g.amount_collected || 0),

@@ -93,6 +93,15 @@ input, textarea, select {
   border-color: #E8E0D5;
 }
 
+/* Oculta barra de rolagem em elementos com rolagem horizontal (mobile) */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 /* Animações e transições personalizadas */
 .animate-fade-in {
   animation: fadeIn 1s ease-out forwards;

@@ -132,13 +132,13 @@ export default function GiftsPageClient({ initialGifts }: GiftsPageClientProps) 
       {/* ── CONTEÚDO ── */}
       <main className="flex-grow px-4 md:px-20 py-8 md:py-16">
 
-        {/* FILTROS */}
-        <div className="flex flex-wrap justify-center gap-2 md:gap-3 mb-8 md:mb-14">
+        {/* FILTROS (Com rolagem horizontal suave no celular) */}
+        <div className="flex overflow-x-auto no-scrollbar sm:flex-wrap sm:justify-center gap-2 md:gap-3 mb-6 md:mb-14 pb-2 sm:pb-0 -mx-4 px-4 sm:mx-0 sm:px-0">
           {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
-              className={`px-4 md:px-5 py-2 text-[10px] md:text-[11px] tracking-[1.5px] uppercase transition ${
+              className={`px-4 md:px-5 py-2 text-[10px] md:text-[11px] tracking-[1.5px] uppercase whitespace-nowrap shrink-0 transition ${
                 activeCategory === cat
                   ? "bg-text-dark text-white"
                   : "bg-white border border-elegant text-text-mid hover:border-brand hover:text-brand"

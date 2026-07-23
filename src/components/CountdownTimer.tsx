@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   differenceInDays,
   differenceInHours,
@@ -37,17 +37,28 @@ function isZero(time: TimeLeft): boolean {
 export default function CountdownTimer() {
   const [timeLeft, setTimeLeft] = useState<TimeLeft>({ days: 0, hours: 0, minutes: 0, seconds: 0 });
   const [isComplete, setIsComplete] = useState(false);
+  const rafRef = useRef<number>(0);
 
   useEffect(() => {
-    const update = () => {
-      const remaining = calcTimeLeft();
-      setIsComplete(isZero(remaining));
-      setTimeLeft(remaining);
+    // Usa requestAnimationFrame em vez de setInterval para evitar
+    // re-renders desnecessários quando a aba está em background
+    let lastTick = 0;
+
+    const update = (timestamp: number) => {
+      if (timestamp - lastTick >= 1000) {
+        lastTick = timestamp;
+        const remaining = calcTimeLeft();
+        setIsComplete(isZero(remaining));
+        setTimeLeft(remaining);
+      }
+      rafRef.current = requestAnimationFrame(update);
     };
 
-    update();
-    const interval = setInterval(update, 1000);
-    return () => clearInterval(interval);
+    // Atualiza imediatamente
+    setTimeLeft(calcTimeLeft());
+    rafRef.current = requestAnimationFrame(update);
+
+    return () => cancelAnimationFrame(rafRef.current);
   }, []);
 
   if (isComplete) {

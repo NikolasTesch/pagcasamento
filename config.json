@@ -191,7 +191,7 @@
       "imageUrl": "/images/gifts/vaquinha-001.png",
       "category": "Viagem",
       "is_crowdfunding": true,
-      "amount_collected": 1200.00,
+      "amount_collected": 0,
       "available": true
     },
     {
@@ -202,7 +202,7 @@
       "imageUrl": "/images/gifts/vaquinha-002.png",
       "category": "Eletrodomésticos",
       "is_crowdfunding": true,
-      "amount_collected": 700.00,
+      "amount_collected": 0,
       "available": true
     },
     {
@@ -244,6 +244,6 @@
     "keyType": "cpf",
     "receiverName": "NIKOLAS TESCH",
     "city": "TX",
-    "whatsappNumber": "+5573999760129"
+    "whatsappNumber": "+557398463518"
   }
 }

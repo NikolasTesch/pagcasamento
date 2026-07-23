@@ -130,7 +130,7 @@ export default function ThanksContent() {
             className="col-span-2 md:col-span-2 md:row-span-2 relative group overflow-hidden cursor-pointer bg-bg-warm rounded-sm h-[260px] sm:h-[340px] md:h-[500px] shadow-sm transition-all duration-300 hover:shadow-md"
           >
             <Image
-              src="/images/hero-1.png"
+              src="/images/hero-1.webp"
               alt="Katharyna & Leonardo - Momentos"
               fill
               className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
@@ -147,7 +147,7 @@ export default function ThanksContent() {
             className="relative group overflow-hidden cursor-pointer bg-bg-warm rounded-sm h-[160px] sm:h-[200px] md:h-[242px] shadow-sm transition-all duration-300 hover:shadow-md"
           >
             <Image
-              src="/images/hero-2.png"
+              src="/images/hero-2.webp"
               alt="Katharyna & Leonardo - Abraçados"
               fill
               className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
@@ -164,7 +164,7 @@ export default function ThanksContent() {
             className="relative group overflow-hidden cursor-pointer bg-bg-warm rounded-sm h-[160px] sm:h-[200px] md:h-[242px] shadow-sm transition-all duration-300 hover:shadow-md"
           >
             <Image
-              src="/images/hero-3.png"
+              src="/images/hero-3.webp"
               alt="Katharyna & Leonardo - Sorrindo"
               fill
               className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
@@ -181,7 +181,7 @@ export default function ThanksContent() {
             className="relative group overflow-hidden cursor-pointer bg-bg-warm rounded-sm h-[160px] sm:h-[200px] md:h-[242px] shadow-sm transition-all duration-300 hover:shadow-md"
           >
             <Image
-              src="/images/story-1.png"
+              src="/images/story-1.webp"
               alt="Katharyna & Leonardo - Cumplicidade"
               fill
               className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
@@ -198,7 +198,7 @@ export default function ThanksContent() {
             className="relative group overflow-hidden cursor-pointer bg-bg-warm rounded-sm h-[160px] sm:h-[200px] md:h-[242px] shadow-sm transition-all duration-300 hover:shadow-md"
           >
             <Image
-              src="/images/story-3.png"
+              src="/images/story-3.webp"
               alt="Katharyna & Leonardo - Amor"
               fill
               className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
@@ -215,7 +215,7 @@ export default function ThanksContent() {
             className="col-span-2 relative group overflow-hidden cursor-pointer bg-bg-warm rounded-sm h-[160px] sm:h-[200px] md:h-[242px] shadow-sm transition-all duration-300 hover:shadow-md"
           >
             <Image
-              src="/images/story-2.png"
+              src="/images/story-2.webp"
               alt="Katharyna & Leonardo - Juntos"
               fill
               className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"

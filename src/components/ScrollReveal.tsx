@@ -11,6 +11,27 @@ interface ScrollRevealProps {
   children: ReactNode;
 }
 
+/** Observer único compartilhado entre todas as instâncias de ScrollReveal */
+let sharedObserver: IntersectionObserver | null = null;
+const observers = new Map<Element, () => void>();
+
+function getSharedObserver(): IntersectionObserver {
+  if (!sharedObserver) {
+    sharedObserver = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          const callback = observers.get(entry.target);
+          if (callback && entry.isIntersecting) {
+            callback();
+          }
+        }
+      },
+      { rootMargin: "0px 0px -60px 0px", threshold: 0.1 }
+    );
+  }
+  return sharedObserver;
+}
+
 export default function ScrollReveal({
   delay = 0,
   className = "",
@@ -33,22 +54,21 @@ export default function ScrollReveal({
       return;
     }
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => setIsVisible(true), delay);
-          observer.unobserve(el);
-        }
-      },
-      {
-        rootMargin: "0px 0px -60px 0px",
-        threshold: 0.1,
-      }
-    );
+    const observer = getSharedObserver();
 
+    const onReveal = () => {
+      setTimeout(() => setIsVisible(true), delay);
+      observer.unobserve(el);
+      observers.delete(el);
+    };
+
+    observers.set(el, onReveal);
     observer.observe(el);
 
-    return () => observer.disconnect();
+    return () => {
+      observer.unobserve(el);
+      observers.delete(el);
+    };
   }, [delay]);
 
   return (
