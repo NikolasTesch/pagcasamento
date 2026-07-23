@@ -49,12 +49,12 @@ export default async function PresentesPage() {
     console.error("Falha ao buscar presentes do Firebase Firestore:", error);
   }
 
-  // 2. Fallback de Segurança: Se banco estiver vazio ou falhar, lê de backup-vanilla/config.json
+  // 2. Fallback de Segurança: Se banco estiver vazio ou falhar, lê do config.json na raiz
   if (gifts.length === 0) {
     console.log("[Server Component] Banco de dados indisponível ou vazio. Ativando fallback para config.json...");
     
     try {
-      const configPath = path.join(process.cwd(), "backup-vanilla", "config.json");
+      const configPath = path.join(process.cwd(), "config.json");
       if (fs.existsSync(configPath)) {
         const fileData = fs.readFileSync(configPath, "utf-8");
         const config = JSON.parse(fileData);
@@ -74,67 +74,6 @@ export default async function PresentesPage() {
     } catch (fsError) {
       console.error("Erro ao ler fallback do config.json:", fsError);
     }
-  }
-
-  // 3. Fallback Final (In-Memory) se tudo falhar para garantir que o site nunca caia
-  if (gifts.length === 0) {
-    gifts = [
-      {
-        id: "gift-001",
-        name: "Jogo de Pratos",
-        description: "Conjunto elegante de pratos de porcelana para servir nossa família",
-        value: 150.00,
-        imageUrl: "/images/gifts/gift-001.png",
-        category: "Cozinha",
-        is_crowdfunding: false,
-        amount_collected: 0,
-        is_purchased: false,
-      },
-      {
-        id: "gift-002",
-        name: "Micro-ondas Espelhado",
-        description: "Praticidade e estilo para preparar deliciosas receitas",
-        value: 450.00,
-        imageUrl: "/images/gifts/gift-002.png",
-        category: "Eletrodomésticos",
-        is_crowdfunding: false,
-        amount_collected: 0,
-        is_purchased: false,
-      },
-      {
-        id: "vaquinha-001",
-        name: "Lua de Mel dos Sonhos",
-        description: "Ajude-nos a realizar a viagem de lua de mel que sempre sonhamos — uma semana inesquecível para começarmos nossa vida juntos.",
-        value: 5000.00,
-        imageUrl: "/images/gifts/vaquinha-001.png",
-        category: "Viagem",
-        is_crowdfunding: true,
-        amount_collected: 1200.00,
-        is_purchased: false,
-      },
-      {
-        id: "vaquinha-002",
-        name: "Geladeira Duplex Inox",
-        description: "Uma geladeira espaçosa e moderna para guardar tudo com organização e estilo na nossa nova casa.",
-        value: 3500.00,
-        imageUrl: "/images/gifts/vaquinha-002.png",
-        category: "Eletrodomésticos",
-        is_crowdfunding: true,
-        amount_collected: 700.00,
-        is_purchased: false,
-      },
-      {
-        id: "vaquinha-003",
-        name: 'Smart TV 65"',
-        description: "Uma Smart TV grande para as noites de cinema em casa, assistindo filmes e séries abraçadinhos no sofá.",
-        value: 2800.00,
-        imageUrl: "/images/gifts/vaquinha-003.png",
-        category: "Eletrônicos",
-        is_crowdfunding: true,
-        amount_collected: 0,
-        is_purchased: false,
-      },
-    ];
   }
 
   return (

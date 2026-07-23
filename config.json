@@ -8,53 +8,198 @@
       "address": "Seguir pela estrada em direção ao Levanta-te. O espaço fica a aproximadamente 5 km após o Baleeiro, seguindo sempre em frente",
       "mapsUrl": "https://goo.gl/maps/pK5RkuVjvB13S3eM6?g_st=aw"
     },
-    "couplePhotoUrl": "/images/casal.png",
+    "couplePhotoUrl": "/images/casal.svg",
     "message": "Ficamos extremamente felizes em contar com a sua presença neste dia tão especial para nós! Se desejar nos presentear, criamos uma lista de presentes simbólicos onde você pode realizar o pagamento via Pix de forma simples."
   },
   "gifts": [
     {
-      "id": "gift-001",
-      "name": "Jogo de Pratos",
-      "description": "Conjunto elegante de pratos de porcelana para servir nossa família",
-      "value": 150.00,
-      "imageUrl": "/images/gifts/gift-001.png",
+      "id": "gift-002",
+      "name": "Micro-ondas Espelhado",
+      "description": "Praticidade e estilo para preparar deliciosas receitas no dia a dia do nosso novo lar.",
+      "value": 450.00,
+      "imageUrl": "/images/gifts/gift-002.svg",
+      "category": "Eletrodomésticos",
+      "available": true
+    },
+    {
+      "id": "gift-006",
+      "name": "Cooktop 4 Bocas",
+      "description": "Um cooktop moderno para prepararmos juntos refeições deliciosas e especiais — a cozinha é o coração da casa.",
+      "value": 650.00,
+      "imageUrl": "/images/gifts/gift-006.svg",
+      "category": "Eletrodomésticos",
+      "available": true
+    },
+    {
+      "id": "gift-007",
+      "name": "Liquidificador",
+      "description": "Para sucos naturais, vitaminas e aquela massa de bolo especial de domingo com a família.",
+      "value": 180.00,
+      "imageUrl": "/images/gifts/gift-007.svg",
+      "category": "Eletrodomésticos",
+      "available": true
+    },
+    {
+      "id": "gift-008",
+      "name": "Air Fryer",
+      "description": "Receitas práticas e saudáveis para o nosso dia a dia com muito sabor e crocância.",
+      "value": 380.00,
+      "imageUrl": "/images/gifts/gift-008.svg",
+      "category": "Eletrodomésticos",
+      "available": true
+    },
+    {
+      "id": "gift-009",
+      "name": "Rede de Descanso",
+      "description": "Uma rede confortável para relaxarmos juntos nos fins de tarde na varanda, aproveitando a brisa.",
+      "value": 180.00,
+      "imageUrl": "/images/gifts/gift-009.svg",
+      "category": "Casa & Decor",
+      "available": true
+    },
+    {
+      "id": "gift-010",
+      "name": "Kit de Panelas",
+      "description": "Conjunto completo de panelas antiaderentes para cozinhar com amor e praticidade todos os dias.",
+      "value": 400.00,
+      "imageUrl": "/images/gifts/gift-010.svg",
       "category": "Cozinha",
       "available": true
     },
     {
-      "id": "gift-002",
-      "name": "Micro-ondas Espelhado",
-      "description": "Praticidade e estilo para preparar deliciosas receitas",
-      "value": 450.00,
-      "imageUrl": "/images/gifts/gift-002.png",
-      "category": "Eletrodomésticos",
+      "id": "gift-011",
+      "name": "Mesa de Jantar",
+      "description": "Uma mesa linda para recebermos nossa família e amigos com todo o carinho e aconchego.",
+      "value": 1800.00,
+      "imageUrl": "/images/gifts/gift-011.svg",
+      "category": "Casa & Decor",
       "available": true
     },
     {
-      "id": "gift-003",
-      "name": "Jogo de Toalhas de Banho",
-      "description": "Conjunto macio e felpudo de toalhas 100% algodão",
-      "value": 120.00,
-      "imageUrl": "/images/gifts/gift-003.png",
+      "id": "gift-012",
+      "name": "Jogo de Cadeiras Varanda",
+      "description": "Cadeiras confortáveis e estilosas para aproveitarmos os dias ensolarados na varanda.",
+      "value": 500.00,
+      "imageUrl": "/images/gifts/gift-012.svg",
+      "category": "Casa & Decor",
+      "available": true
+    },
+    {
+      "id": "gift-013",
+      "name": "Batedeira Planetária",
+      "description": "Para prepararmos bolos, massas e sobremesas deliciosas juntos na cozinha — como bons parceiros.",
+      "value": 400.00,
+      "imageUrl": "/images/gifts/gift-013.svg",
+      "category": "Cozinha",
+      "available": true
+    },
+    {
+      "id": "gift-014",
+      "name": "Prateleira Decorativa",
+      "description": "Uma prateleira versátil para organizar e decorar nosso cantinho especial com fotos e memórias.",
+      "value": 150.00,
+      "imageUrl": "/images/gifts/gift-014.svg",
+      "category": "Casa & Decor",
+      "available": true
+    },
+    {
+      "id": "gift-015",
+      "name": "Cama de Casal Box",
+      "description": "Uma cama confortável com colchão de qualidade para começarmos e terminarmos cada dia juntinhos — nosso refúgio.",
+      "value": 3200.00,
+      "imageUrl": "/images/gifts/gift-015.svg",
       "category": "Cama, Mesa & Banho",
       "available": true
     },
     {
-      "id": "gift-004",
-      "name": "Cafeteira Nespresso",
-      "description": "Para começarmos nossos dias com aquele café especial",
-      "value": 350.00,
-      "imageUrl": "/images/gifts/gift-004.png",
-      "category": "Eletrodomésticos",
+      "id": "gift-016",
+      "name": "Jogo de Cama",
+      "description": "Kit completo de lençóis e fronhas macios para noites de sono perfeitas e aconchegantes.",
+      "value": 250.00,
+      "imageUrl": "/images/gifts/gift-016.svg",
+      "category": "Cama, Mesa & Banho",
       "available": true
     },
     {
-      "id": "gift-005",
-      "name": "Fitas de LED decorativas",
-      "description": "Iluminação aconchegante para a nossa nova sala de estar",
-      "value": 80.00,
-      "imageUrl": "/images/gifts/gift-005.png",
-      "category": "Decoração",
+      "id": "gift-017",
+      "name": "Armário Auxiliar",
+      "description": "Um armário compacto e funcional para organizar objetos e otimizar os espaços da casa.",
+      "value": 600.00,
+      "imageUrl": "/images/gifts/gift-017.svg",
+      "category": "Casa & Decor",
+      "available": true
+    },
+    {
+      "id": "gift-018",
+      "name": "Armário de Cozinha",
+      "description": "Armário planejado para manter a cozinha organizada, funcional e bonita.",
+      "value": 1000.00,
+      "imageUrl": "/images/gifts/gift-018.svg",
+      "category": "Cozinha",
+      "available": true
+    },
+    {
+      "id": "gift-019",
+      "name": "Kit de Quadros Decorativos",
+      "description": "Conjunto de quadros para encher as paredes da nossa casa com arte, cor e personalidade.",
+      "value": 250.00,
+      "imageUrl": "/images/gifts/gift-019.svg",
+      "category": "Casa & Decor",
+      "available": true
+    },
+    {
+      "id": "vaquinha-001",
+      "name": "Lua de Mel dos Sonhos",
+      "description": "Ajude-nos a realizar a viagem de lua de mel que sempre sonhamos — uma semana inesquecível para começar nossa vida juntos.",
+      "value": 5000.00,
+      "imageUrl": "/images/gifts/vaquinha-001.svg",
+      "category": "Viagem",
+      "is_crowdfunding": true,
+      "amount_collected": 1200.00,
+      "available": true
+    },
+    {
+      "id": "vaquinha-002",
+      "name": "Cota para Geladeira",
+      "description": "Uma geladeira espaçosa e moderna para guardar tudo com organização e estilo na nossa nova casa.",
+      "value": 3500.00,
+      "imageUrl": "/images/gifts/vaquinha-002.svg",
+      "category": "Eletrodomésticos",
+      "is_crowdfunding": true,
+      "amount_collected": 700.00,
+      "available": true
+    },
+    {
+      "id": "vaquinha-003",
+      "name": "Cota para Smart TV 65\"",
+      "description": "Uma Smart TV enorme para as noites de cinema em casa, assistindo filmes e séries abraçadinhos no sofá.",
+      "value": 2800.00,
+      "imageUrl": "/images/gifts/vaquinha-003.svg",
+      "category": "Eletrônicos",
+      "is_crowdfunding": true,
+      "amount_collected": 0,
+      "available": true
+    },
+    {
+      "id": "vaquinha-004",
+      "name": "Cota para Máquina de Lavar",
+      "description": "Ajude a gente a realizar o sonho da máquina de lavar nova — praticidade e economia para o nosso lar!",
+      "value": 2800.00,
+      "imageUrl": "/images/gifts/vaquinha-004.svg",
+      "category": "Eletrodomésticos",
+      "is_crowdfunding": true,
+      "amount_collected": 0,
+      "available": true
+    },
+    {
+      "id": "vaquinha-005",
+      "name": "Cota para Sofá da Sala",
+      "description": "Contribua com o sofá que vai ser o ponto de encontro da nossa família — aconchego e boas conversas!",
+      "value": 3500.00,
+      "imageUrl": "/images/gifts/vaquinha-005.svg",
+      "category": "Casa & Decor",
+      "is_crowdfunding": true,
+      "amount_collected": 0,
       "available": true
     }
   ],
