@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { X } from "lucide-react";
+import { X, Calendar, Clock, MapPin, Maximize2, Heart } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import CountdownTimer from "@/components/CountdownTimer";
 import ScrollReveal from "@/components/ScrollReveal";
@@ -56,6 +56,7 @@ export default function HomePage() {
         items={[
           { label: "Início", href: "/" },
           { label: "Nossa História", href: "/#historia" },
+          { label: "O Convite", href: "/#convite" },
           { label: "Presentes", href: "/presentes" },
         ]}
         initials={couple.initials}
@@ -275,34 +276,116 @@ export default function HomePage() {
 
       {/* ── O CONVITE ── */}
       <ScrollReveal delay={350}>
-      <section className="bg-bg-warm/50 py-14 md:py-20 px-4 md:px-20 border-t border-elegant">
-        <div className="flex flex-col items-center text-center mb-8 md:mb-10">
-          <span className="text-text-mid text-[10px] tracking-[4px] uppercase mb-3">O Convite</span>
-          <h2 className="font-serif text-[28px] md:text-[44px] leading-tight text-text-dark font-normal">
-            Nosso Convite
-          </h2>
-          <div className="w-[50px] h-px bg-brand mt-4" />
-        </div>
+      <section id="convite" className="bg-bg-warm/60 py-16 md:py-24 px-4 sm:px-6 md:px-12 lg:px-20 border-t border-elegant overflow-hidden">
+        <div className="max-w-[1140px] mx-auto">
+          <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
+            
+            {/* LATERAL ESQUERDA: CONVITE INTEIRO */}
+            <div className="w-full lg:w-[460px] shrink-0 flex flex-col items-center">
+              <div
+                onClick={() => {
+                  setIsInvitationOpen(true);
+                  document.body.style.overflow = "hidden";
+                }}
+                className="relative group cursor-pointer w-full max-w-[420px] transition-transform duration-500 hover:scale-[1.015]"
+              >
+                {/* Moldura física elegante estilo cartão de convite */}
+                <div className="relative p-2.5 sm:p-3 bg-white rounded-lg shadow-xl shadow-brand/10 border border-brand/20">
+                  <div className="relative overflow-hidden rounded border border-brand/15 bg-bg-light">
+                    <Image
+                      src="/images/convite.jpg"
+                      alt="Convite de Casamento Leonardo & Katharyna"
+                      width={800}
+                      height={1422}
+                      className="w-full h-auto object-contain transition-transform duration-700 ease-out group-hover:scale-[1.02]"
+                      sizes="(max-width: 768px) 90vw, 420px"
+                      priority
+                    />
 
-        <div
-          onClick={() => {
-            setIsInvitationOpen(true);
-            document.body.style.overflow = "hidden";
-          }}
-          className="max-w-[400px] mx-auto relative group cursor-pointer transition-transform duration-300 hover:scale-[1.02]"
-        >
-          <div className="relative w-full aspect-[3/4] shadow-lg border border-elegant bg-white overflow-hidden rounded-sm">
-            <Image
-              src="/images/convite.jpg"
-              alt="Convite de Casamento"
-              fill
-              className="object-contain"
-              sizes="(max-width: 640px) 100vw, 400px"
-            />
+                    {/* Overlay interativo no hover */}
+                    <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                      <span className="bg-white/95 text-text-dark text-[11px] tracking-[2.5px] px-4 py-2.5 uppercase rounded-sm shadow-md font-medium flex items-center gap-2 backdrop-blur-sm">
+                        <Maximize2 className="w-3.5 h-3.5 text-brand" />
+                        Clique para ampliar
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <p className="text-text-mid text-[11px] tracking-[2px] mt-3.5 text-center flex items-center justify-center gap-1.5 opacity-80 group-hover:opacity-100 transition-opacity">
+                  <Maximize2 className="w-3.5 h-3.5 text-brand" />
+                  Clique no convite para ampliar em tela cheia
+                </p>
+              </div>
+            </div>
+
+            {/* LATERAL DIREITA: TEXTO CTA */}
+            <div className="w-full lg:flex-1 flex flex-col justify-center items-center lg:items-start text-center lg:text-left gap-5">
+              <span className="text-brand text-[11px] tracking-[4px] uppercase font-semibold">
+                Convite de Casamento
+              </span>
+
+              <h2 className="font-serif text-[32px] sm:text-[40px] lg:text-[46px] leading-[1.15] text-text-dark font-normal">
+                Você faz parte da nossa história
+              </h2>
+
+              <div className="w-[60px] h-px bg-brand my-1" />
+
+              <p className="text-text-mid text-[15px] sm:text-[16px] leading-[1.8] max-w-[540px]">
+                Com imensa alegria, convidamos você para celebrar o nosso amor e testemunhar o início desta linda união. Sua presença tornará nosso dia ainda mais inesquecível!
+              </p>
+
+              {/* Card com Detalhes do Evento */}
+              <div className="w-full max-w-[540px] bg-white/80 backdrop-blur-sm border border-brand/20 p-5 rounded-lg shadow-sm flex flex-col gap-3.5 my-2">
+                <div className="flex items-center gap-3.5 text-left">
+                  <div className="w-9 h-9 rounded-full bg-brand/10 flex items-center justify-center text-brand shrink-0">
+                    <Calendar className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <span className="block text-[10px] uppercase tracking-[2px] text-text-mid font-medium">Data</span>
+                    <span className="text-[14px] sm:text-[15px] font-semibold text-text-dark">{couple.date}</span>
+                  </div>
+                </div>
+
+                <div className="w-full h-px bg-brand/10" />
+
+                <div className="flex items-center gap-3.5 text-left">
+                  <div className="w-9 h-9 rounded-full bg-brand/10 flex items-center justify-center text-brand shrink-0">
+                    <Clock className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <span className="block text-[10px] uppercase tracking-[2px] text-text-mid font-medium">Horário</span>
+                    <span className="text-[14px] sm:text-[15px] font-semibold text-text-dark">{couple.time}</span>
+                  </div>
+                </div>
+
+                <div className="w-full h-px bg-brand/10" />
+
+                <div className="flex items-center gap-3.5 text-left">
+                  <div className="w-9 h-9 rounded-full bg-brand/10 flex items-center justify-center text-brand shrink-0">
+                    <MapPin className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <span className="block text-[10px] uppercase tracking-[2px] text-text-mid font-medium">Local</span>
+                    <span className="text-[14px] sm:text-[15px] font-semibold text-text-dark">{couple.venueName} · {couple.venueCity}</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Botões de Ação */}
+              <div className="flex flex-col sm:flex-row items-center gap-3.5 w-full max-w-[540px] pt-2">
+
+                <Link
+                  href="/presentes"
+                  className="w-full sm:w-auto flex-1 border border-brand text-brand font-medium text-[11px] sm:text-[12px] tracking-[2px] uppercase px-6 py-4 rounded-sm hover:bg-brand hover:text-white transition text-center"
+                >
+                  Lista de Presentes
+                </Link>
+              </div>
+
+            </div>
+
           </div>
-          <p className="text-text-mid text-[11px] tracking-[2px] mt-4 text-center">
-            Clique para ampliar
-          </p>
         </div>
       </section>
       </ScrollReveal>
