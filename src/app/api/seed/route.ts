@@ -45,8 +45,8 @@ export async function GET(req: Request) {
     await deleteBatch.commit();
     console.log(`[Seed API] Banco zerado com sucesso: deletados ${giftsSnapshot.size} presentes, ${pendingSnapshot.size} pendentes, ${contributionsSnapshot.size} contribuições.`);
 
-    // 2. Lê a configuração do config.json original a partir do backup
-    const configPath = path.join(process.cwd(), "backup-vanilla", "config.json");
+    // 2. Lê a configuração do config.json na raiz do projeto
+    const configPath = path.join(process.cwd(), "config.json");
     let initialGifts = [];
 
     if (fs.existsSync(configPath)) {

@@ -74,9 +74,9 @@ async function runSeed() {
     await deleteBatch.commit();
     console.log(`✓ Limpeza concluída: deletados ${giftsSnapshot.size} presentes, ${pendingSnapshot.size} pendentes e ${contributionsSnapshot.size} contribuições.`);
 
-    // 2. LER CONFIG.JSON DO BACKUP
-    console.log("2. Carregando dados originais do backup...");
-    const configPath = path.join(__dirname, "..", "backup-vanilla", "config.json");
+    // 2. LER CONFIG.JSON DA RAIZ
+    console.log("2. Carregando dados do config.json...");
+    const configPath = path.join(__dirname, "..", "config.json");
     let initialGifts = [];
     
     if (fs.existsSync(configPath)) {
