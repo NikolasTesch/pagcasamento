@@ -69,7 +69,18 @@ async function seedDatabase() {
   const batch = db.batch();
   const giftsCollection = db.collection("gifts");
 
+  const validIds = new Set(gifts.map((g) => g.id));
+  const existingDocs = await giftsCollection.get();
+  let deletedCount = 0;
   let seededCount = 0;
+
+  for (const doc of existingDocs.docs) {
+    if (!validIds.has(doc.id)) {
+      batch.delete(doc.ref);
+      deletedCount++;
+      console.log(`🗑️ Removendo presente obsoleto do Firestore: ${doc.id}`);
+    }
+  }
 
   for (const gift of gifts) {
     const docRef = giftsCollection.doc(gift.id);
@@ -91,6 +102,9 @@ async function seedDatabase() {
   }
 
   await batch.commit();
+  if (deletedCount > 0) {
+    console.log(`🗑️ ${deletedCount} presente(s) obsoleto(s) deletado(s) do Firestore.`);
+  }
   console.log(`✅ SUCESSO! ${seededCount} presentes foram atualizados/enviados para o Firestore no projeto '${projectId}'.`);
   process.exit(0);
 }

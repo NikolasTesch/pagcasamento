@@ -166,15 +166,7 @@
       "category": "Casa & Decor",
       "available": true
     },
-    {
-      "id": "gift-018",
-      "name": "Armário de Cozinha",
-      "description": "Armário planejado para manter a cozinha organizada, funcional e bonita.",
-      "value": 1000,
-      "imageUrl": "/images/gifts/gift-018.webp",
-      "category": "Cozinha",
-      "available": true
-    },
+
     {
       "id": "gift-019",
       "name": "Kit de Quadros Decorativos",
