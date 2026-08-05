@@ -297,7 +297,7 @@ export default function HomeShell() {
                       height={1422}
                       className="w-full h-auto object-contain transition-transform duration-700 ease-out group-hover:scale-[1.02]"
                       sizes="(max-width: 768px) 90vw, 460px"
-                      priority
+                      loading="lazy"
                     />
 
                     {/* Overlay interativo no hover */}
@@ -396,7 +396,7 @@ export default function HomeShell() {
               {/* Botões de Ação */}
               <div className="flex flex-col sm:flex-row items-center gap-3.5 w-full max-w-[540px] pt-2">
                 <a
-                  href="https://wa.me/557398463518?text=Ol%C3%A1!%20Gostaria%20de%20confirmar%20minha%20presen%C3%A7a%20no%20casamento%20de%20Leonardo%20%26%20Katharyna!"
+                  href="https://wa.me/5573999470859?text=Ol%C3%A1!%20Gostaria%20de%20confirmar%20minha%20presen%C3%A7a%20no%20casamento%20de%20Leonardo%20%26%20Katharyna!"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full sm:w-auto flex-1 bg-brand text-white font-medium text-[11px] sm:text-[12px] tracking-[2px] uppercase px-6 py-4 rounded-sm hover:bg-brand-hover transition shadow-sm flex items-center justify-center gap-2 text-center"

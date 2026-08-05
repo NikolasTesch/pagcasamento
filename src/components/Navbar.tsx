@@ -94,7 +94,7 @@ export default function Navbar({
 
   return (
     <>
-      <nav className="sticky top-0 z-50 bg-white border-b border-elegant px-5 md:px-20 h-16 md:h-20 flex items-center justify-between">
+      <nav className="sticky top-0 z-50 bg-white border-b border-elegant px-5 md:px-20 pt-[env(safe-area-inset-top)] min-h-16 md:min-h-20 flex items-center justify-between">
         {/* Desktop: links à esquerda */}
         <div className="hidden md:flex items-center gap-10">
           {items.map((item) =>

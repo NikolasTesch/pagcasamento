@@ -8,14 +8,14 @@ import BackToTop from "@/components/BackToTop";
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
+  weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
 const playfair = Playfair_Display({
   variable: "--font-playfair",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "600", "700"],
   style: ["normal", "italic"],
   display: "swap",
 });
@@ -31,6 +31,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
+  themeColor: "#FAF7F2",
 };
 
 export const metadata: Metadata = {

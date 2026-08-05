@@ -138,7 +138,7 @@ export default function GiftsPageClient({ initialGifts }: GiftsPageClientProps) 
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
-              className={`px-4 md:px-5 py-2 text-[10px] md:text-[11px] tracking-[1.5px] uppercase whitespace-nowrap shrink-0 transition ${
+              className={`px-4 md:px-5 py-2.5 md:py-2 text-[10px] md:text-[11px] tracking-[1.5px] uppercase whitespace-nowrap shrink-0 transition ${
                 activeCategory === cat
                   ? "bg-text-dark text-white"
                   : "bg-white border border-elegant text-text-mid hover:border-brand hover:text-brand"
@@ -244,7 +244,7 @@ export default function GiftsPageClient({ initialGifts }: GiftsPageClientProps) 
                             <button
                               key={cota}
                               onClick={() => handleOpenModal(gift)}
-                              className="flex-1 border border-white/20 hover:border-brand hover:bg-brand/10 text-white/70 hover:text-white text-[10px] font-semibold py-2 transition cursor-pointer"
+                              className="flex-1 border border-white/20 hover:border-brand hover:bg-brand/10 text-white/70 hover:text-white text-[10px] font-semibold py-2.5 transition cursor-pointer min-h-[40px]"
                             >
                               R$ {cota}
                             </button>

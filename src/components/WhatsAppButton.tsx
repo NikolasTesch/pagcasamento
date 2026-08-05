@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-const WHATSAPP_NUMBER = "557398463518";
+const WHATSAPP_NUMBER = "5573999470859";
 const WHATSAPP_MESSAGE =
   "Ol%C3%A1!%20Tenho%20uma%20d%C3%BAvida%20sobre%20o%20casamento%E2%80%A6";
 const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MESSAGE}`;
@@ -11,7 +11,7 @@ export default function WhatsAppButton() {
   const [tooltipVisible, setTooltipVisible] = useState(false);
 
   return (
-    <div className="fixed bottom-6 right-6 z-40">
+    <div className="fixed bottom-[calc(1.5rem+env(safe-area-inset-bottom))] right-6 z-40">
       <a
         href={WHATSAPP_URL}
         target="_blank"

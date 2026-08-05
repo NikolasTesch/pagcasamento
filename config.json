@@ -1,3 +1,4 @@
+
 {
   "wedding": {
     "coupleName": "Katharyna & Leonardo",
@@ -140,18 +141,18 @@
     },
     {
       "id": "gift-015",
-      "name": "Cama de Casal Box",
+      "name": "Cama de Casal de Madeira",
       "description": "Uma cama confortável com colchão de qualidade para começarmos e terminarmos cada dia juntinhos — nosso refúgio.",
-      "value": 3200,
+      "value": 2000,
       "imageUrl": "/images/gifts/gift-015.webp",
       "category": "Cama, Mesa & Banho",
       "available": true
     },
     {
       "id": "gift-016",
-      "name": "Jogo de Cama",
+      "name": "Jogo de Cama Lavine",
       "description": "Kit completo de lençóis e fronhas macios para noites de sono perfeitas e aconchegantes.",
-      "value": 250,
+      "value": 500,
       "imageUrl": "/images/gifts/gift-016.webp",
       "category": "Cama, Mesa & Banho",
       "available": true
@@ -244,6 +245,6 @@
     "keyType": "cpf",
     "receiverName": "NIKOLAS TESCH",
     "city": "TX",
-    "whatsappNumber": "+557398463518"
+    "whatsappNumber": "+5573999470859"
   }
 }

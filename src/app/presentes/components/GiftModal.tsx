@@ -177,7 +177,7 @@ export default function GiftModal({ gift, isOpen, onClose, onSuccess }: GiftModa
       onClick={(e) => { if (e.target === e.currentTarget) handleClose(); }}
     >
       <div
-        className="bg-white w-full sm:max-w-md shadow-2xl overflow-hidden animate-slide-up flex flex-col font-sans rounded-t-2xl sm:rounded-none"
+        className="bg-white w-full sm:max-w-md shadow-2xl overflow-hidden animate-slide-up flex flex-col font-sans rounded-t-2xl sm:rounded-none pb-[env(safe-area-inset-bottom)]"
         role="dialog"
         aria-modal="true"
         style={{ transform: `translateY(${dragOffset}px)`, transition: dragOffset === 0 ? "transform 0.3s ease" : "none" }}
@@ -243,7 +243,7 @@ export default function GiftModal({ gift, isOpen, onClose, onSuccess }: GiftModa
                         key={val}
                         type="button"
                         onClick={() => handlePresetSelect(val)}
-                        className={`py-2 text-[11px] tracking-wider border transition ${
+                        className={`py-2.5 text-[12px] tracking-wider border transition min-h-[42px] ${
                           amount === val && !customAmount
                             ? "bg-text-dark border-text-dark text-white"
                             : "border-elegant text-text-mid hover:border-brand hover:text-brand"
