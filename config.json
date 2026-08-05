@@ -24,8 +24,8 @@
     },
     {
       "id": "gift-002",
-      "name": "Micro-ondas Espelhado",
-      "description": "Praticidade e estilo para preparar deliciosas receitas no dia a dia do nosso novo lar.",
+      "name": "Micro-ondas de Inox",
+      "description": "Praticidade e estilo com acabamento em inox para preparar deliciosas receitas no dia a dia do nosso novo lar.",
       "value": 450,
       "imageUrl": "/images/gifts/gift-002.webp",
       "category": "Eletrodomésticos",
@@ -42,27 +42,27 @@
     },
     {
       "id": "gift-004",
-      "name": "Cafeteira Nespresso",
-      "description": "Para começarmos nossos dias com aquele café quentinho e especial.",
-      "value": 350,
+      "name": "Armário Auxiliar de Quarto (2 unidades)",
+      "description": "Conjunto de 2 armários auxiliares para organizar nosso quarto com praticidade e elegância.",
+      "value": 500,
       "imageUrl": "/images/gifts/gift-004.webp",
-      "category": "Eletrodomésticos",
+      "category": "Casa & Decor",
       "available": true
     },
     {
       "id": "gift-005",
-      "name": "Fitas de LED decorativas",
-      "description": "Iluminação aconchegante para a nossa nova sala de estar.",
-      "value": 80,
+      "name": "Cabeceira de Cama",
+      "description": "Cabeceira estofada elegante e aconchegante para completar nossa cama de casal.",
+      "value": 500,
       "imageUrl": "/images/gifts/gift-005.webp",
-      "category": "Decoração",
+      "category": "Casa & Decor",
       "available": true
     },
     {
       "id": "gift-006",
-      "name": "Cooktop 4 Bocas",
-      "description": "Um cooktop moderno para prepararmos juntos refeições deliciosas e especiais — a cozinha é o coração da casa.",
-      "value": 650,
+      "name": "Fogão de Indução EOS 4 Bocas com Zona Flexível",
+      "description": "Fogão cooktop de indução moderno EOS 4 bocas com zona flexível para preparar refeições incríveis na nossa nova cozinha.",
+      "value": 1000,
       "imageUrl": "/images/gifts/gift-006.webp",
       "category": "Eletrodomésticos",
       "available": true
@@ -185,6 +185,141 @@
       "available": true
     },
     {
+      "id": "gift-020",
+      "name": "Máquina de Lavar Panasonic 19kg Preta",
+      "description": "Máquina de lavar roupas moderna e elegante na cor preta, de 19kg, para manter nossas roupas sempre limpas e bem cuidadas.",
+      "value": 2200,
+      "imageUrl": "/images/gifts/gift-020.webp",
+      "category": "Eletrodomésticos",
+      "available": true
+    },
+    {
+      "id": "gift-021",
+      "name": "Poltrona Confortável",
+      "description": "Uma poltrona aconchegante e charmosa para os momentos de leitura e descanso na nossa sala.",
+      "value": 800,
+      "imageUrl": "/images/gifts/gift-021.webp",
+      "category": "Casa & Decor",
+      "available": true
+    },
+    {
+      "id": "gift-022",
+      "name": "Sanduicheira Grill",
+      "description": "Praticidade para preparar lanches rápidos, saborosos e quentinhos no nosso dia a dia.",
+      "value": 120,
+      "imageUrl": "/images/gifts/gift-022.webp",
+      "category": "Eletrodomésticos",
+      "available": true
+    },
+    {
+      "id": "gift-023",
+      "name": "Ar-Condicionado Split",
+      "description": "Para manter nosso quarto sempre fresquinho e confortável em todas as estações do ano.",
+      "value": 1500,
+      "imageUrl": "/images/gifts/gift-023.webp",
+      "category": "Eletrodomésticos",
+      "available": true
+    },
+    {
+      "id": "gift-024",
+      "name": "Rack para Sala de Estar",
+      "description": "Móvel moderno e funcional para organizar nossos eletrônicos e valorizar a decoração da sala.",
+      "value": 700,
+      "imageUrl": "/images/gifts/gift-024.webp",
+      "category": "Casa & Decor",
+      "available": true
+    },
+    {
+      "id": "gift-025",
+      "name": "Churrasqueira",
+      "description": "Para reunirmos amigos e familiares nos fins de semana com um delicioso churrasco comemorativo.",
+      "value": 600,
+      "imageUrl": "/images/gifts/gift-025.webp",
+      "category": "Casa & Decor",
+      "available": true
+    },
+    {
+      "id": "gift-026",
+      "name": "Furadeira e Parafusadeira",
+      "description": "Ferramenta essencial para pequenos reparos, montagem de móveis e instalação de detalhes no novo lar.",
+      "value": 320,
+      "imageUrl": "/images/gifts/gift-026.webp",
+      "category": "Casa & Decor",
+      "available": true
+    },
+    {
+      "id": "gift-027",
+      "name": "Kit de Arandelas",
+      "description": "Arandelas elegantes para criar uma iluminação acolhedora e charmosa em nossos ambientes.",
+      "value": 180,
+      "imageUrl": "/images/gifts/gift-027.webp",
+      "category": "Decoração",
+      "available": true
+    },
+    {
+      "id": "gift-028",
+      "name": "Ventilador de Coluna",
+      "description": "Ventilador potente e silencioso para nos refrescar com conforto nos dias mais quentes.",
+      "value": 280,
+      "imageUrl": "/images/gifts/gift-028.webp",
+      "category": "Eletrodomésticos",
+      "available": true
+    },
+    {
+      "id": "gift-029",
+      "name": "Abajur Decorativo",
+      "description": "Abajur sofisticado para iluminação suave e aconchegante na nossa mesa de cabeceira.",
+      "value": 170,
+      "imageUrl": "/images/gifts/gift-029.webp",
+      "category": "Decoração",
+      "available": true
+    },
+    {
+      "id": "gift-030",
+      "name": "Tapete Boho",
+      "description": "Tapete estilo boho cheio de personalidade para trazer toque acolhedor e lindo ao nosso lar.",
+      "value": 160,
+      "imageUrl": "/images/gifts/gift-030.webp",
+      "category": "Casa & Decor",
+      "available": true
+    },
+    {
+      "id": "gift-031",
+      "name": "Jogo de Cortinas",
+      "description": "Cortinas sofisticadas para compor a decoração e deixar nossa casa ainda mais aconchegante.",
+      "value": 600,
+      "imageUrl": "/images/gifts/gift-031.webp",
+      "category": "Casa & Decor",
+      "available": true
+    },
+    {
+      "id": "gift-032",
+      "name": "6 Meses de Netflix",
+      "description": "Para garantirmos 6 meses de maratonas de filmes e séries juntinhos no aconchego do nosso sofá.",
+      "value": 360,
+      "imageUrl": "/images/gifts/gift-032.webp",
+      "category": "Eletrônicos",
+      "available": true
+    },
+    {
+      "id": "gift-033",
+      "name": "Lixeiras Retrô para Banheiro",
+      "description": "Conjunto de lixeiras retrô charmosas para trazer estilo, higiene e organização aos nossos banheiros.",
+      "value": 170,
+      "imageUrl": "/images/gifts/gift-033.webp",
+      "category": "Casa & Decor",
+      "available": true
+    },
+    {
+      "id": "gift-034",
+      "name": "Espelho Grande de Parede",
+      "description": "Um espelho grande e elegante para ampliar e decorar nosso ambiente com muito charme.",
+      "value": 220,
+      "imageUrl": "/images/gifts/gift-034.webp",
+      "category": "Casa & Decor",
+      "available": true
+    },
+    {
       "id": "vaquinha-001",
       "name": "Lua de Mel dos Sonhos",
       "description": "Ajude-nos a realizar a viagem de lua de mel que sempre sonhamos — uma semana inesquecível para começar nossa vida juntos.",
@@ -197,11 +332,11 @@
     },
     {
       "id": "vaquinha-002",
-      "name": "Cota para Geladeira",
-      "description": "Uma geladeira espaçosa e moderna para guardar tudo com organização e estilo na nossa nova casa.",
+      "name": "Cota para Cozinha Modular Madesa",
+      "description": "Ajude-nos a realizar o sonho da nossa cozinha modular completa Madesa na cor azul — organizada, linda e funcional!",
       "value": 3500,
       "imageUrl": "/images/gifts/vaquinha-002.webp",
-      "category": "Eletrodomésticos",
+      "category": "Casa & Decor",
       "is_crowdfunding": true,
       "amount_collected": 0,
       "available": true
@@ -235,6 +370,28 @@
       "value": 3500,
       "imageUrl": "/images/gifts/vaquinha-005.webp",
       "category": "Casa & Decor",
+      "is_crowdfunding": true,
+      "amount_collected": 0,
+      "available": true
+    },
+    {
+      "id": "vaquinha-006",
+      "name": "Cota para Guarda-Roupa",
+      "description": "Ajude-nos a comprar o guarda-roupa dos nossos sonhos para organizar todas as nossas roupas do casal.",
+      "value": 3000,
+      "imageUrl": "/images/gifts/vaquinha-006.webp",
+      "category": "Casa & Decor",
+      "is_crowdfunding": true,
+      "amount_collected": 0,
+      "available": true
+    },
+    {
+      "id": "vaquinha-007",
+      "name": "Cota para Lava-Louças Inox 14 Serviços",
+      "description": "Contribua para nossa máquina lava-louças de inox 14 serviços — mais tempo juntos e menos louça para lavar!",
+      "value": 2800,
+      "imageUrl": "/images/gifts/vaquinha-007.webp",
+      "category": "Eletrodomésticos",
       "is_crowdfunding": true,
       "amount_collected": 0,
       "available": true

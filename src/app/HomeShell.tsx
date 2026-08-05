@@ -152,44 +152,41 @@ export default function HomeShell() {
         </div>
       </section>
 
-      {/* ── COUNTDOWN ── */}
-      <ScrollReveal delay={100}>
-        <CountdownTimer />
-      </ScrollReveal>
-
       {/* ── DETALHES DO EVENTO ── */}
-      <ScrollReveal delay={200}>
-      <section className="bg-bg-dark py-10 md:h-[180px] flex flex-col md:flex-row items-center divide-y md:divide-y-0 divide-bg-dark-muted">
-        <div className="flex-1 w-full flex flex-col items-center justify-center gap-3 py-8 md:py-0">
-          <span className="text-brand-light text-[10px] tracking-[3px] uppercase">Data</span>
+      <ScrollReveal delay={150}>
+      <section className="bg-bg-dark py-8 md:py-0 md:h-[180px] flex flex-col md:flex-row items-center divide-y md:divide-y-0 divide-bg-dark-muted">
+        {/* DATA E HORÁRIO (ESQUERDA) */}
+        <div className="flex-1 w-full flex flex-col items-center justify-center gap-2 py-6 md:py-0 text-center">
+          <span className="text-brand-light text-[10px] tracking-[3px] uppercase">Data & Horário</span>
           <div className="w-[30px] h-px bg-brand" />
-          <span className="text-white text-[15px] tracking-[0.5px]">{couple.date}</span>
+          <span className="text-white text-[15px] tracking-[0.5px] font-medium">{couple.date}</span>
+          <span className="text-white/80 text-[13px] tracking-[0.5px]">{couple.time}</span>
         </div>
 
         <div className="hidden md:block w-px h-20 bg-bg-dark-muted" />
 
-        <div className="flex-1 w-full flex flex-col items-center justify-center gap-3 py-8 md:py-0">
+        {/* CONTADOR (CENTRO) */}
+        <div className="flex-[1.2] w-full flex flex-col items-center justify-center py-6 md:py-0">
+          <CountdownTimer />
+        </div>
+
+        <div className="hidden md:block w-px h-20 bg-bg-dark-muted" />
+
+        {/* LOCAL (DIREITA) */}
+        <div className="flex-1 w-full flex flex-col items-center justify-center gap-2 py-6 md:py-0 text-center">
           <span className="text-brand-light text-[10px] tracking-[3px] uppercase">Local</span>
           <div className="w-[30px] h-px bg-brand" />
-          <span className="text-white text-[15px] tracking-[0.5px]">
+          <span className="text-white text-[15px] tracking-[0.5px] font-medium">
             {couple.venueName} · {couple.venueCity}
           </span>
           <a
             href={couple.mapsUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-brand-light text-[11px] tracking-[1px] hover:text-white transition"
+            className="text-brand-light text-[11px] tracking-[1px] hover:text-white transition mt-1"
           >
             Ver no Maps →
           </a>
-        </div>
-
-        <div className="hidden md:block w-px h-20 bg-bg-dark-muted" />
-
-        <div className="flex-1 w-full flex flex-col items-center justify-center gap-3 py-8 md:py-0">
-          <span className="text-brand-light text-[10px] tracking-[3px] uppercase">Horário</span>
-          <div className="w-[30px] h-px bg-brand" />
-          <span className="text-white text-[15px] tracking-[0.5px]">{couple.time}</span>
         </div>
       </section>
       </ScrollReveal>

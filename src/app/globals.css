@@ -267,24 +267,20 @@ input, textarea, select {
 }
 
 /* ── Countdown Timer ── */
-.countdown-container {
-  @apply py-14 md:py-20 px-6 bg-bg-warm;
-}
-
 .countdown-grid {
-  @apply grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 max-w-[600px] mx-auto;
+  @apply grid grid-cols-4 gap-2 sm:gap-3 md:gap-4 max-w-[340px] md:max-w-[420px] mx-auto;
 }
 
 .countdown-block {
-  @apply flex flex-col items-center justify-center bg-white rounded-sm p-4 md:p-6 shadow-sm min-w-[90px];
+  @apply flex flex-col items-center justify-center bg-white rounded-sm p-2.5 md:p-3.5 shadow-sm min-w-[70px] md:min-w-[85px];
 }
 
 .countdown-number {
-  @apply font-serif text-[40px] md:text-[56px] leading-none text-text-dark;
+  @apply font-serif text-[26px] md:text-[36px] leading-none text-text-dark;
 }
 
 .countdown-label {
-  @apply text-[10px] md:text-[11px] tracking-[3px] text-text-mid uppercase mt-2;
+  @apply text-[8px] md:text-[9px] tracking-[2px] text-text-mid uppercase mt-1.5;
 }
 
 /* ── Map Section ── */

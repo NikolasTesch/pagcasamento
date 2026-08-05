@@ -3,9 +3,9 @@
 import { useState } from "react";
 import { MapPin, Navigation } from "lucide-react";
 
-const IFRAME_SRC = "https://maps.google.com/maps?q=-17.5395,-39.7435&z=15&output=embed";
+const IFRAME_SRC = "https://maps.google.com/maps?q=-17.4815463,-39.7334659&z=15&output=embed";
 const MAPS_URL = "https://goo.gl/maps/pK5RkuVjvB13S3eM6";
-const WAZE_URL = "https://www.waze.com/ul?ll=-17.5395,-39.7435&navigate=yes";
+const WAZE_URL = "https://www.waze.com/ul?ll=-17.4815463,-39.7334659&navigate=yes";
 
 export default function MapSection() {
   const [loaded, setLoaded] = useState(false);

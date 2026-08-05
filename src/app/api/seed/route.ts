@@ -57,7 +57,7 @@ export async function GET(req: Request) {
       console.warn("backup-vanilla/config.json não encontrado. Usando lista padrão embutida.");
       initialGifts = [
         { id: "gift-001", name: "Jogo de Pratos", description: "Conjunto elegante de pratos de porcelana para servir nossa família", value: 150.00, category: "Cozinha" },
-        { id: "gift-002", name: "Micro-ondas Espelhado", description: "Praticidade e estilo para preparar deliciosas receitas", value: 450.00, category: "Eletrodomésticos" },
+        { id: "gift-002", name: "Micro-ondas de Inox", description: "Praticidade e estilo para preparar deliciosas receitas", value: 450.00, category: "Eletrodomésticos" },
         { id: "gift-003", name: "Jogo de Toalhas de Banho", description: "Conjunto macio e felpudo de toalhas 100% algodão", value: 120.00, category: "Cama, Mesa & Banho" },
         { id: "gift-004", name: "Cafeteira Nespresso", description: "Para começarmos nossos dias com aquele café especial", value: 350.00, category: "Eletrodomésticos" },
         { id: "gift-005", name: "Fitas de LED decorativas", description: "Iluminação aconchegante para a nossa nova sala de estar", value: 80.00, category: "Decoração" }
