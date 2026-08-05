@@ -70,7 +70,8 @@ export default function HomeShell() {
 
       {/* ── HERO ── */}
       <section className="flex flex-col md:flex-row md:min-h-[720px] relative overflow-hidden">
-        <ScrollReveal delay={100} className="md:w-[580px] shrink-0 bg-bg-light flex flex-col justify-center items-center md:items-start text-center md:text-left gap-5 md:gap-6 px-6 md:px-16 py-12 md:py-16 relative z-10">
+        <FloralDecoration position="both" size="lg" zIndex="z-20" />
+        <ScrollReveal delay={100} className="md:w-[580px] shrink-0 bg-bg-light/90 backdrop-blur-xs flex flex-col justify-center items-center md:items-start text-center md:text-left gap-5 md:gap-6 px-6 md:px-16 py-12 md:py-16 relative z-10">
           
           {/* Subtítulo em caixa alta dourada do convite */}
           <span className="text-brand text-[10px] md:text-[11px] tracking-[3.5px] uppercase font-semibold">
@@ -295,8 +296,9 @@ export default function HomeShell() {
 
       {/* ── O CONVITE ── */}
       <ScrollReveal delay={350}>
-      <section id="convite" className="bg-bg-warm/60 py-16 md:py-24 px-4 sm:px-6 md:px-12 lg:px-20 border-t border-elegant overflow-hidden">
-        <div className="max-w-[1140px] mx-auto">
+      <section id="convite" className="relative bg-bg-warm/60 py-16 md:py-24 px-4 sm:px-6 md:px-12 lg:px-20 border-t border-elegant overflow-hidden">
+        <FloralDecoration position="both" size="lg" zIndex="z-20" />
+        <div className="max-w-[1140px] mx-auto relative z-10">
           <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
 
             {/* LATERAL ESQUERDA: CONVITE INTEIRO COM ESTILO 3D INCLINADO */}
