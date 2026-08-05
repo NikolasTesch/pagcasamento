@@ -10,166 +10,154 @@ interface FloralDecorationProps {
   size?: Size;
 }
 
-const SIZE_MAP: Record<Size, number> = {
-  sm: 120,
-  md: 160,
-  lg: 200,
+const SIZE_CLASSES: Record<Size, string> = {
+  sm: "w-[100px] h-[100px] sm:w-[130px] sm:h-[130px] md:w-[150px] md:h-[150px]",
+  md: "w-[130px] h-[130px] sm:w-[170px] sm:h-[170px] md:w-[210px] md:h-[210px]",
+  lg: "w-[160px] h-[160px] sm:w-[220px] sm:h-[220px] md:w-[270px] md:h-[270px]",
 };
 
 /* ── SVG Sub-Components ── */
 
-/** Gradients used in petals and leaves */
+/** Gradients matching convite watercolor lilies */
 function Defs() {
   return (
     <defs>
-      <linearGradient id="petalGrad" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stopColor="#E8A3B1" />
-        <stop offset="100%" stopColor="#D86B81" />
+      <linearGradient id="petalGradConvite" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#F5B8C4" />
+        <stop offset="50%" stopColor="#D86B81" />
+        <stop offset="100%" stopColor="#B3435C" />
       </linearGradient>
-      <linearGradient id="petalInnerGrad" x1="0" y1="0" x2="0" y2="1">
+      <linearGradient id="petalInnerGradConvite" x1="0%" y1="0%" x2="0%" y2="100%">
         <stop offset="0%" stopColor="#D86B81" />
-        <stop offset="100%" stopColor="#C75B72" />
+        <stop offset="100%" stopColor="#8A2E43" />
       </linearGradient>
-      <linearGradient id="leafGrad" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0%" stopColor="#4A6043" />
-        <stop offset="100%" stopColor="#5C7A52" />
+      <linearGradient id="leafGradConvite" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#6E8561" />
+        <stop offset="100%" stopColor="#4A6043" />
       </linearGradient>
     </defs>
   );
 }
 
-/** A single stylized lily flower with 6 petals and stamens */
+/** A watercolor style lily flower matching convite.webp */
 function LilyFlower({
   cx,
   cy,
   scale = 1,
+  rotation = 0,
 }: {
   cx: number;
   cy: number;
   scale?: number;
+  rotation?: number;
 }) {
   return (
-    <g transform={`translate(${cx}, ${cy}) scale(${scale})`}>
-      {/* Outer petals (3) — offset at base */}
+    <g transform={`translate(${cx}, ${cy}) rotate(${rotation}) scale(${scale})`}>
+      {/* Outer Petals */}
       {[0, 120, 240].map((angle) => (
         <g key={`outer-${angle}`} transform={`rotate(${angle})`}>
           <path
-            d="M 4,2 C -10,-15 -14,-42 0,-52 C 14,-42 10,-15 4,2 Z"
-            fill="url(#petalGrad)"
-            opacity={0.5}
+            d="M 0,0 C -14,-22 -18,-54 0,-68 C 18,-54 14,-22 0,0 Z"
+            fill="url(#petalGradConvite)"
+            opacity={0.75}
           />
         </g>
       ))}
-      {/* Inner petals (3) — longer, with dark-pink center stripe */}
+      {/* Inner Petals */}
       {[60, 180, 300].map((angle) => (
         <g key={`inner-${angle}`} transform={`rotate(${angle})`}>
           <path
-            d="M 0,0 C -11,-18 -15,-48 0,-58 C 15,-48 11,-18 0,0 Z"
-            fill="url(#petalInnerGrad)"
-            opacity={0.55}
+            d="M 0,0 C -16,-26 -20,-62 0,-76 C 20,-62 16,-26 0,0 Z"
+            fill="url(#petalInnerGradConvite)"
+            opacity={0.85}
           />
+          {/* Petal Center Stripe */}
           <path
-            d="M 0,-10 C -5,-18 -7,-32 0,-40 C 7,-32 5,-18 0,-10 Z"
-            fill="#8A2E43"
-            opacity={0.25}
+            d="M 0,-12 C -4,-24 -6,-44 0,-56 C 6,-44 4,-24 0,-12 Z"
+            fill="#661C2C"
+            opacity={0.4}
           />
+          {/* Delicate Speckles */}
+          <circle cx={-3} cy={-28} r={1} fill="#521422" opacity={0.6} />
+          <circle cx={3} cy={-32} r={0.9} fill="#521422" opacity={0.6} />
+          <circle cx={-1} cy={-38} r={1.1} fill="#521422" opacity={0.6} />
         </g>
       ))}
-      {/* Stamens */}
-      <line x1={0} y1={0} x2={-8} y2={-28} stroke="#8A2E43" strokeWidth={0.8} opacity={0.4} />
-      <circle cx={-8} cy={-28} r={2} fill="#E8A3B1" opacity={0.5} />
-      <line x1={0} y1={0} x2={6} y2={-25} stroke="#8A2E43" strokeWidth={0.8} opacity={0.4} />
-      <circle cx={6} cy={-25} r={2} fill="#E8A3B1" opacity={0.5} />
-      <line x1={0} y1={0} x2={-2} y2={-32} stroke="#8A2E43" strokeWidth={0.8} opacity={0.4} />
-      <circle cx={-2} cy={-32} r={1.8} fill="#E8A3B1" opacity={0.5} />
+      {/* Pistil & Stamens */}
+      <line x1={0} y1={0} x2={-10} y2={-38} stroke="#4A6043" strokeWidth={1.2} opacity={0.7} />
+      <circle cx={-10} cy={-38} r={2.5} fill="#521422" />
+      <line x1={0} y1={0} x2={10} y2={-35} stroke="#4A6043" strokeWidth={1.2} opacity={0.7} />
+      <circle cx={10} cy={-35} r={2.5} fill="#521422" />
+      <line x1={0} y1={0} x2={-2} y2={-44} stroke="#4A6043" strokeWidth={1.2} opacity={0.7} />
+      <circle cx={-2} cy={-44} r={2.2} fill="#521422" />
     </g>
   );
 }
 
-/** Full floral corner composition — a branch with leaves and two lily flowers */
+/** Full floral corner composition */
 function FloralCornerSVG() {
   return (
     <svg
-      viewBox="0 0 200 200"
+      viewBox="0 0 240 240"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className="w-full h-full"
+      className="w-full h-full drop-shadow-sm"
     >
       <Defs />
 
-      {/* ── Stems ── */}
+      {/* Main Botanical Stems */}
       <path
-        d="M 195,3 C 172,18 185,65 158,100 C 130,136 108,148 75,185"
+        d="M 235,5 C 205,25 215,80 185,125 C 150,170 120,185 85,230"
         stroke="#4A6043"
-        strokeWidth={2.5}
+        strokeWidth={3}
         strokeLinecap="round"
         fill="none"
-        opacity={0.35}
+        opacity={0.6}
       />
       <path
-        d="M 176,42 C 162,38 150,28 140,18"
+        d="M 205,50 C 185,45 170,32 155,20"
         stroke="#4A6043"
-        strokeWidth={1.8}
+        strokeWidth={2}
         strokeLinecap="round"
         fill="none"
-        opacity={0.3}
+        opacity={0.5}
       />
       <path
-        d="M 130,128 C 118,135 108,135 95,128"
+        d="M 150,150 C 135,160 120,160 100,150"
         stroke="#4A6043"
-        strokeWidth={1.5}
+        strokeWidth={2}
         strokeLinecap="round"
         fill="none"
-        opacity={0.3}
+        opacity={0.5}
       />
 
-      {/* ── Leaves ── */}
-      <g transform="translate(152, 28) rotate(-35)">
+      {/* Leaves */}
+      <g transform="translate(180, 32) rotate(-35)">
         <path
-          d="M 0,0 C 10,-12 28,-14 35,-4 C 25,6 10,6 0,0 Z"
-          fill="url(#leafGrad)"
-          opacity={0.45}
+          d="M 0,0 C 12,-15 34,-18 42,-5 C 30,8 12,8 0,0 Z"
+          fill="url(#leafGradConvite)"
+          opacity={0.7}
         />
+        <path d="M 0,0 C 15,-5 30,-5 42,-5" stroke="#2D3B28" strokeWidth={0.8} opacity={0.4} fill="none" />
+      </g>
+      <g transform="translate(165, 105) rotate(-65)">
         <path
-          d="M 0,0 C 12,-4 25,-4 35,-4"
-          stroke="#3A5035"
-          strokeWidth={0.6}
-          fill="none"
-          opacity={0.3}
+          d="M 0,0 C 12,-14 32,-15 40,-3 C 28,10 12,8 0,0 Z"
+          fill="url(#leafGradConvite)"
+          opacity={0.7}
         />
       </g>
-      <g transform="translate(142, 88) rotate(-70)">
+      <g transform="translate(130, 160) rotate(-55)">
         <path
-          d="M 0,0 C 10,-10 26,-12 32,-2 C 22,8 10,6 0,0 Z"
-          fill="url(#leafGrad)"
-          opacity={0.45}
-        />
-        <path
-          d="M 0,0 C 12,-3 22,-3 32,-2"
-          stroke="#3A5035"
-          strokeWidth={0.6}
-          fill="none"
-          opacity={0.3}
-        />
-      </g>
-      <g transform="translate(112, 132) rotate(-60)">
-        <path
-          d="M 0,0 C 8,-10 22,-12 28,-2 C 18,6 8,4 0,0 Z"
-          fill="url(#leafGrad)"
-          opacity={0.4}
-        />
-      </g>
-      <g transform="translate(90, 163) rotate(-40)">
-        <path
-          d="M 0,0 C 7,-8 18,-10 23,-2 C 15,5 7,4 0,0 Z"
-          fill="url(#leafGrad)"
-          opacity={0.35}
+          d="M 0,0 C 10,-12 28,-14 34,-3 C 24,8 10,6 0,0 Z"
+          fill="url(#leafGradConvite)"
+          opacity={0.65}
         />
       </g>
 
-      {/* ── Lily flowers ── */}
-      <LilyFlower cx={160} cy={75} scale={1} />
-      <LilyFlower cx={115} cy={145} scale={0.7} />
+      {/* Lily flowers */}
+      <LilyFlower cx={195} cy={90} scale={0.9} rotation={-15} />
+      <LilyFlower cx={140} cy={175} scale={0.7} rotation={-40} />
     </svg>
   );
 }
@@ -180,7 +168,7 @@ export default function FloralDecoration({
   position = "both",
   size = "md",
 }: FloralDecorationProps) {
-  const px = SIZE_MAP[size];
+  const sizeClass = SIZE_CLASSES[size];
   const showTopRight = position === "top-right" || position === "both";
   const showBottomLeft = position === "bottom-left" || position === "both";
 
@@ -188,8 +176,7 @@ export default function FloralDecoration({
     <>
       {showTopRight && (
         <div
-          className="absolute top-0 right-0 z-[-1] pointer-events-none select-none max-sm:hidden"
-          style={{ width: px, height: px }}
+          className={`absolute top-0 right-0 z-0 pointer-events-none select-none ${sizeClass}`}
           aria-hidden="true"
         >
           <FloralCornerSVG />
@@ -197,8 +184,8 @@ export default function FloralDecoration({
       )}
       {showBottomLeft && (
         <div
-          className="absolute bottom-0 left-0 z-[-1] pointer-events-none select-none max-sm:hidden"
-          style={{ width: px, height: px, transform: "rotate(180deg)" }}
+          className={`absolute bottom-0 left-0 z-0 pointer-events-none select-none ${sizeClass}`}
+          style={{ transform: "rotate(180deg)" }}
           aria-hidden="true"
         >
           <FloralCornerSVG />
@@ -207,3 +194,4 @@ export default function FloralDecoration({
     </>
   );
 }
+

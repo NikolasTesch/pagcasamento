@@ -69,34 +69,60 @@ export default function HomeShell() {
       />
 
       {/* ── HERO ── */}
-      <section className="flex flex-col md:flex-row md:h-[700px]">
-        <ScrollReveal delay={100} className="md:w-[580px] shrink-0 bg-bg-light flex flex-col justify-center gap-5 md:gap-7 px-6 md:px-20 py-10 md:py-0">
-          <span className="text-text-mid text-[11px] tracking-[4px] uppercase">Casamento</span>
+      <section className="flex flex-col md:flex-row md:min-h-[720px] relative overflow-hidden">
+        <ScrollReveal delay={100} className="md:w-[580px] shrink-0 bg-bg-light flex flex-col justify-center items-center md:items-start text-center md:text-left gap-5 md:gap-6 px-6 md:px-16 py-12 md:py-16 relative z-10">
+          
+          {/* Subtítulo em caixa alta dourada do convite */}
+          <span className="text-brand text-[10px] md:text-[11px] tracking-[3.5px] uppercase font-semibold">
+            Convidam para sua cerimônia de casamento
+          </span>
 
-          <h1 className="font-script text-[44px] md:text-[72px] leading-[1.05] text-brand drop-shadow-sm">
-            {couple.firstName}
+          {/* Nome dos Noivos em Cursiva Dourada Metálica */}
+          <h1 className="font-script text-[50px] sm:text-[60px] md:text-[76px] leading-[0.95] text-brand drop-shadow-xs my-1">
+            Leonardo
             <br />
-            <span>&amp; {couple.secondName}</span>
+            <span className="text-[40px] sm:text-[50px] md:text-[62px]">&amp; Katharyna</span>
           </h1>
 
-          <p className="text-text-mid text-[14px] md:text-[15px] leading-[1.7]">
-            Uma história de amor que começa aqui,
-            <br className="hidden md:block" />
-            para durar uma vida inteira.
-          </p>
-
-          <div className="flex items-center gap-4">
-            <div className="w-10 h-px bg-brand" />
-            <span className="text-text-mid text-[12px] tracking-[3px]">{couple.dateShort}</span>
-            <div className="w-10 h-px bg-brand" />
+          {/* Data no formato exato do convite oficial: 11 OUT | 2026 | 15H30 */}
+          <div className="w-full flex items-center justify-center md:justify-start gap-3 py-1">
+            <div className="hidden sm:block w-8 h-px bg-brand/40" />
+            <div className="flex items-center gap-2.5 text-text-dark font-serif text-[15px] sm:text-[17px] tracking-[1.5px]">
+              <span className="font-semibold">11 OUT</span>
+              <span className="text-brand/60 font-light">|</span>
+              <span className="font-semibold">2026</span>
+              <span className="text-brand/60 font-light">|</span>
+              <span className="font-semibold">15H30</span>
+            </div>
+            <div className="hidden sm:block w-8 h-px bg-brand/40" />
           </div>
 
-          <Link
-            href="/presentes"
-            className="self-start bg-brand text-white text-[11px] tracking-[2.5px] px-8 md:px-9 py-4 md:py-[15px] hover:bg-brand-hover transition"
-          >
-            VER LISTA DE PRESENTES
-          </Link>
+          {/* Subtexto do Local e Prazo de Presença */}
+          <p className="text-text-mid text-[12px] md:text-[13px] tracking-[1px] uppercase font-medium">
+            Sítio São Bento · Confirme sua presença até 01/09/2026
+          </p>
+
+          {/* Versículo de Colossenses 3:14 com losango dourado igual ao convite */}
+          <div className="w-full max-w-[420px] bg-white/60 border border-brand/20 rounded-lg p-3.5 sm:p-4 my-1 backdrop-blur-xs flex flex-col items-center gap-2">
+            <div className="gold-divider-line">
+              <span className="gold-diamond-icon" />
+            </div>
+            <p className="font-serif italic text-text-dark text-[12px] sm:text-[13px] leading-[1.6] text-center">
+              &quot;Acima de tudo, porém, revistam-se do amor, que é o elo perfeito.&quot;
+            </p>
+            <span className="text-[10px] uppercase font-semibold text-brand tracking-[2px]">
+              (Colossenses 3:14)
+            </span>
+          </div>
+
+          <div className="flex flex-col sm:flex-row items-center gap-3 w-full max-w-[420px] pt-1">
+            <Link
+              href="/presentes"
+              className="w-full text-center bg-brand text-white text-[11px] tracking-[2.5px] uppercase font-medium px-8 py-3.5 rounded-xs hover:bg-brand-hover transition shadow-sm"
+            >
+              Ver Lista de Presentes
+            </Link>
+          </div>
         </ScrollReveal>
 
         {/* Mosaico de fotos */}

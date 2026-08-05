@@ -119,13 +119,18 @@ export default function GiftsPageClient({ initialGifts }: GiftsPageClientProps) 
       )}
 
       {/* ── CABEÇALHO DA PÁGINA ── */}
-      <header className="bg-bg-warm flex flex-col items-center justify-center gap-3 md:gap-4 py-10 md:py-16 px-6">
-        <span className="text-text-mid text-[10px] tracking-[4px] uppercase">Presentes</span>
-        <h1 className="font-serif text-[30px] md:text-[52px] text-text-dark font-normal text-center">
+      <header className="bg-bg-warm flex flex-col items-center justify-center gap-3 md:gap-4 py-10 md:py-14 px-6 border-b border-elegant relative overflow-hidden">
+        <span className="text-brand text-[10px] md:text-[11px] tracking-[4px] uppercase font-semibold">
+          Seleção Especial dos Noivos
+        </span>
+        <h1 className="font-serif text-[32px] md:text-[50px] text-text-dark font-normal text-center">
           Lista de Presentes
         </h1>
-        <p className="text-text-mid text-[13px] md:text-[14px] leading-[1.6] text-center max-w-[560px]">
-          Escolha um presente com carinho. O pagamento é feito via Pix, de forma simples e segura.
+        <div className="gold-divider-line max-w-[200px] my-1">
+          <span className="gold-diamond-icon" />
+        </div>
+        <p className="text-text-mid text-[13px] md:text-[14px] leading-[1.7] text-center max-w-[560px]">
+          Ficamos extremamente felizes em contar com a sua presença! Se desejar nos presentear, escolha um item abaixo com carinho. O pagamento é feito via Pix de forma rápida e segura.
         </p>
       </header>
 

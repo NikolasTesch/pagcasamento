@@ -1,22 +1,22 @@
 @import "tailwindcss";
 
 @theme inline {
-  /* Paleta do Convite — dourado, marfim, floral */
-  --color-bg-light: #FAF7F2;
-  --color-bg-warm: #F5F0E8;
-  --color-bg-dark: #3D372E;
-  --color-bg-dark-muted: #5C5549;
-  --color-brand: #B89736;
-  --color-brand-hover: #A38B42;
+  /* Paleta do Convite Oficial — marfim, dourado metálico, marrom-oliva escuro, rosa lírio */
+  --color-bg-light: #FAF6F0;
+  --color-bg-warm: #F3EDE2;
+  --color-bg-dark: #3D382C;
+  --color-bg-dark-muted: #5C5443;
+  --color-brand: #B89742;
+  --color-brand-hover: #A38332;
   --color-brand-light: #D4AF37;
-  --color-text-dark: #3D372E;
-  --color-text-mid: #5C5549;
-  --color-text-muted: #A38B42;
-  --color-border: #E8E0D5;
-  --color-floral-pink: #D86B81;
+  --color-text-dark: #3D382C;
+  --color-text-mid: #6E6554;
+  --color-text-muted: #998552;
+  --color-border: #E8DFC8;
+  --color-floral-pink: #D86C85;
   --color-floral-pink-dark: #8A2E43;
   --color-floral-pink-light: #E8A3B1;
-  --color-floral-green: #4A6043;
+  --color-floral-green: #5A6E4D;
   --color-success-green: #2D6A4F;
 
   /* Fontes personalizadas */
@@ -26,8 +26,8 @@
 }
 
 :root {
-  --background: #FAF7F2;
-  --foreground: #3D372E;
+  --background: #FAF6F0;
+  --foreground: #3D382C;
 }
 
 body {
@@ -272,15 +272,15 @@ input, textarea, select {
 }
 
 .countdown-block {
-  @apply flex flex-col items-center justify-center bg-white rounded-sm p-2.5 md:p-3.5 shadow-sm min-w-[70px] md:min-w-[85px];
+  @apply flex flex-col items-center justify-center bg-[#FAF6F0] border border-[#E8DFC8] rounded-md p-2.5 md:p-3.5 shadow-xs min-w-[70px] md:min-w-[85px];
 }
 
 .countdown-number {
-  @apply font-serif text-[26px] md:text-[36px] leading-none text-text-dark;
+  @apply font-serif text-[26px] md:text-[36px] leading-none text-[#3D382C] font-semibold;
 }
 
 .countdown-label {
-  @apply text-[8px] md:text-[9px] tracking-[2px] text-text-mid uppercase mt-1.5;
+  @apply text-[8px] md:text-[9px] tracking-[2px] text-[#B89742] uppercase mt-1.5 font-medium;
 }
 
 /* ── Map Section ── */
@@ -328,6 +328,44 @@ input, textarea, select {
   );
 }
 
+/* ── Convite Aesthetic Helper Utilities ── */
+.text-gold-gradient {
+  background: linear-gradient(135deg, #c59b27 0%, #aa8230 50%, #8c6f2d 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gold-divider-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+}
+
+.gold-divider-line::before,
+.gold-divider-line::after {
+  content: "";
+  flex: 1;
+  max-width: 120px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-brand), transparent);
+}
+
+.gold-diamond-icon {
+  width: 7px;
+  height: 7px;
+  background-color: var(--color-brand);
+  transform: rotate(45deg);
+  display: inline-block;
+}
+
+.paper-texture-card {
+  background-color: #FAF6F0;
+  background-image: radial-gradient(#e8dfc8 0.5px, transparent 0.5px);
+  background-size: 16px 16px;
+}
+
 /* ── Reduced Motion ── */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -339,4 +377,5 @@ input, textarea, select {
     scroll-behavior: auto !important;
   }
 }
+
 
