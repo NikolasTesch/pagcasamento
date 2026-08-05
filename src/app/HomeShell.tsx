@@ -47,7 +47,7 @@ export default function HomeShell() {
 
   return (
     <div className="relative flex-grow flex flex-col bg-bg-light font-sans">
-      <FloralDecoration position="both" />
+      <FloralDecoration position="top-right" size="sm" zIndex="z-0" />
 
       <Navbar
         items={[
@@ -70,7 +70,7 @@ export default function HomeShell() {
 
       {/* ── HERO ── */}
       <section className="flex flex-col md:flex-row md:min-h-[720px] relative overflow-hidden">
-        <FloralDecoration position="both" size="lg" zIndex="z-20" />
+        <FloralDecoration position="top-right" size="lg" zIndex="z-0" />
         <ScrollReveal delay={100} className="md:w-[580px] shrink-0 bg-bg-light/90 backdrop-blur-xs flex flex-col justify-center items-center md:items-start text-center md:text-left gap-5 md:gap-6 px-6 md:px-16 py-12 md:py-16 relative z-10">
           
           {/* Subtítulo em caixa alta dourada do convite */}
@@ -297,7 +297,7 @@ export default function HomeShell() {
       {/* ── O CONVITE ── */}
       <ScrollReveal delay={350}>
       <section id="convite" className="relative bg-bg-warm/60 py-16 md:py-24 px-4 sm:px-6 md:px-12 lg:px-20 border-t border-elegant overflow-hidden">
-        <FloralDecoration position="both" size="lg" zIndex="z-20" />
+        <FloralDecoration position="top-right" size="lg" zIndex="z-0" />
         <div className="max-w-[1140px] mx-auto relative z-10">
           <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
 

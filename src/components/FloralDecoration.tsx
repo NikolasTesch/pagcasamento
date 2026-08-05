@@ -13,9 +13,9 @@ interface FloralDecorationProps {
 }
 
 const SIZE_CLASSES: Record<Size, string> = {
-  sm: "w-[120px] h-[120px] sm:w-[150px] sm:h-[150px] md:w-[180px] md:h-[180px]",
-  md: "w-[150px] h-[150px] sm:w-[200px] sm:h-[200px] md:w-[240px] md:h-[240px]",
-  lg: "w-[180px] h-[180px] sm:w-[260px] sm:h-[260px] md:w-[320px] md:h-[320px]",
+  sm: "w-[80px] h-[80px] sm:w-[130px] sm:h-[130px] md:w-[170px] md:h-[170px]",
+  md: "w-[110px] h-[110px] sm:w-[180px] sm:h-[180px] md:w-[220px] md:h-[220px]",
+  lg: "w-[130px] h-[130px] sm:w-[210px] sm:h-[210px] md:w-[280px] md:h-[280px]",
 };
 
 /* ── SVG Sub-Components ── */
@@ -167,9 +167,9 @@ function FloralCornerSVG() {
 /* ── Public Component ── */
 
 export default function FloralDecoration({
-  position = "both",
+  position = "top-right",
   size = "md",
-  zIndex = "z-20",
+  zIndex = "z-0",
 }: FloralDecorationProps) {
   const sizeClass = SIZE_CLASSES[size];
   const showTopRight = position === "top-right" || position === "both";
