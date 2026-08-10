@@ -85,7 +85,6 @@ export default function GiftsPageClient({ initialGifts }: GiftsPageClientProps) 
       <Navbar
         items={[
           { label: "Início", href: "/" },
-          { label: "Nossa História", href: "/#historia" },
           { label: "Presentes", href: "/presentes" },
         ]}
         activeHref="/presentes"

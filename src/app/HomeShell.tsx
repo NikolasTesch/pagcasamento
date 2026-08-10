@@ -52,7 +52,6 @@ export default function HomeShell() {
       <Navbar
         items={[
           { label: "Início", href: "/" },
-          { label: "Nossa História", href: "/#historia" },
           { label: "O Convite", href: "/#convite" },
           { label: "Presentes", href: "/presentes" },
         ]}
@@ -116,14 +115,6 @@ export default function HomeShell() {
             </span>
           </div>
 
-          <div className="flex flex-col sm:flex-row items-center gap-3 w-full max-w-[420px] pt-1">
-            <Link
-              href="/presentes"
-              className="w-full text-center bg-brand text-white text-[11px] tracking-[2.5px] uppercase font-medium px-8 py-3.5 rounded-xs hover:bg-brand-hover transition shadow-sm"
-            >
-              Ver Lista de Presentes
-            </Link>
-          </div>
         </ScrollReveal>
 
         {/* Mosaico de fotos */}
@@ -223,76 +214,7 @@ export default function HomeShell() {
         <MapSection />
       </ScrollReveal>
 
-      {/* ── NOSSA HISTÓRIA ── */}
-      <ScrollReveal delay={300}>
-      <section id="historia" className="flex flex-col md:flex-row md:h-[620px]">
-        {/* Mosaico de fotos */}
-        <div className="md:w-[640px] shrink-0 flex gap-1 min-h-[300px] md:min-h-0">
-          <div
-            onClick={() => openLightbox(3)}
-            className="flex-1 relative bg-[#E2D4C2] overflow-hidden group cursor-pointer"
-          >
-            <Image
-              src="/images/story-1.webp"
-              alt="Nossa história"
-              fill
-              className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-              sizes="(max-width: 768px) 50vw, 25vw"
-            />
-            <div className="absolute inset-0 bg-black/15 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-              <span className="bg-white/95 text-text-dark text-[11px] tracking-[2px] px-4.5 py-2.5 uppercase rounded-sm shadow-sm backdrop-blur-[2px]">Ampliar</span>
-            </div>
-          </div>
-          <div className="flex-1 flex flex-col gap-1">
-            <div
-              onClick={() => openLightbox(5)}
-              className="flex-1 relative bg-[#BDA88C] overflow-hidden group cursor-pointer"
-            >
-              <Image
-                src="/images/story-2.webp"
-                alt="Nossa história"
-                fill
-                className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                sizes="(max-width: 768px) 50vw, 18vw"
-              />
-              <div className="absolute inset-0 bg-black/15 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                <span className="bg-white/95 text-text-dark text-[11px] tracking-[2px] px-4.5 py-2.5 uppercase rounded-sm shadow-sm backdrop-blur-[2px]">Ampliar</span>
-              </div>
-            </div>
-            <div
-              onClick={() => openLightbox(4)}
-              className="flex-1 relative bg-[#D4C4A8] overflow-hidden group cursor-pointer"
-            >
-              <Image
-                src="/images/story-3.webp"
-                alt="Nossa história"
-                fill
-                className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                sizes="(max-width: 768px) 50vw, 18vw"
-              />
-              <div className="absolute inset-0 bg-black/15 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                <span className="bg-white/95 text-text-dark text-[11px] tracking-[2px] px-4.5 py-2.5 uppercase rounded-sm shadow-sm backdrop-blur-[2px]">Ampliar</span>
-              </div>
-            </div>
-          </div>
-        </div>
 
-        {/* Texto */}
-        <div className="flex-1 flex flex-col justify-center gap-5 md:gap-7 px-6 md:px-20 py-10 md:py-0">
-          <span className="text-text-mid text-[10px] tracking-[4px] uppercase">Nossa História</span>
-
-          <h2 className="font-serif text-[30px] md:text-[40px] leading-[1.2] text-text-dark font-normal">
-            Uma história<br />escrita no destino
-          </h2>
-
-          <p className="text-text-mid text-[15px] leading-[1.8]">
-            {couple.message}
-          </p>
-
-          <div className="w-[50px] h-px bg-brand" />
-        </div>
-      </section>
-      </ScrollReveal>
 
       {/* ── O CONVITE ── */}
       <ScrollReveal delay={350}>
@@ -372,13 +294,13 @@ export default function HomeShell() {
               </span>
 
               <h2 className="font-serif text-[30px] sm:text-[40px] lg:text-[46px] leading-[1.15] text-text-dark font-normal">
-                Você faz parte da nossa história
+                Um novo capítulo da nossa história começa aqui
               </h2>
 
               <div className="w-[60px] h-px bg-brand my-1" />
 
               <p className="text-text-mid text-[14px] sm:text-[16px] leading-[1.8] max-w-[540px]">
-                Com imensa alegria, convidamos você para celebrar o nosso amor e testemunhar o início desta linda união. Sua presença tornará nosso dia ainda mais inesquecível!
+                Com alegria, compartilhamos este momento e convidamos você para celebrar conosco a união de nossas vidas.
               </p>
 
               {/* Card com Detalhes do Evento */}
