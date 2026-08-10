@@ -499,12 +499,15 @@ export default function HomeShell() {
           </div>
 
           {/* Card Editorial */}
-          <div className="bg-bg-warm border border-brand/20 p-4 md:p-6 flex flex-col justify-center items-center text-center rounded-sm h-[160px] sm:h-[200px] md:h-[242px] shadow-sm">
-            <span className="font-serif text-[28px] tracking-[4px] text-brand mb-2">K & L</span>
-            <p className="text-text-mid text-[12px] leading-relaxed italic max-w-[200px]">
-              "O amor é a luz que ilumina o início de uma eternidade juntos."
+          <div className="bg-bg-warm border border-brand/20 p-3 sm:p-4 md:p-6 flex flex-col justify-center items-center text-center rounded-sm min-h-[160px] sm:h-[200px] md:h-[242px] shadow-sm">
+            <span className="font-serif text-[22px] sm:text-[26px] md:text-[28px] tracking-[4px] text-brand mb-1">K & L</span>
+            <p className="text-text-mid text-[10px] sm:text-[11px] md:text-[12px] leading-relaxed italic max-w-[220px]">
+              &quot;Não sei se o mundo é bom, mas ele ficou melhor quando você chegou e perguntou: Tem lugar pra mim?&quot;
             </p>
-            <div className="w-8 h-[1px] bg-brand mt-4" />
+            <span className="text-[9px] sm:text-[10px] uppercase font-semibold text-brand tracking-[1.5px] mt-1.5">
+              – Nando Reis
+            </span>
+            <div className="w-8 h-[1px] bg-brand mt-2 sm:mt-3" />
           </div>
         </div>
       </section>
