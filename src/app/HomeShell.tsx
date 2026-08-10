@@ -522,8 +522,8 @@ export default function HomeShell() {
           Presenteie o casal<br />com muito amor
         </h2>
 
-        <p className="text-text-mid text-[14px] leading-[1.7] text-center max-w-[480px]">
-          Escolha um presente especial e contribua via Pix de forma rápida, segura e com todo o carinho.
+        <p className="text-text-mid text-[14px] leading-[1.7] text-center max-w-[560px]">
+          {couple.message}
         </p>
 
         <Link
