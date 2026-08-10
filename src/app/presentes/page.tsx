@@ -17,6 +17,7 @@ interface Gift {
   is_crowdfunding?: boolean;
   amount_collected?: number;
   is_purchased?: boolean;
+  is_featured?: boolean;
 }
 
 export default async function PresentesPage() {
@@ -41,6 +42,7 @@ export default async function PresentesPage() {
             is_crowdfunding: !!data.is_crowdfunding,
             amount_collected: Number(data.amount_collected || 0),
             is_purchased: !!data.is_purchased,
+            is_featured: !!data.is_featured,
           };
         });
       }
@@ -69,6 +71,7 @@ export default async function PresentesPage() {
           is_crowdfunding: !!g.is_crowdfunding,
           amount_collected: Number(g.amount_collected || 0),
           is_purchased: !g.available,
+          is_featured: !!g.is_featured,
         }));
       }
     } catch (fsError) {

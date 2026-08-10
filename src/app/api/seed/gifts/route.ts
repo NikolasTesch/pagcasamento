@@ -47,6 +47,7 @@ export async function POST(req: Request) {
       is_crowdfunding: !!g.is_crowdfunding,
       amount_collected: Number(g.amount_collected || 0),
       is_purchased: !g.available,
+      is_featured: !!g.is_featured,
     }));
 
     // Salva no Firestore

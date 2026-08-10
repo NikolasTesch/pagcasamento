@@ -42,8 +42,8 @@
     },
     {
       "id": "gift-004",
-      "name": "Armário Auxiliar de Quarto (2 unidades)",
-      "description": "Conjunto de 2 armários auxiliares para organizar nosso quarto com praticidade e elegância.",
+      "name": "Mesa de Cabeceira (2 unidades)",
+      "description": "Conjunto de 2 mesas de cabeceira para organizar nosso quarto com praticidade e elegância.",
       "value": 500,
       "imageUrl": "/images/gifts/gift-004.webp",
       "category": "Casa & Decor",
@@ -146,11 +146,12 @@
       "value": 2000,
       "imageUrl": "/images/gifts/gift-015.webp",
       "category": "Cama, Mesa & Banho",
+      "is_featured": true,
       "available": true
     },
     {
       "id": "gift-016",
-      "name": "Jogo de Cama Lavine",
+      "name": "Jogo de Cama Lavive",
       "description": "Kit completo de lençóis e fronhas macios para noites de sono perfeitas e aconchegantes.",
       "value": 500,
       "imageUrl": "/images/gifts/gift-016.webp",
@@ -183,7 +184,7 @@
       "value": 2200,
       "imageUrl": "/images/gifts/gift-020.webp",
       "category": "Eletrodomésticos",
-      "available": true
+      "available": false
     },
     {
       "id": "gift-021",

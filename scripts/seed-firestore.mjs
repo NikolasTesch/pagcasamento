@@ -94,6 +94,7 @@ async function seedDatabase() {
       is_crowdfunding: gift.is_crowdfunding !== undefined ? !!gift.is_crowdfunding : false,
       amount_collected: Number(gift.amount_collected || 0),
       is_purchased: gift.available !== undefined ? !gift.available : false,
+      is_featured: !!gift.is_featured,
       updatedAt: new Date().toISOString(),
     };
 

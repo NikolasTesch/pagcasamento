@@ -20,6 +20,7 @@ interface Gift {
   is_crowdfunding?: boolean;
   amount_collected?: number;
   is_purchased?: boolean;
+  is_featured?: boolean;
 }
 
 interface GiftsPageClientProps {
@@ -293,8 +294,8 @@ export default function GiftsPageClient({ initialGifts }: GiftsPageClientProps) 
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   />
 
-                  {gift.id === initialGifts[0]?.id && !isFullyPaid && (
-                    <div className="absolute top-4 left-4 bg-brand px-3.5 py-1.5">
+                  {gift.is_featured && !isFullyPaid && (
+                    <div className="absolute top-4 left-4 bg-brand px-3.5 py-1.5 z-10">
                       <span className="text-white text-[10px] tracking-[1px]">⭐ Mais desejado</span>
                     </div>
                   )}

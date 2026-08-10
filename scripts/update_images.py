@@ -10,11 +10,10 @@ os.makedirs(GIFTS_DIR, exist_ok=True)
 # Image mapping: (ID, Search/Fallback Description, Primary Unsplash Photo URL, Alternative Unsplash Photo URL)
 IMAGE_SOURCES = {
     "gift-004": {
-        "name": "Armário Auxiliar de Quarto",
+        "name": "Mesa de Cabeceira",
         "urls": [
-            "https://images.unsplash.com/photo-1532372688391-d87a4a7ce9bd?w=1200&q=80",
-            "https://images.unsplash.com/photo-1538688525198-9b88f6f53126?w=1200&q=80",
-            "https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=1200&q=80"
+            "https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=1200&q=80",
+            "https://images.unsplash.com/photo-1540518614846-7eded433c457?w=1200&q=80"
         ]
     },
     "gift-005": {
