@@ -123,137 +123,172 @@ export default function ThanksContent() {
           <div className="w-[50px] h-px bg-brand mt-4" />
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4 max-w-[1200px] mx-auto">
-          {/* Foto 1 (Grande) */}
+        {/* Grid Editorial Otimizado para Fotos Verticais (Aspect Ratio 3:4) */}
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 md:gap-6 max-w-[1140px] mx-auto">
+          {/* Foto 1 (Destaque 2x2 no Desktop / Destaque 2 cols no Mobile) */}
           <div
             onClick={() => openLightbox(0)}
-            className="col-span-2 md:col-span-2 md:row-span-2 relative group overflow-hidden cursor-pointer bg-bg-warm rounded-sm h-[260px] sm:h-[340px] md:h-[500px] shadow-sm transition-all duration-300 hover:shadow-md"
+            className="col-span-2 md:col-span-2 md:row-span-2 relative aspect-[3/4] group overflow-hidden cursor-pointer bg-bg-warm rounded-lg shadow-sm hover:shadow-md transition-all duration-300 border border-brand/10"
           >
             <Image
-              src="/images/hero-1.webp"
-              alt="Katharyna & Leonardo - Momentos"
+              src="/images/couple-1.webp"
+              alt="Katharyna & Leonardo - Nossos Momentos"
               fill
-              className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-              sizes="(max-width: 768px) 100vw, 50vw"
+              className="object-cover object-[center_20%] transition-transform duration-700 ease-out group-hover:scale-105"
+              sizes="(max-width: 768px) 100vw, 66vw"
             />
-            <div className="absolute inset-0 bg-black/15 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-              <span className="bg-white/95 text-text-dark text-[11px] tracking-[2px] px-4.5 py-2.5 uppercase rounded-sm shadow-sm backdrop-blur-[2px]">Visualizar</span>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6">
+              <span className="bg-white/95 text-text-dark text-[11px] font-medium tracking-[2px] px-5 py-2.5 uppercase rounded-full shadow-md backdrop-blur-sm">Visualizar</span>
             </div>
           </div>
 
           {/* Foto 2 */}
           <div
             onClick={() => openLightbox(1)}
-            className="relative group overflow-hidden cursor-pointer bg-bg-warm rounded-sm h-[160px] sm:h-[200px] md:h-[242px] shadow-sm transition-all duration-300 hover:shadow-md"
+            className="relative aspect-[3/4] group overflow-hidden cursor-pointer bg-bg-warm rounded-lg shadow-sm hover:shadow-md transition-all duration-300 border border-brand/10"
           >
             <Image
-              src="/images/hero-2.webp"
+              src="/images/couple-2.webp"
               alt="Katharyna & Leonardo - Abraçados"
               fill
-              className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-              sizes="(max-width: 768px) 50vw, 25vw"
+              className="object-cover object-[center_20%] transition-transform duration-700 ease-out group-hover:scale-105"
+              sizes="(max-width: 768px) 50vw, 33vw"
             />
-            <div className="absolute inset-0 bg-black/15 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-              <span className="bg-white/95 text-text-dark text-[11px] tracking-[2px] px-4.5 py-2.5 uppercase rounded-sm shadow-sm backdrop-blur-[2px]">Visualizar</span>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-4">
+              <span className="bg-white/95 text-text-dark text-[10px] font-medium tracking-[2px] px-4 py-2 uppercase rounded-full shadow-md backdrop-blur-sm">Visualizar</span>
             </div>
           </div>
 
           {/* Foto 3 */}
           <div
             onClick={() => openLightbox(2)}
-            className="relative group overflow-hidden cursor-pointer bg-bg-warm rounded-sm h-[160px] sm:h-[200px] md:h-[242px] shadow-sm transition-all duration-300 hover:shadow-md"
+            className="relative aspect-[3/4] group overflow-hidden cursor-pointer bg-bg-warm rounded-lg shadow-sm hover:shadow-md transition-all duration-300 border border-brand/10"
           >
             <Image
-              src="/images/hero-3.webp"
+              src="/images/couple-3.webp"
               alt="Katharyna & Leonardo - Sorrindo"
               fill
-              className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-              sizes="(max-width: 768px) 50vw, 25vw"
+              className="object-cover object-[center_20%] transition-transform duration-700 ease-out group-hover:scale-105"
+              sizes="(max-width: 768px) 50vw, 33vw"
             />
-            <div className="absolute inset-0 bg-black/15 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-              <span className="bg-white/95 text-text-dark text-[11px] tracking-[2px] px-4.5 py-2.5 uppercase rounded-sm shadow-sm backdrop-blur-[2px]">Visualizar</span>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-4">
+              <span className="bg-white/95 text-text-dark text-[10px] font-medium tracking-[2px] px-4 py-2 uppercase rounded-full shadow-md backdrop-blur-sm">Visualizar</span>
             </div>
           </div>
 
           {/* Foto 4 */}
           <div
             onClick={() => openLightbox(3)}
-            className="relative group overflow-hidden cursor-pointer bg-bg-warm rounded-sm h-[160px] sm:h-[200px] md:h-[242px] shadow-sm transition-all duration-300 hover:shadow-md"
+            className="relative aspect-[3/4] group overflow-hidden cursor-pointer bg-bg-warm rounded-lg shadow-sm hover:shadow-md transition-all duration-300 border border-brand/10"
           >
             <Image
-              src="/images/story-1.webp"
+              src="/images/couple-4.webp"
               alt="Katharyna & Leonardo - Cumplicidade"
               fill
-              className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-              sizes="(max-width: 768px) 50vw, 25vw"
+              className="object-cover object-[center_20%] transition-transform duration-700 ease-out group-hover:scale-105"
+              sizes="(max-width: 768px) 50vw, 33vw"
             />
-            <div className="absolute inset-0 bg-black/15 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-              <span className="bg-white/95 text-text-dark text-[11px] tracking-[2px] px-4.5 py-2.5 uppercase rounded-sm shadow-sm backdrop-blur-[2px]">Visualizar</span>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-4">
+              <span className="bg-white/95 text-text-dark text-[10px] font-medium tracking-[2px] px-4 py-2 uppercase rounded-full shadow-md backdrop-blur-sm">Visualizar</span>
             </div>
           </div>
 
           {/* Foto 5 */}
           <div
             onClick={() => openLightbox(4)}
-            className="relative group overflow-hidden cursor-pointer bg-bg-warm rounded-sm h-[160px] sm:h-[200px] md:h-[242px] shadow-sm transition-all duration-300 hover:shadow-md"
+            className="relative aspect-[3/4] group overflow-hidden cursor-pointer bg-bg-warm rounded-lg shadow-sm hover:shadow-md transition-all duration-300 border border-brand/10"
           >
             <Image
-              src="/images/story-3.webp"
+              src="/images/couple-5.webp"
               alt="Katharyna & Leonardo - Amor"
               fill
-              className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-              sizes="(max-width: 768px) 50vw, 25vw"
+              className="object-cover object-[center_20%] transition-transform duration-700 ease-out group-hover:scale-105"
+              sizes="(max-width: 768px) 50vw, 33vw"
             />
-            <div className="absolute inset-0 bg-black/15 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-              <span className="bg-white/95 text-text-dark text-[11px] tracking-[2px] px-4.5 py-2.5 uppercase rounded-sm shadow-sm backdrop-blur-[2px]">Visualizar</span>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-4">
+              <span className="bg-white/95 text-text-dark text-[10px] font-medium tracking-[2px] px-4 py-2 uppercase rounded-full shadow-md backdrop-blur-sm">Visualizar</span>
             </div>
           </div>
 
-          {/* Foto 6 (Larga) */}
+          {/* Foto 6 */}
           <div
             onClick={() => openLightbox(5)}
-            className="col-span-2 relative group overflow-hidden cursor-pointer bg-bg-warm rounded-sm h-[160px] sm:h-[200px] md:h-[242px] shadow-sm transition-all duration-300 hover:shadow-md"
+            className="relative aspect-[3/4] group overflow-hidden cursor-pointer bg-bg-warm rounded-lg shadow-sm hover:shadow-md transition-all duration-300 border border-brand/10"
           >
             <Image
-              src="/images/story-2.webp"
+              src="/images/couple-6.webp"
               alt="Katharyna & Leonardo - Juntos"
               fill
-              className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-              sizes="(max-width: 768px) 100vw, 50vw"
+              className="object-cover object-[center_20%] transition-transform duration-700 ease-out group-hover:scale-105"
+              sizes="(max-width: 768px) 50vw, 33vw"
             />
-            <div className="absolute inset-0 bg-black/15 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-              <span className="bg-white/95 text-text-dark text-[11px] tracking-[2px] px-4.5 py-2.5 uppercase rounded-sm shadow-sm backdrop-blur-[2px]">Visualizar</span>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-4">
+              <span className="bg-white/95 text-text-dark text-[10px] font-medium tracking-[2px] px-4 py-2 uppercase rounded-full shadow-md backdrop-blur-sm">Visualizar</span>
             </div>
           </div>
 
           {/* Foto 7 */}
           <div
             onClick={() => openLightbox(6)}
-            className="relative group overflow-hidden cursor-pointer bg-bg-warm rounded-sm h-[160px] sm:h-[200px] md:h-[242px] shadow-sm transition-all duration-300 hover:shadow-md"
+            className="relative aspect-[3/4] group overflow-hidden cursor-pointer bg-bg-warm rounded-lg shadow-sm hover:shadow-md transition-all duration-300 border border-brand/10"
           >
             <Image
-              src="/images/casal.png"
+              src="/images/couple-7.webp"
               alt="Katharyna & Leonardo - Felicidade"
               fill
-              className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-              sizes="(max-width: 768px) 50vw, 25vw"
+              className="object-cover object-[center_20%] transition-transform duration-700 ease-out group-hover:scale-105"
+              sizes="(max-width: 768px) 50vw, 33vw"
             />
-            <div className="absolute inset-0 bg-black/15 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-              <span className="bg-white/95 text-text-dark text-[11px] tracking-[2px] px-4.5 py-2.5 uppercase rounded-sm shadow-sm backdrop-blur-[2px]">Visualizar</span>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-4">
+              <span className="bg-white/95 text-text-dark text-[10px] font-medium tracking-[2px] px-4 py-2 uppercase rounded-full shadow-md backdrop-blur-sm">Visualizar</span>
             </div>
           </div>
 
-          {/* Card Editorial */}
-          <div className="bg-bg-warm border border-brand/20 p-3 sm:p-4 md:p-6 flex flex-col justify-center items-center text-center rounded-sm min-h-[160px] sm:h-[200px] md:h-[242px] shadow-sm">
-            <span className="font-serif text-[22px] sm:text-[26px] md:text-[28px] tracking-[4px] text-brand mb-1">K & L</span>
-            <p className="text-text-mid text-[10px] sm:text-[11px] md:text-[12px] leading-relaxed italic max-w-[220px]">
-              &quot;Não sei se o mundo é bom, mas ele ficou melhor quando você chegou e perguntou: Tem lugar pra mim?&quot;
-            </p>
-            <span className="text-[9px] sm:text-[10px] uppercase font-semibold text-brand tracking-[1.5px] mt-1.5">
-              – Nando Reis
-            </span>
-            <div className="w-8 h-[1px] bg-brand mt-2 sm:mt-3" />
+          {/* Foto 8 */}
+          <div
+            onClick={() => openLightbox(7)}
+            className="relative aspect-[3/4] group overflow-hidden cursor-pointer bg-bg-warm rounded-lg shadow-sm hover:shadow-md transition-all duration-300 border border-brand/10"
+          >
+            <Image
+              src="/images/couple-8.webp"
+              alt="Katharyna & Leonardo - Carinho"
+              fill
+              className="object-cover object-[center_20%] transition-transform duration-700 ease-out group-hover:scale-105"
+              sizes="(max-width: 768px) 50vw, 33vw"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-4">
+              <span className="bg-white/95 text-text-dark text-[10px] font-medium tracking-[2px] px-4 py-2 uppercase rounded-full shadow-md backdrop-blur-sm">Visualizar</span>
+            </div>
           </div>
+
+          {/* Foto 9 */}
+          <div
+            onClick={() => openLightbox(8)}
+            className="col-span-2 sm:col-span-1 relative aspect-[3/4] group overflow-hidden cursor-pointer bg-bg-warm rounded-lg shadow-sm hover:shadow-md transition-all duration-300 border border-brand/10"
+          >
+            <Image
+              src="/images/couple-9.webp"
+              alt="Katharyna & Leonardo - Celebrando"
+              fill
+              className="object-cover object-[center_20%] transition-transform duration-700 ease-out group-hover:scale-105"
+              sizes="(max-width: 768px) 100vw, 33vw"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-4">
+              <span className="bg-white/95 text-text-dark text-[10px] font-medium tracking-[2px] px-4 py-2 uppercase rounded-full shadow-md backdrop-blur-sm">Visualizar</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Card Editorial de Citação abaixo da Galeria */}
+        <div className="mt-8 md:mt-12 max-w-[760px] mx-auto bg-bg-warm border border-brand/20 p-6 md:p-8 flex flex-col justify-center items-center text-center rounded-lg shadow-sm">
+          <span className="font-serif text-[24px] sm:text-[28px] md:text-[32px] tracking-[4px] text-brand mb-2">K & L</span>
+          <p className="text-text-mid text-[12px] sm:text-[13px] md:text-[14px] leading-relaxed italic max-w-[480px]">
+            &quot;Não sei se o mundo é bom, mas ele ficou melhor quando você chegou e perguntou: Tem lugar pra mim?&quot;
+          </p>
+          <span className="text-[10px] sm:text-[11px] uppercase font-semibold text-brand tracking-[2px] mt-2.5">
+            – Nando Reis
+          </span>
+          <div className="w-10 h-[1px] bg-brand mt-3 sm:mt-4" />
         </div>
       </section>
       </ScrollReveal>

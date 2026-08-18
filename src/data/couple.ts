@@ -4,13 +4,15 @@ export type GalleryImage = {
 };
 
 export const GALLERY_IMAGES: GalleryImage[] = [
-  { src: "/images/hero-1.webp", alt: "Katharyna & Leonardo - Momentos" },
-  { src: "/images/hero-2.webp", alt: "Katharyna & Leonardo - Abraçados" },
-  { src: "/images/hero-3.webp", alt: "Katharyna & Leonardo - Sorrindo" },
-  { src: "/images/story-1.webp", alt: "Katharyna & Leonardo - Cumplicidade" },
-  { src: "/images/story-3.webp", alt: "Katharyna & Leonardo - Amor" },
-  { src: "/images/story-2.webp", alt: "Katharyna & Leonardo - Juntos" },
-  { src: "/images/casal.webp", alt: "Katharyna & Leonardo - Felicidade" },
+  { src: "/images/couple-1.webp", alt: "Katharyna & Leonardo - Nossos Momentos" },
+  { src: "/images/couple-2.webp", alt: "Katharyna & Leonardo - Abraçados" },
+  { src: "/images/couple-3.webp", alt: "Katharyna & Leonardo - Sorrindo" },
+  { src: "/images/couple-4.webp", alt: "Katharyna & Leonardo - Cumplicidade" },
+  { src: "/images/couple-5.webp", alt: "Katharyna & Leonardo - Amor" },
+  { src: "/images/couple-6.webp", alt: "Katharyna & Leonardo - Juntos" },
+  { src: "/images/couple-7.webp", alt: "Katharyna & Leonardo - Felicidade" },
+  { src: "/images/couple-8.webp", alt: "Katharyna & Leonardo - Carinho" },
+  { src: "/images/couple-9.webp", alt: "Katharyna & Leonardo - Celebrando" },
 ];
 
 export const couple = {

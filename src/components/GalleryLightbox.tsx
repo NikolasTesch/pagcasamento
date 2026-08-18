@@ -80,24 +80,27 @@ export default function GalleryLightbox({
       {/* Imagem */}
       <div
         onClick={(e) => e.stopPropagation()}
-        className="relative flex flex-col items-center"
+        className="relative flex flex-col items-center max-h-[92vh] max-w-[94vw]"
       >
-        <div className="relative w-[92vw] h-[72vh] md:w-[75vw] md:h-[80vh]">
+        <div className="relative w-[88vw] h-[75vh] sm:h-[80vh] md:w-[70vw] md:h-[84vh] max-w-[720px] max-h-[85vh]">
           <Image
             src={images[activeIndex].src}
             alt={images[activeIndex].alt}
             fill
-            className="object-contain select-none"
+            className="object-contain select-none drop-shadow-2xl"
             priority
           />
         </div>
 
-        {/* Contador + dica de swipe no mobile */}
-        <div className="flex flex-col items-center gap-1 mt-4">
-          <span className="text-white/60 text-[12px] tracking-[3px] uppercase select-none font-sans">
+        {/* Legenda + Contador + dica de swipe */}
+        <div className="flex flex-col items-center gap-1 mt-3 text-center">
+          <p className="text-white/90 text-[13px] sm:text-[14px] font-serif tracking-[0.5px]">
+            {images[activeIndex].alt}
+          </p>
+          <span className="text-brand-light text-[11px] tracking-[2.5px] uppercase font-sans font-medium">
             Foto {activeIndex + 1} de {images.length}
           </span>
-          <span className="md:hidden text-white/35 text-[11px] tracking-[1.5px] select-none font-sans">
+          <span className="md:hidden text-white/35 text-[10px] tracking-[1.5px] select-none font-sans mt-0.5">
             ← deslize para navegar →
           </span>
         </div>
