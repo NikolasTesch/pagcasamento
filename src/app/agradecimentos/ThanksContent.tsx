@@ -125,27 +125,27 @@ export default function ThanksContent() {
 
         {/* Grid Editorial Otimizado para Fotos Verticais (Aspect Ratio 3:4) */}
         <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 md:gap-6 max-w-[1140px] mx-auto">
-          {/* Foto 1 (Destaque 2x2 no Desktop / Destaque 2 cols no Mobile) */}
+          {/* Foto 1 (Destaque 2 colunas no Mobile / 1 coluna no Desktop 3x3) */}
           <div
             onClick={() => openLightbox(0)}
-            className="col-span-2 md:col-span-2 md:row-span-2 relative aspect-[3/4] group overflow-hidden cursor-pointer bg-bg-warm rounded-lg shadow-sm hover:shadow-md transition-all duration-300 border border-brand/10"
+            className="col-span-2 md:col-span-1 relative aspect-[3/4] group overflow-hidden cursor-pointer bg-bg-warm rounded-lg shadow-sm hover:shadow-md transition-all duration-300 border border-brand/10"
           >
             <Image
               src="/images/couple-1.webp"
               alt="Katharyna & Leonardo - Nossos Momentos"
               fill
               className="object-cover object-[center_20%] transition-transform duration-700 ease-out group-hover:scale-105"
-              sizes="(max-width: 768px) 100vw, 66vw"
+              sizes="(max-width: 768px) 100vw, 33vw"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6">
-              <span className="bg-white/95 text-text-dark text-[11px] font-medium tracking-[2px] px-5 py-2.5 uppercase rounded-full shadow-md backdrop-blur-sm">Visualizar</span>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-4 sm:pb-6">
+              <span className="bg-white/95 text-text-dark text-[10px] sm:text-[11px] font-medium tracking-[2px] px-4 sm:px-5 py-2 sm:py-2.5 uppercase rounded-full shadow-md backdrop-blur-sm">Visualizar</span>
             </div>
           </div>
 
           {/* Foto 2 */}
           <div
             onClick={() => openLightbox(1)}
-            className="relative aspect-[3/4] group overflow-hidden cursor-pointer bg-bg-warm rounded-lg shadow-sm hover:shadow-md transition-all duration-300 border border-brand/10"
+            className="col-span-1 relative aspect-[3/4] group overflow-hidden cursor-pointer bg-bg-warm rounded-lg shadow-sm hover:shadow-md transition-all duration-300 border border-brand/10"
           >
             <Image
               src="/images/couple-2.webp"
@@ -162,7 +162,7 @@ export default function ThanksContent() {
           {/* Foto 3 */}
           <div
             onClick={() => openLightbox(2)}
-            className="relative aspect-[3/4] group overflow-hidden cursor-pointer bg-bg-warm rounded-lg shadow-sm hover:shadow-md transition-all duration-300 border border-brand/10"
+            className="col-span-1 relative aspect-[3/4] group overflow-hidden cursor-pointer bg-bg-warm rounded-lg shadow-sm hover:shadow-md transition-all duration-300 border border-brand/10"
           >
             <Image
               src="/images/couple-3.webp"
@@ -179,7 +179,7 @@ export default function ThanksContent() {
           {/* Foto 4 */}
           <div
             onClick={() => openLightbox(3)}
-            className="relative aspect-[3/4] group overflow-hidden cursor-pointer bg-bg-warm rounded-lg shadow-sm hover:shadow-md transition-all duration-300 border border-brand/10"
+            className="col-span-1 relative aspect-[3/4] group overflow-hidden cursor-pointer bg-bg-warm rounded-lg shadow-sm hover:shadow-md transition-all duration-300 border border-brand/10"
           >
             <Image
               src="/images/couple-4.webp"
@@ -196,7 +196,7 @@ export default function ThanksContent() {
           {/* Foto 5 */}
           <div
             onClick={() => openLightbox(4)}
-            className="relative aspect-[3/4] group overflow-hidden cursor-pointer bg-bg-warm rounded-lg shadow-sm hover:shadow-md transition-all duration-300 border border-brand/10"
+            className="col-span-1 relative aspect-[3/4] group overflow-hidden cursor-pointer bg-bg-warm rounded-lg shadow-sm hover:shadow-md transition-all duration-300 border border-brand/10"
           >
             <Image
               src="/images/couple-5.webp"
@@ -213,7 +213,7 @@ export default function ThanksContent() {
           {/* Foto 6 */}
           <div
             onClick={() => openLightbox(5)}
-            className="relative aspect-[3/4] group overflow-hidden cursor-pointer bg-bg-warm rounded-lg shadow-sm hover:shadow-md transition-all duration-300 border border-brand/10"
+            className="col-span-1 relative aspect-[3/4] group overflow-hidden cursor-pointer bg-bg-warm rounded-lg shadow-sm hover:shadow-md transition-all duration-300 border border-brand/10"
           >
             <Image
               src="/images/couple-6.webp"
@@ -230,7 +230,7 @@ export default function ThanksContent() {
           {/* Foto 7 */}
           <div
             onClick={() => openLightbox(6)}
-            className="relative aspect-[3/4] group overflow-hidden cursor-pointer bg-bg-warm rounded-lg shadow-sm hover:shadow-md transition-all duration-300 border border-brand/10"
+            className="col-span-1 relative aspect-[3/4] group overflow-hidden cursor-pointer bg-bg-warm rounded-lg shadow-sm hover:shadow-md transition-all duration-300 border border-brand/10"
           >
             <Image
               src="/images/couple-7.webp"
@@ -247,7 +247,7 @@ export default function ThanksContent() {
           {/* Foto 8 */}
           <div
             onClick={() => openLightbox(7)}
-            className="relative aspect-[3/4] group overflow-hidden cursor-pointer bg-bg-warm rounded-lg shadow-sm hover:shadow-md transition-all duration-300 border border-brand/10"
+            className="col-span-1 relative aspect-[3/4] group overflow-hidden cursor-pointer bg-bg-warm rounded-lg shadow-sm hover:shadow-md transition-all duration-300 border border-brand/10"
           >
             <Image
               src="/images/couple-8.webp"
@@ -261,17 +261,17 @@ export default function ThanksContent() {
             </div>
           </div>
 
-          {/* Foto 9 */}
+          {/* Foto 9 (Na mesma linha da Foto 8 no Mobile e Desktop, sem buraco) */}
           <div
             onClick={() => openLightbox(8)}
-            className="col-span-2 sm:col-span-1 relative aspect-[3/4] group overflow-hidden cursor-pointer bg-bg-warm rounded-lg shadow-sm hover:shadow-md transition-all duration-300 border border-brand/10"
+            className="col-span-1 relative aspect-[3/4] group overflow-hidden cursor-pointer bg-bg-warm rounded-lg shadow-sm hover:shadow-md transition-all duration-300 border border-brand/10"
           >
             <Image
               src="/images/couple-9.webp"
               alt="Katharyna & Leonardo - Celebrando"
               fill
               className="object-cover object-[center_20%] transition-transform duration-700 ease-out group-hover:scale-105"
-              sizes="(max-width: 768px) 100vw, 33vw"
+              sizes="(max-width: 768px) 50vw, 33vw"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-4">
               <span className="bg-white/95 text-text-dark text-[10px] font-medium tracking-[2px] px-4 py-2 uppercase rounded-full shadow-md backdrop-blur-sm">Visualizar</span>
