@@ -120,7 +120,7 @@ export default function GiftsPageClient({ initialGifts }: GiftsPageClientProps) 
 
       {/* ── CABEÇALHO DA PÁGINA ── */}
       <header className="bg-bg-warm flex flex-col items-center justify-center gap-3 md:gap-4 py-10 md:py-14 px-6 border-b border-elegant relative overflow-hidden">
-        <FloralDecoration position="top-right" size="md" zIndex="z-0" />
+        <FloralDecoration position="top-right" size="md" zIndex="z-10" />
         <span className="text-brand text-[10px] md:text-[11px] tracking-[4px] uppercase font-semibold relative z-10">
           Seleção Especial dos Noivos
         </span>
